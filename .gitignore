@@ -4,6 +4,7 @@ node_modules/
 # Generated output
 .astro/
 dist/
+coverage/
 
 # Environment and logs
 .env

@@ -13,6 +13,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v6
@@ -25,3 +27,5 @@ jobs:
 
       - name: Validate
         run: npm run validate
+        env:
+          CONTENT_BASE_REF: ${{ github.event.pull_request.base.sha || github.event.before }}

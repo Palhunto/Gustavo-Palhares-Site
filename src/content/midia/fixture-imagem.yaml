@@ -1,0 +1,11 @@
+src: ../../assets/media/fixture-tecnica.svg
+description: Retângulo técnico cinza usado para validar o contrato local de imagens.
+defaultAlt: Retângulo técnico cinza.
+credit:
+  role: autoria técnica
+  person: fixture-autor
+rights:
+  status: cleared
+  holder: Projeto Gustavo Palhares — fixture técnica
+  basis: authorship
+checksum: fixture-svg-64x48-v1

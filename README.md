@@ -1,6 +1,6 @@
 # Gustavo Palhares — publicação digital
 
-Fundação técnica da publicação digital pessoal de Gustavo Palhares. O projeto está na Fase 1: ambiente mínimo, estático e reproduzível, sem implementação do modelo editorial ou do design final.
+Fundação técnica e modelo editorial executável da publicação digital pessoal de Gustavo Palhares. O projeto está na Fase 2: sete Content Collections locais, contratos tipados e gates de integridade, ainda sem páginas públicas finais ou sistema visual.
 
 ## Requisitos
 
@@ -20,11 +20,38 @@ O servidor de desenvolvimento informa a URL local. Para verificar toda a fundaç
 npm run validate
 ```
 
-Também estão disponíveis `npm run check`, `npm run lint`, `npm run format:check`, `npm run build` e `npm run preview`.
+Também estão disponíveis:
+
+- `npm run check`: Astro e TypeScript;
+- `npm run lint`: ESLint;
+- `npm run format:check`: Prettier;
+- `npm run test:content`: testes isolados do modelo editorial;
+- `npm run content:validate`: schemas, MDX, referências, elegibilidade, direitos e integridade;
+- `npm run build`: gate de conteúdo seguido do build estático;
+- `npm run preview`: inspeção local de `dist/`.
 
 ## Build
 
-`npm run build` gera o site estático em `dist/`. Essa pasta é o único artefato implantável e não exige runtime Node em produção.
+`npm run build` valida o conteúdo antes de gerar o site estático em `dist/`. Essa pasta é o único artefato implantável e não exige runtime Node em produção.
+
+## Modelo editorial
+
+As sete collections estão em `src/content/`: `trabalhos`, `caderno`, `colecoes`, `edicoes`, `midia`, `pessoas` e `paginas`. Os schemas reutilizáveis e o gate ficam em `src/lib/content/`. Fixtures inválidas são isoladas em `tests/fixtures/content/` e nunca são carregadas pelo Astro.
+
+O gate captura um único instante por execução. Para testar localmente a imutabilidade contra uma referência Git explícita, informe `CONTENT_BASE_REF`:
+
+```sh
+CONTENT_BASE_REF=main npm run content:validate
+```
+
+No PowerShell:
+
+```powershell
+$env:CONTENT_BASE_REF = "main"
+npm.cmd run content:validate
+```
+
+Em pull requests, a workflow informa automaticamente o SHA da base. Quando não há histórico ou a base não contém conteúdo editorial, a comparação histórica é corretamente ignorada; schemas e integridade corrente continuam obrigatórios.
 
 ## Documentação canônica
 
@@ -34,6 +61,6 @@ Também estão disponíveis `npm run check`, `npm run lint`, `npm run format:che
 - [Plano de implementação](./docs/PLAN.md)
 - [Decisões arquiteturais](./docs/DECISIONS.md)
 
-## Limites da Fase 1
+## Limites da Fase 2
 
-Esta fase contém apenas o scaffold, as ferramentas de qualidade, a integração contínua e uma página provisória. Não inclui modelo editorial completo, Pagefind, framework cliente, adapter, backend, CMS, deploy, analytics ou direção visual definitiva.
+Esta fase não cria rotas editoriais, componentes visuais finais, homepage, Arquivo ou busca. Também não inclui Pagefind, framework cliente, adapter, backend, CMS, deploy, analytics ou direção visual definitiva. A página provisória da Fase 1 permanece como a única rota.
