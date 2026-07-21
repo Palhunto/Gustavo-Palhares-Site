@@ -1,0 +1,32 @@
+---
+import { Picture } from "astro:assets";
+
+import type { ResolvedEditorialMedia } from "../../lib/media/index.ts";
+
+interface Props {
+  media: ResolvedEditorialMedia;
+  class?: string;
+}
+
+const { media, class: className } = Astro.props;
+const ratio =
+  media.aspectRatio?.replace(":", " / ") ??
+  `${media.src.width} / ${media.src.height}`;
+---
+
+<div
+  class:list={["editorial-picture", className]}
+  style={`--media-ratio: ${ratio}; --media-position: ${media.objectPosition};`}
+>
+  <Picture
+    src={media.src}
+    formats={["avif", "webp"]}
+    fallbackFormat="jpeg"
+    widths={[...media.widths]}
+    sizes={media.sizes}
+    alt={media.alt}
+    loading={media.loading}
+    decoding="async"
+    priority={media.priority}
+  />
+</div>

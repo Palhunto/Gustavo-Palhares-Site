@@ -12,9 +12,10 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "content:validate": "node --experimental-strip-types scripts/content-validate.ts",
-    "test": "npm run test:content",
+    "test": "vitest run",
     "test:content": "vitest run tests/content",
-    "validate": "npm run check && npm run lint && npm run format:check && npm run test:content && npm run content:validate && npm run build"
+    "test:components": "vitest run tests/components",
+    "validate": "npm run check && npm run lint && npm run format:check && npm run test:content && npm run test:components && npm run content:validate && npm run build"
   },
   "engines": {
     "node": ">=24.0.0 <25"

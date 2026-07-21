@@ -1,0 +1,11 @@
+src: ../../assets/media/fase-4-textura-escura.jpg
+description: Cena em preto e branco com parede, feixe de luz e estrutura metálica diagonal.
+defaultAlt: Parede escura atravessada por um feixe de luz e uma estrutura metálica diagonal.
+credit:
+  role: fotografia
+  name: Gustavo Palhares
+rights:
+  status: cleared
+  holder: Gustavo Palhares
+  basis: authorship
+checksum: sha256:170b351ab5aeffb9a0f91e84fdf4ae39a1f385862135ed836a0fb52d6fcde75a

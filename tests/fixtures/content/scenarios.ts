@@ -17,6 +17,15 @@ export function cloneDataset(dataset: ContentDataset): ContentDataset {
   return structuredClone(dataset);
 }
 
+function fixtureMedia(dataset: ContentDataset): ContentEntry<"midia"> {
+  const entry = dataset.midia.find(
+    (candidate) => candidate.id === "fixture-imagem",
+  );
+  if (!entry)
+    throw new Error("fixture-imagem não encontrada no dataset de teste");
+  return entry;
+}
+
 function noteVariant(
   source: ContentEntry<"caderno">,
   id: string,
@@ -139,15 +148,16 @@ export const invalidScenarios: InvalidScenario[] = [
     name: "mídia pending em item público",
     expectedCode: "media-rights",
     mutate: (dataset) => {
-      dataset.midia[0].data.rights.status = "pending";
-      dataset.midia[0].data.rights.basis = undefined;
+      const media = fixtureMedia(dataset);
+      media.data.rights.status = "pending";
+      media.data.rights.basis = undefined;
     },
   },
   {
     name: "mídia expirada",
     expectedCode: "media-expired",
     mutate: (dataset) => {
-      dataset.midia[0].data.rights.expiresAt = "2026-07-20T12:00:00-03:00";
+      fixtureMedia(dataset).data.rights.expiresAt = "2026-07-20T12:00:00-03:00";
     },
   },
   {
@@ -168,7 +178,7 @@ export const invalidScenarios: InvalidScenario[] = [
     name: "alt efetivo ausente",
     expectedCode: "media-alt",
     mutate: (dataset) => {
-      dataset.midia[0].data.defaultAlt = "";
+      fixtureMedia(dataset).data.defaultAlt = "";
     },
   },
   {
@@ -176,7 +186,7 @@ export const invalidScenarios: InvalidScenario[] = [
     expectedCode: "media-alt",
     mutate: (dataset) => {
       dataset.trabalhos[0].data.status = "draft";
-      dataset.midia[0].data.defaultAlt = "";
+      fixtureMedia(dataset).data.defaultAlt = "";
     },
   },
   {

@@ -1,0 +1,30 @@
+---
+import {
+  getContentMediaResolver,
+  parseMediaList,
+  type EditorialMediaInput,
+} from "../../lib/media/index.ts";
+import FigureCaption from "./_FigureCaption.astro";
+import MediaPicture from "./_MediaPicture.astro";
+
+interface Props {
+  assets: string | readonly EditorialMediaInput[];
+}
+
+const { assets } = Astro.props;
+const inputs = parseMediaList(assets);
+if (inputs.length !== 3) throw new Error("Triptych exige exatamente 3 mídias.");
+const resolver = await getContentMediaResolver();
+const media = resolver.resolveMany(inputs, { layout: "sequence" });
+---
+
+<div class="triptych">
+  {
+    media.map((item, index) => (
+      <figure class="triptych__item" data-media-id={item.id}>
+        <MediaPicture media={item} />
+        <FigureCaption media={item} index={index + 1} />
+      </figure>
+    ))
+  }
+</div>

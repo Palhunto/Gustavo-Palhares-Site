@@ -1,0 +1,13 @@
+---
+interface Props {
+  width?: "reading" | "narrow" | "wide";
+  lead?: string;
+}
+
+const { width = "reading", lead } = Astro.props;
+---
+
+<div class:list={["text-column", `text-column--${width}`]}>
+  {lead && <p class="text-column__lead type-intro">{lead}</p>}
+  <div class="text-column__body type-body"><slot /></div>
+</div>

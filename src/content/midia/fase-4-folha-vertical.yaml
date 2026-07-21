@@ -1,0 +1,11 @@
+src: ../../assets/media/fase-4-folha-vertical.jpg
+description: Folha avermelhada iluminada contra fundo escuro.
+defaultAlt: Folha avermelhada iluminada diante de um fundo escuro.
+credit:
+  role: fotografia
+  name: Gustavo Palhares
+rights:
+  status: cleared
+  holder: Gustavo Palhares
+  basis: authorship
+checksum: sha256:f905dc7947e5991caf0de49b04581c2de8f87d02498206a742531db95e6b8997

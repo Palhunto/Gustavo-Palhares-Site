@@ -1,0 +1,38 @@
+---
+import {
+  getContentMediaResolver,
+  parseMediaList,
+  type EditorialMediaInput,
+} from "../../lib/media/index.ts";
+import FigureCaption from "./_FigureCaption.astro";
+import MediaPicture from "./_MediaPicture.astro";
+
+interface Props {
+  assets: string | readonly EditorialMediaInput[];
+  label?: string;
+}
+
+const { assets, label = "Sequência fotográfica" } = Astro.props;
+const inputs = parseMediaList(assets);
+if (inputs.length < 2 || inputs.length > 12) {
+  throw new Error("FilmStrip exige entre 2 e 12 mídias.");
+}
+const resolver = await getContentMediaResolver();
+const media = resolver.resolveMany(inputs, { layout: "sequence" });
+---
+
+<figure class="film-strip">
+  <figcaption class="film-strip__heading type-label">{label}</figcaption>
+  <ol class="film-strip__list">
+    {
+      media.map((item, index) => (
+        <li class="film-strip__item" data-media-id={item.id}>
+          <figure>
+            <MediaPicture media={item} />
+            <FigureCaption media={item} index={index + 1} />
+          </figure>
+        </li>
+      ))
+    }
+  </ol>
+</figure>

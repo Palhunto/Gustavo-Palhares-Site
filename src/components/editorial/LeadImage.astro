@@ -1,0 +1,30 @@
+---
+import {
+  getContentMediaResolver,
+  type EditorialMediaInput,
+} from "../../lib/media/index.ts";
+import FigureCaption from "./_FigureCaption.astro";
+import MediaPicture from "./_MediaPicture.astro";
+
+interface Props {
+  asset: EditorialMediaInput;
+  archiveNumber?: string;
+  priority?: boolean;
+}
+
+const { asset, archiveNumber, priority = true } = Astro.props;
+const resolver = await getContentMediaResolver();
+const media = resolver.resolve(asset, { layout: "lead", priority });
+---
+
+<figure class="lead-image" data-media-id={media.id}>
+  {
+    archiveNumber && (
+      <p class="lead-image__marker type-meta" aria-label="Número de arquivo">
+        {archiveNumber}
+      </p>
+    )
+  }
+  <MediaPicture media={media} />
+  <FigureCaption media={media} />
+</figure>

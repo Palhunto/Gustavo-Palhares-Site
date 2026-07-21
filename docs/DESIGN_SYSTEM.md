@@ -229,3 +229,15 @@ Se a composição puder ser descrita apenas como “serif grande, muito branco e
 ## 13. Exploração técnica
 
 A rota `/exploracoes/sistema-visual` demonstra o sistema sem antecipar uma página final. Ela possui `noindex`, não entra na navegação principal, não contém fatos pessoais não confirmados e funciona sem JavaScript. O controle “Exibir grid” serve somente à inspeção técnica.
+
+## 14. Componentes editoriais implementados na Fase 4
+
+O vocabulário fechado é composto por `LeadImage`, `FullBleed`, `Diptych`, `Triptych`, `ContactSheet`, `FilmStrip`, `TextColumn`, `PullQuote`, `MetadataBlock`, `Credits` e `RelatedWorks`. `EditorialImage` é a primitiva de uso direto fora do MDX; os auxiliares internos de imagem e legenda não pertencem ao registro editorial.
+
+Todos os componentes de fotografia recebem IDs ou contratos `MediaUse`, nunca caminhos. O resolver central carrega `midia` e `pessoas` uma vez por processo, exige direitos `cleared` ainda válidos, resolve crédito e aplica apenas as substituições contextuais permitidas: `alt`, legenda e corte. `sizes` e larguras derivam de papéis semânticos (`inline`, `lead`, `full-bleed`, `sequence` e `thumbnail`); prioridade é explícita e reservada à abertura. `loading="eager"` sem `priority=true` interrompe a resolução.
+
+Sequências preservam a ordem do documento e recompõem de uma coluna para duas, três ou quatro conforme o espaço disponível. A folha de contato exige de quatro a doze imagens; o filme exige de duas a doze; díptico e tríptico exigem exatamente duas e três. Não há lightbox nesta fase: a exploração não demonstrou valor que justificasse interação ou JavaScript adicional.
+
+`MetadataBlock` e `Credits` usam listas de descrição; `PullQuote` usa `blockquote` e só inclui `cite` quando há atribuição; `RelatedWorks` não cria link sem `href`. Como a política MDX proíbe expressões, os atributos estruturados `items` de `MetadataBlock`, `Credits` e `RelatedWorks` são arrays JSON passados como texto e validados pelo componente antes da renderização. A rota técnica `/exploracoes/componentes-editoriais/` é `noindex`, usa fotografias catalogadas e não antecipa páginas públicas da Fase 5.
+
+A lista nominal fica em `src/lib/mdx/component-names.ts` e é compartilhada pela política de validação e pelo registro de renderização. Imports, exports, expressões arbitrárias, caminhos diretos e componentes fora desse conjunto continuam rejeitados.

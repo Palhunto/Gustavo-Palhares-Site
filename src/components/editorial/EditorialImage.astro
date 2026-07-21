@@ -1,0 +1,32 @@
+---
+import {
+  getContentMediaResolver,
+  type EditorialMediaInput,
+  type MediaLayout,
+} from "../../lib/media/index.ts";
+import FigureCaption from "./_FigureCaption.astro";
+import MediaPicture from "./_MediaPicture.astro";
+
+interface Props {
+  asset: EditorialMediaInput;
+  layout?: MediaLayout;
+  priority?: boolean;
+  showCaption?: boolean;
+  class?: string;
+}
+
+const {
+  asset,
+  layout = "inline",
+  priority = false,
+  showCaption = true,
+  class: className,
+} = Astro.props;
+const resolver = await getContentMediaResolver();
+const media = resolver.resolve(asset, { layout, priority });
+---
+
+<figure class:list={["editorial-image", className]} data-media-id={media.id}>
+  <MediaPicture media={media} />
+  {showCaption && <FigureCaption media={media} />}
+</figure>

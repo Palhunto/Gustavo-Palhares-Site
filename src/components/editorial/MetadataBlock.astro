@@ -1,0 +1,43 @@
+---
+import { parseStructuredItems } from "../../lib/mdx/structured-props.ts";
+
+export interface MetadataItem {
+  label: string;
+  value: string;
+}
+
+interface Props {
+  items: string | readonly MetadataItem[];
+  heading?: string;
+}
+
+const { items, heading = "Ficha editorial" } = Astro.props;
+const parsedItems = parseStructuredItems<MetadataItem>(
+  items,
+  "MetadataBlock.items",
+  (candidate): candidate is MetadataItem =>
+    typeof candidate === "object" &&
+    candidate !== null &&
+    typeof (candidate as MetadataItem).label === "string" &&
+    typeof (candidate as MetadataItem).value === "string",
+);
+const visibleItems = parsedItems.filter(
+  (item) => item.label.trim() && item.value.trim(),
+);
+---
+
+<section class="metadata-block" aria-label={heading}>
+  <h2 class="metadata-block__heading type-label">
+    {heading}
+  </h2>
+  <dl class="metadata-block__list">
+    {
+      visibleItems.map((item) => (
+        <div class="metadata-block__item">
+          <dt class="type-meta">{item.label}</dt>
+          <dd>{item.value}</dd>
+        </div>
+      ))
+    }
+  </dl>
+</section>

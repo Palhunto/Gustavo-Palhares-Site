@@ -5,6 +5,7 @@ node_modules/
 .astro/
 dist/
 coverage/
+/seleção inicial/
 
 # Environment and logs
 .env

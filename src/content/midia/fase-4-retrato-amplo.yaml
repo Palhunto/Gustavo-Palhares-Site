@@ -1,0 +1,11 @@
+src: ../../assets/media/fase-4-retrato-amplo.jpg
+description: Rosto de uma pessoa em primeiro plano, em preto e branco.
+defaultAlt: Pessoa olha para a câmera em um enquadramento fechado em preto e branco.
+credit:
+  role: fotografia
+  name: Gustavo Palhares
+rights:
+  status: cleared
+  holder: Gustavo Palhares
+  basis: authorship
+checksum: sha256:22e0d50432589839e7001c6e64b7f5dd94461ba2bd30214d138e394e643fe550

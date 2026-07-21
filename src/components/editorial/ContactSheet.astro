@@ -1,0 +1,40 @@
+---
+import {
+  getContentMediaResolver,
+  parseMediaList,
+  type EditorialMediaInput,
+} from "../../lib/media/index.ts";
+import MediaPicture from "./_MediaPicture.astro";
+
+interface Props {
+  assets: string | readonly EditorialMediaInput[];
+  label?: string;
+}
+
+const { assets, label = "Folha de contato" } = Astro.props;
+const inputs = parseMediaList(assets);
+if (inputs.length < 4 || inputs.length > 12) {
+  throw new Error("ContactSheet exige entre 4 e 12 mídias.");
+}
+const resolver = await getContentMediaResolver();
+const media = resolver.resolveMany(inputs, { layout: "thumbnail" });
+---
+
+<figure class="contact-sheet">
+  <figcaption class="contact-sheet__heading type-label">
+    <span>{label}</span>
+    <span class="number-stable">{String(media.length).padStart(2, "0")}</span>
+  </figcaption>
+  <ol class="contact-sheet__grid">
+    {
+      media.map((item, index) => (
+        <li class="contact-sheet__item" data-media-id={item.id}>
+          <MediaPicture media={item} />
+          <p class="contact-sheet__index type-meta number-stable">
+            {String(index + 1).padStart(2, "0")}
+          </p>
+        </li>
+      ))
+    }
+  </ol>
+</figure>

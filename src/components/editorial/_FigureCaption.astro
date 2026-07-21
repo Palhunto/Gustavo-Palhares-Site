@@ -1,0 +1,31 @@
+---
+import type { ResolvedEditorialMedia } from "../../lib/media/index.ts";
+
+interface Props {
+  media: ResolvedEditorialMedia;
+  index?: number;
+}
+
+const { media, index } = Astro.props;
+---
+
+{
+  (media.caption || media.credit.name) && (
+    <figcaption
+      class:list={[
+        "editorial-caption type-caption",
+        { "editorial-caption--indexed": index !== undefined },
+      ]}
+    >
+      {index !== undefined && (
+        <span class="editorial-caption__index number-stable">
+          {String(index).padStart(2, "0")}
+        </span>
+      )}
+      {media.caption && <span>{media.caption}</span>}
+      <span class="editorial-caption__credit">
+        {media.credit.role}: {media.credit.name}
+      </span>
+    </figcaption>
+  )
+}

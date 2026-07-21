@@ -1,0 +1,11 @@
+src: ../../assets/media/fase-4-retrato-proximo.jpg
+description: Retrato em preto e branco de uma pessoa em primeiro plano.
+defaultAlt: Rosto de uma pessoa enquadrado de perto em preto e branco.
+credit:
+  role: fotografia
+  name: Gustavo Palhares
+rights:
+  status: cleared
+  holder: Gustavo Palhares
+  basis: authorship
+checksum: sha256:026deca5d3409ad202a80028eb207e2fa6e11bcf1b35fc0e75c5c5813252be91

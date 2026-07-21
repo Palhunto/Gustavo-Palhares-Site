@@ -1,18 +1,8 @@
 import { createProcessor } from "@mdx-js/mdx";
 
-export const ALLOWED_MDX_COMPONENTS = [
-  "LeadImage",
-  "FullBleed",
-  "Diptych",
-  "Triptych",
-  "ContactSheet",
-  "FilmStrip",
-  "TextColumn",
-  "PullQuote",
-  "MetadataBlock",
-  "Credits",
-  "RelatedWorks",
-] as const;
+import { EDITORIAL_COMPONENT_NAMES } from "../mdx/component-names.ts";
+
+export const ALLOWED_MDX_COMPONENTS = EDITORIAL_COMPONENT_NAMES;
 
 export interface MdxPolicyIssue {
   code:

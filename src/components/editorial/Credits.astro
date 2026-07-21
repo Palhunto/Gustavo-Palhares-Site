@@ -1,0 +1,43 @@
+---
+import { parseStructuredItems } from "../../lib/mdx/structured-props.ts";
+
+export interface CreditItem {
+  role: string;
+  name: string;
+  url?: string;
+}
+
+interface Props {
+  items: string | readonly CreditItem[];
+  heading?: string;
+}
+
+const { items, heading = "Créditos" } = Astro.props;
+const parsedItems = parseStructuredItems<CreditItem>(
+  items,
+  "Credits.items",
+  (candidate): candidate is CreditItem => {
+    if (typeof candidate !== "object" || candidate === null) return false;
+    const item = candidate as CreditItem;
+    return (
+      typeof item.role === "string" &&
+      typeof item.name === "string" &&
+      (item.url === undefined || /^https?:\/\//.test(item.url))
+    );
+  },
+);
+---
+
+<section class="credits" aria-label={heading}>
+  <h2 class="credits__heading type-label">{heading}</h2>
+  <dl class="credits__list">
+    {
+      parsedItems.map((item) => (
+        <div class="credits__item">
+          <dt class="type-meta">{item.role}</dt>
+          <dd>{item.url ? <a href={item.url}>{item.name}</a> : item.name}</dd>
+        </div>
+      ))
+    }
+  </dl>
+</section>

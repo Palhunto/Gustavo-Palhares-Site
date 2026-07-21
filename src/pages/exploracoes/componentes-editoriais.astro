@@ -1,0 +1,343 @@
+---
+import {
+  ContactSheet,
+  Credits,
+  Diptych,
+  EditorialImage,
+  FilmStrip,
+  FullBleed,
+  LeadImage,
+  MetadataBlock,
+  PullQuote,
+  RelatedWorks,
+  TextColumn,
+  Triptych,
+} from "../../components/editorial/index.ts";
+import "../../styles/global.css";
+
+const sequenceMarket = ["fase-4-mercado-01", "fase-4-mercado-02"];
+const sequenceStage = [
+  "fase-4-palco-01",
+  "fase-4-palco-02",
+  "fase-4-palco-03",
+  "fase-4-palco-04",
+];
+const contactSheet = [
+  "fase-4-textura-escura",
+  "fase-4-luz-clara",
+  "fase-4-retrato-proximo",
+  "fase-4-mercado-01",
+  "fase-4-mercado-02",
+  "fase-4-retrato-amplo",
+  "fase-4-folha-vertical",
+  "fase-4-luz-baixa",
+  ...sequenceStage,
+];
+const contextualLead = {
+  asset: "fase-4-palco-04",
+  decorative: false,
+  altOverride:
+    "Pessoa diante de um público, sob luzes vermelhas e azuis, na abertura da amostra de componentes.",
+  captionOverride:
+    "Abertura técnica: o texto alternativo descreve este uso, enquanto crédito e direitos continuam no registro central.",
+  crop: { aspectRatio: "16:9", focalPoint: { x: 50, y: 46 } },
+};
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta
+      name="description"
+      content="Exploração técnica, não indexável, dos componentes editoriais de Gustavo Palhares."
+    />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Componentes editoriais — Gustavo Palhares</title>
+  </head>
+  <body class="component-exploration-page">
+    <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+    <div class="component-shell">
+      <header class="component-header">
+        <div>
+          <p class="type-label">Fase 4 · exploração técnica</p>
+          <p class="component-header__signature">Gustavo Palhares</p>
+        </div>
+        <nav class="type-nav" aria-label="Seções da exploração">
+          <ul role="list">
+            <li><a href="#midia">Mídia</a></li>
+            <li><a href="#sequencias">Sequências</a></li>
+            <li><a href="#texto">Texto</a></li>
+            <li><a href="#relacoes">Relações</a></li>
+          </ul>
+        </nav>
+      </header>
+
+      <main id="conteudo">
+        <header class="component-intro">
+          <p class="type-meta number-stable">GP—F4—2026 · 12 mídias</p>
+          <h1 class="type-display">Vocabulário editorial em uso.</h1>
+          <p class="type-intro">
+            Amostra não pública para verificar resolução central, ritmo
+            fotográfico, semântica, responsividade e leitura sem JavaScript.
+          </p>
+        </header>
+
+        <section
+          class="component-section"
+          id="midia"
+          aria-labelledby="media-title"
+        >
+          <header class="component-section__heading">
+            <p class="type-label">01 · Mídia singular</p>
+            <h2 class="type-section" id="media-title">Abertura e escala</h2>
+          </header>
+          <LeadImage asset={contextualLead} archiveNumber="GP—F4—0001" />
+          <div class="component-two-column">
+            <EditorialImage
+              asset={{
+                asset: "fase-4-retrato-proximo",
+                decorative: false,
+                altOverride:
+                  "Retrato próximo em preto e branco usado em uma coluna editorial estreita.",
+                captionOverride:
+                  "Uso contextual em coluna; identidade e direitos não são duplicados.",
+                crop: { aspectRatio: "4:5", focalPoint: { x: 50, y: 42 } },
+              }}
+              layout="inline"
+            />
+            <EditorialImage asset="fase-4-folha-vertical" layout="inline" />
+          </div>
+          <FullBleed
+            asset={{
+              asset: "fase-4-luz-baixa",
+              decorative: false,
+              captionOverride:
+                "FullBleed preserva a fotografia sem sobreposição ou efeito.",
+              crop: { aspectRatio: "21:9", focalPoint: { x: 50, y: 52 } },
+            }}
+          />
+        </section>
+
+        <section
+          class="component-section"
+          id="sequencias"
+          aria-labelledby="sequence-title"
+        >
+          <header class="component-section__heading">
+            <p class="type-label">02 · Relações fotográficas</p>
+            <h2 class="type-section" id="sequence-title">
+              Sequência e contraste
+            </h2>
+          </header>
+          <Diptych assets={sequenceMarket} />
+          <Triptych assets={sequenceStage.slice(0, 3)} />
+          <FilmStrip
+            assets={sequenceStage}
+            label="Sequência de palco · quatro quadros"
+          />
+          <ContactSheet
+            assets={contactSheet}
+            label="Seleção técnica completa"
+          />
+        </section>
+
+        <section
+          class="component-section"
+          id="texto"
+          aria-labelledby="text-title"
+        >
+          <header class="component-section__heading">
+            <p class="type-label">03 · Texto e informação</p>
+            <h2 class="type-section" id="text-title">Leitura e contexto</h2>
+          </header>
+          <div class="component-text-grid">
+            <TextColumn
+              lead="Uma coluna editorial precisa sustentar leitura longa, hierarquia clara e ampliação sem perda de conteúdo."
+            >
+              <p>
+                Este texto é uma amostra técnica. Ele verifica largura de linha,
+                espaçamento entre parágrafos e convivência com imagens sem
+                atribuir uma narrativa às pessoas fotografadas.
+              </p>
+              <p>
+                O conteúdo permanece em ordem lógica no HTML. Mudanças de grade
+                alteram apenas a apresentação, e nenhum trecho depende de
+                JavaScript para aparecer ou ser compreendido.
+              </p>
+            </TextColumn>
+            <PullQuote
+              quote="Trecho provisório para avaliar ênfase, ritmo e largura de leitura."
+              context="Amostra técnica sem atribuição."
+            />
+          </div>
+          <div class="component-two-column component-two-column--top">
+            <MetadataBlock
+              heading="Ficha da amostra"
+              items={[
+                { label: "Escopo", value: "Componentes editoriais" },
+                { label: "Idioma", value: "Português do Brasil" },
+                { label: "Navegação", value: "MPA sem JavaScript" },
+                { label: "Mídia", value: "12 ativos locais e resolvidos" },
+              ]}
+            />
+            <Credits
+              items={[
+                { role: "Fotografia", name: "Gustavo Palhares" },
+                { role: "Conteúdo", name: "Amostra técnica provisória" },
+              ]}
+            />
+          </div>
+        </section>
+
+        <section
+          class="component-section"
+          id="relacoes"
+          aria-labelledby="relations-title"
+        >
+          <header class="component-section__heading">
+            <p class="type-label">04 · Encadeamento</p>
+            <h2 class="type-section" id="relations-title">
+              Trabalhos relacionados
+            </h2>
+          </header>
+          <RelatedWorks
+            heading="Amostras sem rota pública"
+            items={[
+              {
+                archiveNumber: "GP—F4—0017",
+                kind: "Sequência",
+                title: "Ritmo entre dois quadros",
+                summary:
+                  "Entrada técnica sem link até a construção das páginas públicas.",
+                media: "fase-4-mercado-02",
+              },
+              {
+                archiveNumber: "GP—F4—0023",
+                kind: "Retrato",
+                title: "Escala e aproximação",
+                summary:
+                  "Exemplo de relação editorial, não um trabalho publicado.",
+                media: "fase-4-retrato-amplo",
+              },
+              {
+                archiveNumber: "GP—F4—0031",
+                kind: "Luz",
+                title: "Contraste no espaço",
+                summary:
+                  "A ausência de href impede apontar para uma rota inexistente.",
+                media: "fase-4-textura-escura",
+              },
+            ]}
+          />
+        </section>
+      </main>
+
+      <footer class="component-footer type-meta">
+        <p>Exploração técnica · noindex · conteúdo provisório</p>
+        <p>Astro estático · CSS nativo · sem JavaScript no cliente</p>
+      </footer>
+    </div>
+  </body>
+</html>
+
+<style>
+  .component-shell {
+    inline-size: min(100%, var(--page-max));
+    margin-inline: auto;
+  }
+
+  .component-header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4) var(--space-7);
+    align-items: end;
+    justify-content: space-between;
+    padding: var(--space-5) var(--gutter);
+    border-block-end: var(--line-hairline) solid var(--color-line-strong);
+  }
+
+  .component-header__signature {
+    font-family: var(--font-serif);
+    font-size: var(--text-article);
+  }
+
+  .component-header nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-5);
+  }
+
+  .component-header nav a {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: 2.75rem;
+  }
+
+  .component-intro,
+  .component-section,
+  .component-footer {
+    padding-inline: var(--gutter);
+  }
+
+  .component-intro {
+    display: grid;
+    gap: var(--space-5);
+    padding-block: var(--space-8);
+  }
+
+  .component-intro .type-display {
+    max-inline-size: 13ch;
+  }
+
+  .component-section {
+    display: grid;
+    gap: var(--space-8);
+    padding-block: var(--space-8);
+    border-block-start: var(--line-hairline) solid var(--color-line-strong);
+  }
+
+  .component-section__heading {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .component-two-column,
+  .component-text-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-7) var(--grid-gap);
+    align-items: end;
+  }
+
+  .component-two-column--top,
+  .component-text-grid {
+    align-items: start;
+  }
+
+  .component-footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3) var(--space-7);
+    justify-content: space-between;
+    padding-block: var(--space-6);
+    border-block-start: var(--line-hairline) solid var(--color-line-strong);
+  }
+
+  @media (min-width: 48rem) {
+    .component-two-column {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .component-text-grid {
+      grid-template-columns: minmax(0, 1.45fr) minmax(16rem, 0.8fr);
+    }
+  }
+
+  @media print {
+    .component-header nav {
+      display: none;
+    }
+  }
+</style>

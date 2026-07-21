@@ -1,0 +1,82 @@
+---
+import {
+  getContentMediaResolver,
+  type EditorialMediaInput,
+  type ResolvedEditorialMedia,
+} from "../../lib/media/index.ts";
+import { parseStructuredItems } from "../../lib/mdx/structured-props.ts";
+import MediaPicture from "./_MediaPicture.astro";
+
+export interface RelatedWorkItem {
+  archiveNumber: string;
+  title: string;
+  kind: string;
+  summary?: string;
+  href?: string;
+  media?: EditorialMediaInput;
+}
+
+interface Props {
+  items: string | readonly RelatedWorkItem[];
+  heading?: string;
+}
+
+const { items, heading = "Trabalhos relacionados" } = Astro.props;
+const parsedItems = parseStructuredItems<RelatedWorkItem>(
+  items,
+  "RelatedWorks.items",
+  (candidate): candidate is RelatedWorkItem => {
+    if (typeof candidate !== "object" || candidate === null) return false;
+    const item = candidate as RelatedWorkItem;
+    return (
+      typeof item.archiveNumber === "string" &&
+      typeof item.title === "string" &&
+      typeof item.kind === "string" &&
+      (item.summary === undefined || typeof item.summary === "string") &&
+      (item.href === undefined ||
+        (typeof item.href === "string" &&
+          (item.href.startsWith("/") || /^https?:\/\//.test(item.href)))) &&
+      (item.media === undefined ||
+        typeof item.media === "string" ||
+        (typeof item.media === "object" &&
+          item.media !== null &&
+          "asset" in item.media))
+    );
+  },
+);
+const resolver = await getContentMediaResolver();
+const resolvedItems: Array<
+  RelatedWorkItem & { image?: ResolvedEditorialMedia }
+> = parsedItems.map((item) => ({
+  ...item,
+  image: item.media
+    ? resolver.resolve(item.media, { layout: "thumbnail" })
+    : undefined,
+}));
+---
+
+<section class="related-works" aria-label={heading}>
+  <div class="related-works__heading">
+    <h2 class="type-project">{heading}</h2>
+    <p class="type-meta number-stable">
+      {String(resolvedItems.length).padStart(2, "0")} itens
+    </p>
+  </div>
+  <ul class="related-works__list" role="list">
+    {
+      resolvedItems.map((item) => (
+        <li class="related-works__item">
+          {item.image && <MediaPicture media={item.image} />}
+          <div class="related-works__copy">
+            <p class="type-meta number-stable">{item.archiveNumber}</p>
+            <p class="type-label">{item.kind}</p>
+            <h3 class="type-article">
+              {item.href ? <a href={item.href}>{item.title}</a> : item.title}
+            </h3>
+            {item.summary && <p class="type-caption">{item.summary}</p>}
+          </div>
+        </li>
+      ))
+    }
+  </ul>
+</section>

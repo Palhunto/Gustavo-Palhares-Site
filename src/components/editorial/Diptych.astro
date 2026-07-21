@@ -1,0 +1,31 @@
+---
+import {
+  getContentMediaResolver,
+  parseMediaList,
+  type EditorialMediaInput,
+} from "../../lib/media/index.ts";
+import FigureCaption from "./_FigureCaption.astro";
+import MediaPicture from "./_MediaPicture.astro";
+
+interface Props {
+  assets: string | readonly EditorialMediaInput[];
+  alignment?: "start" | "center" | "end";
+}
+
+const { assets, alignment = "end" } = Astro.props;
+const inputs = parseMediaList(assets);
+if (inputs.length !== 2) throw new Error("Diptych exige exatamente 2 mídias.");
+const resolver = await getContentMediaResolver();
+const media = resolver.resolveMany(inputs, { layout: "sequence" });
+---
+
+<div class:list={["diptych", `diptych--${alignment}`]}>
+  {
+    media.map((item, index) => (
+      <figure class="diptych__item" data-media-id={item.id}>
+        <MediaPicture media={item} />
+        <FigureCaption media={item} index={index + 1} />
+      </figure>
+    ))
+  }
+</div>

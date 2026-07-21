@@ -1,0 +1,22 @@
+---
+import {
+  getContentMediaResolver,
+  type EditorialMediaInput,
+} from "../../lib/media/index.ts";
+import FigureCaption from "./_FigureCaption.astro";
+import MediaPicture from "./_MediaPicture.astro";
+
+interface Props {
+  asset: EditorialMediaInput;
+  priority?: boolean;
+}
+
+const { asset, priority = false } = Astro.props;
+const resolver = await getContentMediaResolver();
+const media = resolver.resolve(asset, { layout: "full-bleed", priority });
+---
+
+<figure class="full-bleed" data-media-id={media.id}>
+  <MediaPicture media={media} />
+  <FigureCaption media={media} />
+</figure>
