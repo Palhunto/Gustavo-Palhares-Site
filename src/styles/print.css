@@ -1,0 +1,74 @@
+@media print {
+  @page {
+    margin: 18mm;
+  }
+
+  :root {
+    --color-paper: #fff;
+    --color-surface: #fff;
+    --color-ink: #000;
+    --color-text-secondary: #333;
+    --color-line: #999;
+  }
+
+  body {
+    background: #fff;
+    color: #000;
+    font-size: 10.5pt;
+  }
+
+  .skip-link,
+  .publication-nav,
+  .technical-controls,
+  .button-editorial,
+  [data-print="hide"] {
+    display: none !important;
+  }
+
+  .feature-grid,
+  .lower-grid,
+  .work-grid__items,
+  .work-sample--sequence {
+    display: block;
+  }
+
+  .feature-rail {
+    padding-inline: 0;
+    writing-mode: horizontal-tb;
+    transform: none;
+  }
+
+  .feature-copy,
+  .editorial-panel,
+  .lower-grid__panel,
+  .system-section {
+    padding-inline: 0;
+  }
+
+  a[href^="http"]::after,
+  a[href^="mailto:"]::after {
+    content: " (" attr(href) ")";
+    font-family: var(--font-sans);
+    font-size: 0.8em;
+    overflow-wrap: anywhere;
+  }
+
+  figure,
+  blockquote,
+  .work-sample,
+  .editorial-list__item {
+    break-inside: avoid;
+  }
+
+  h1,
+  h2,
+  h3,
+  figcaption {
+    break-after: avoid;
+  }
+
+  img {
+    max-block-size: 180mm;
+    object-fit: contain !important;
+  }
+}

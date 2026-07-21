@@ -1,0 +1,115 @@
+@font-face {
+  font-family: "Newsreader Fallback";
+  src: local("Georgia");
+  size-adjust: 103%;
+  ascent-override: 88%;
+  descent-override: 24%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "IBM Plex Sans Fallback";
+  src: local("Arial");
+  size-adjust: 101%;
+  ascent-override: 96%;
+  descent-override: 25%;
+  line-gap-override: 0%;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  font-synthesis: none;
+}
+
+h1,
+h2,
+h3,
+.type-display,
+.type-section,
+.type-project,
+.type-article {
+  font-family: var(--font-serif);
+  font-optical-sizing: auto;
+  font-weight: 430;
+  text-wrap: balance;
+}
+
+.type-display {
+  max-inline-size: 11ch;
+  font-size: var(--text-display);
+  line-height: var(--leading-display);
+  letter-spacing: -0.045em;
+}
+
+.type-section {
+  font-size: var(--text-section);
+  line-height: var(--leading-heading);
+  letter-spacing: -0.03em;
+}
+
+.type-project {
+  font-size: var(--text-project);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+}
+
+.type-article {
+  font-size: var(--text-article);
+  line-height: 1.08;
+  letter-spacing: -0.018em;
+}
+
+.type-intro,
+.type-body {
+  max-inline-size: var(--width-reading);
+  font-family: var(--font-serif);
+  font-optical-sizing: auto;
+}
+
+.type-intro {
+  font-size: var(--text-intro);
+  line-height: var(--leading-intro);
+}
+
+.type-body {
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+}
+
+.type-caption {
+  font-size: var(--text-caption);
+  line-height: 1.4;
+  color: var(--color-text-secondary);
+}
+
+.type-meta,
+.type-label,
+.type-nav {
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums;
+}
+
+.type-meta {
+  font-size: var(--text-meta);
+  line-height: 1.35;
+  color: var(--color-text-secondary);
+}
+
+.type-label {
+  font-size: var(--text-label);
+  font-weight: 600;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.type-nav {
+  font-size: var(--text-nav);
+  font-weight: 500;
+  line-height: var(--leading-tight);
+}
+
+.number-stable {
+  font-variant-numeric: tabular-nums lining-nums;
+}

@@ -11,6 +11,38 @@ import {
   themesSchema,
 } from "../../src/lib/content/schemas/shared.ts";
 
+const validWorkFixture: Record<string, unknown> = {
+  slug: "fixture-trabalho",
+  title: "Fixture técnica de trabalho",
+  summary: "Entrada provisória usada para validar o modelo editorial.",
+  locale: "pt-BR",
+  translationKey: "fixture-trabalho",
+  status: "published",
+  publishAt: "2026-07-20T09:00:00-03:00",
+  archiveNumber: "GP-2026-0001",
+  date: "2026-07-20",
+  location: {
+    city: "Bauru",
+    subdivision: "São Paulo",
+    country: "Brasil",
+  },
+  formato: "projeto",
+  contexto: "autoral",
+  themes: ["validação técnica"],
+  collections: ["fixture-colecao"],
+  cover: { asset: "fixture-imagem", decorative: false },
+  gallery: [
+    {
+      asset: "fixture-imagem",
+      decorative: false,
+      altOverride: "Retângulo cinza da fixture técnica.",
+    },
+  ],
+  credits: [{ role: "fotografia", person: "fixture-autor" }],
+  publicationClearance: "cleared",
+  relatedWorks: [],
+};
+
 describe("schemas compartilhados", () => {
   it("aceita datas explícitas e recusa valores ambíguos", () => {
     expect(historicalDateSchema.safeParse("2026-07-20").success).toBe(true);
@@ -62,10 +94,8 @@ describe("schemas compartilhados", () => {
     ).toBe(false);
   });
 
-  it("valida intervalos e noindex editorial", async () => {
-    const { validDataset } = await import("../fixtures/content/scenarios.ts");
-    const dataset = await validDataset();
-    const work = structuredClone(dataset.trabalhos[0].rawData);
+  it("valida intervalos e noindex editorial", () => {
+    const work = structuredClone(validWorkFixture);
     work.dateEnd = "2026-07-19";
     expect(domainSchemas.trabalhos.safeParse(work).success).toBe(false);
     delete work.dateEnd;

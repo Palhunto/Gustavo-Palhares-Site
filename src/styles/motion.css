@@ -1,0 +1,34 @@
+@media (hover: hover) {
+  .link-editorial,
+  .button-editorial {
+    transition:
+      color var(--duration-short) var(--ease-editorial),
+      background-color var(--duration-short) var(--ease-editorial),
+      border-color var(--duration-short) var(--ease-editorial),
+      transform var(--duration-short) var(--ease-editorial);
+  }
+
+  .link-editorial:hover .link-editorial__mark {
+    transform: translateX(var(--motion-shift));
+  }
+
+  .button-editorial:hover {
+    transform: translateY(calc(var(--motion-shift) * -0.5));
+  }
+}
+
+.link-editorial__mark {
+  display: inline-block;
+  transition: transform var(--duration-short) var(--ease-editorial);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: var(--duration-instant) !important;
+    animation-duration: var(--duration-instant) !important;
+    animation-iteration-count: 1 !important;
+  }
+}

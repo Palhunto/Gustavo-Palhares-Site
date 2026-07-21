@@ -1,31 +1,54 @@
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
+@layer fonts, reset, tokens, base, typography, grid, editorial, motion, utilities, print;
 
-html {
-  font-family: system-ui, sans-serif;
-  line-height: 1.5;
-}
+@import "./fonts.css" layer(fonts);
+@import "./reset.css" layer(reset);
+@import "./tokens.css" layer(tokens);
+@import "./typography.css" layer(typography);
+@import "./grid.css" layer(grid);
+@import "./editorial.css" layer(editorial);
+@import "./motion.css" layer(motion);
+@import "./utilities.css" layer(utilities);
+@import "./print.css" layer(print);
 
-body {
-  min-height: 100vh;
-  margin: 0;
-  padding: 2rem;
-  display: grid;
-  place-items: center;
-}
+@layer base {
+  html {
+    color-scheme: light;
+    background: var(--color-paper);
+    font-family: var(--font-sans);
+    font-size: 100%;
+    line-height: var(--leading-body);
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
 
-main {
-  width: min(100%, 42rem);
-}
+  body {
+    min-block-size: 100vh;
+    margin: 0;
+    overflow-x: clip;
+    background: var(--color-paper);
+    color: var(--color-ink);
+  }
 
-h1,
-p {
-  margin-block: 0;
-}
+  ::selection {
+    background: var(--color-selection);
+    color: var(--color-ink);
+  }
 
-p {
-  margin-block-start: 0.75rem;
+  :focus-visible {
+    border-radius: var(--radius-focus);
+    outline: var(--line-focus) solid var(--color-focus);
+    outline-offset: var(--space-1);
+  }
+
+  a {
+    color: inherit;
+    text-decoration-color: var(--color-accent);
+    text-decoration-thickness: var(--line-emphasis);
+    text-underline-offset: 0.2em;
+  }
+
+  hr {
+    border: 0;
+    border-block-start: var(--line-hairline) solid var(--color-line);
+  }
 }

@@ -30,6 +30,8 @@ Também estão disponíveis:
 - `npm run build`: gate de conteúdo seguido do build estático;
 - `npm run preview`: inspeção local de `dist/`.
 
+O Vitest usa timeout explícito de 15 segundos por teste. A margem cobre inicialização fria e contenção de I/O observadas localmente e esperadas em CI: o pior caso medido antes da otimização foi 6,41 segundos, enquanto os demais testes permaneceram abaixo de 1 segundo. O limite não é uma meta de desempenho; a fixture de conteúdo é carregada uma vez por worker e clonada entre cenários, e testes unitários não devem reler o acervo completo. Tempos recorrentes acima de 10 segundos exigem investigação antes de qualquer novo aumento.
+
 ## Build
 
 `npm run build` valida o conteúdo antes de gerar o site estático em `dist/`. Essa pasta é o único artefato implantável e não exige runtime Node em produção.

@@ -219,11 +219,25 @@ Regra: uma decisão aceita só muda por novo registro que a substitua; não se r
 **Consequências:** a Fase 1 começa na linha suportada documentada e mantém builds reproduzíveis. Como ainda não existe scaffold nem código de aplicação, esta substituição documental não exige migração de código.  
 **Revisão:** fim de suporte da linha adotada, requisito de servidor comprovado ou incompatibilidade crítica.
 
+## ADR-024 — Newsreader e IBM Plex Sans auto-hospedadas
+
+**Status:** aceita
+
+**Contexto:** a seleção tipográfica foi adiada até a Fase 3 para que licença, suporte ao português, itálicos reais, pesos, desempenho e renderização em Windows fossem verificados junto à linguagem visual.
+
+**Decisão:** usar Newsreader Variable para títulos, aberturas, leitura editorial e citações; usar IBM Plex Sans Variable para navegação, labels, metadata, legendas e controles. Ambas possuem licença SIL Open Font License 1.1, cobertura latina adequada ao português e itálicos reais. Auto-hospedar os arquivos WOFF2 pelos pacotes exatos `@fontsource-variable/newsreader@5.3.0` e `@fontsource-variable/ibm-plex-sans@5.3.0`, sem requisição remota. Carregar Newsreader normal e itálico variáveis e IBM Plex Sans normal variável, com `font-display: swap`, fallbacks métricos e apenas os estilos atualmente necessários.
+
+**Alternativas rejeitadas:** fontes remotas do Google Fonts, fontes de sistema como identidade definitiva, famílias comerciais sem licença aprovada e carregar antecipadamente todos os estilos estáticos.
+
+**Consequências:** a publicação ganha contraste editorial próprio e funcionamento offline; os arquivos de fonte entram no artefato estático e precisam continuar licenciados, versionados e medidos. Windows recebe fallbacks locais com ajustes métricos durante o carregamento.
+
+**Revisão:** falha comprovada de legibilidade ou renderização, cobertura linguística insuficiente, custo de fonte desproporcional ou mudança material da identidade visual.
+
 ## Decisões adiadas com gatilho
 
 | Tema | Estado atual | Gatilho de decisão |
 | --- | --- | --- |
-| Fontes definitivas | Nenhuma selecionada | Fase 3, após testes de licença, português, legibilidade, desempenho e Windows. |
+| Fontes definitivas | Resolvida pelo ADR-024 | Revisar apenas pelos gatilhos registrados no ADR-024. |
 | Hospedagem | Plataforma gerenciada não escolhida | Fase 9, com tamanho e tempo de build reais. |
 | Analytics | Ausente | Objetivo mensurável, avaliação de privacidade e orçamento de desempenho. |
 | Formulário | Ausente | Plataforma escolhida e operação de endpoint/antispam/privacidade definida. |

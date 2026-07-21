@@ -6,8 +6,11 @@ import type {
 
 export const BUILD_INSTANT = new Date("2026-07-20T13:00:00-03:00");
 
+let validDatasetPromise: Promise<ContentDataset> | undefined;
+
 export async function validDataset(): Promise<ContentDataset> {
-  return loadContentFromDisk(process.cwd());
+  validDatasetPromise ??= loadContentFromDisk(process.cwd());
+  return structuredClone(await validDatasetPromise);
 }
 
 export function cloneDataset(dataset: ContentDataset): ContentDataset {

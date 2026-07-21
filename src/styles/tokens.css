@@ -1,0 +1,69 @@
+:root {
+  --color-paper: #f3f0e8;
+  --color-surface: #fbfaf6;
+  --color-ink: #171713;
+  --color-text-secondary: #57544e;
+  --color-line: #c7c1b5;
+  --color-line-strong: #8d887f;
+  --color-accent: #762f2c;
+  --color-focus: #9a352f;
+  --color-selection: #ddc9b9;
+  --color-error: #8b2823;
+  --color-success: #315b46;
+  --color-paper-rgb: 243 240 232;
+
+  --font-serif: "Newsreader Variable", "Newsreader Fallback", Georgia, serif;
+  --font-sans:
+    "IBM Plex Sans Variable", "IBM Plex Sans Fallback", Arial, sans-serif;
+
+  --text-display: clamp(3rem, 1.8rem + 5.2vw, 6.25rem);
+  --text-section: clamp(2.25rem, 1.65rem + 2.5vw, 4.5rem);
+  --text-project: clamp(1.75rem, 1.35rem + 1.4vw, 3rem);
+  --text-article: clamp(1.4rem, 1.15rem + 0.8vw, 2rem);
+  --text-intro: clamp(1.2rem, 1.08rem + 0.4vw, 1.5rem);
+  --text-body: clamp(1rem, 0.97rem + 0.14vw, 1.125rem);
+  --text-caption: clamp(0.8125rem, 0.79rem + 0.08vw, 0.875rem);
+  --text-meta: clamp(0.75rem, 0.73rem + 0.06vw, 0.8125rem);
+  --text-label: clamp(0.75rem, 0.72rem + 0.1vw, 0.875rem);
+  --text-nav: clamp(0.8125rem, 0.78rem + 0.12vw, 0.9375rem);
+
+  --leading-display: 0.88;
+  --leading-heading: 0.98;
+  --leading-intro: 1.35;
+  --leading-body: 1.55;
+  --leading-tight: 1.15;
+  --tracking-label: 0.075em;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: clamp(2.5rem, 4vw, 4rem);
+  --space-8: clamp(4rem, 7vw, 8rem);
+  --space-9: clamp(6rem, 10vw, 12rem);
+
+  --line-hairline: 1px;
+  --line-emphasis: 0.12em;
+  --line-focus: 2px;
+  --radius-none: 0;
+  --radius-focus: 0.125rem;
+  --radius-functional: 0.25rem;
+
+  --page-max: 120rem;
+  --width-editorial: 96rem;
+  --width-reading: 68ch;
+  --gutter: clamp(1rem, 2.8vw, 3rem);
+  --grid-gap: clamp(0.75rem, 1.8vw, 2rem);
+
+  --duration-instant: 80ms;
+  --duration-short: 160ms;
+  --duration-medium: 240ms;
+  --ease-editorial: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --motion-shift: 0.35rem;
+
+  --layer-base: 0;
+  --layer-header: 10;
+  --layer-overlay: 20;
+}

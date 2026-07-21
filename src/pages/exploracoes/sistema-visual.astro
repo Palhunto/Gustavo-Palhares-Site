@@ -1,0 +1,474 @@
+---
+import technicalAsset from "../../assets/media/fixture-tecnica.svg";
+import "../../styles/global.css";
+
+const technicalImage = {
+  src: technicalAsset.src,
+  width: technicalAsset.width,
+  height: technicalAsset.height,
+};
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta
+      name="description"
+      content="Exploração técnica, não indexável, do sistema visual de Gustavo Palhares."
+    />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Amostra de sistema visual — Gustavo Palhares</title>
+  </head>
+  <body class="visual-system-page">
+    <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+    <input
+      class="u-visually-hidden"
+      type="checkbox"
+      id="grid-debug"
+      aria-describedby="grid-help"
+    />
+
+    <div class="system-shell">
+      <header class="publication-header">
+        <a class="signature" href="#conteudo" aria-label="Ir para a amostra">
+          <span class="signature__name">Gustavo Palhares</span>
+          <span class="signature__role"
+            >Fotógrafo e estudante de jornalismo</span
+          >
+        </a>
+
+        <nav
+          class="publication-nav type-nav"
+          aria-label="Navegação da exploração"
+        >
+          <ul role="list">
+            <li><a href="#escala">Tipografia</a></li>
+            <li><a href="#caderno">Caderno</a></li>
+            <li><a href="#trabalhos">Trabalhos</a></li>
+            <li><a href="#estados">Estados</a></li>
+          </ul>
+        </nav>
+
+        <label class="technical-controls type-meta" for="grid-debug">
+          Exibir grid
+          <span class="technical-controls__indicator" aria-hidden="true"></span>
+        </label>
+      </header>
+
+      <p class="technical-note type-label" id="grid-help">
+        Amostra de sistema visual · exploração técnica · conteúdo provisório
+      </p>
+
+      <main id="conteudo">
+        <section class="feature-grid" aria-labelledby="titulo-destaque">
+          <aside
+            class="feature-rail type-meta"
+            aria-label="Identificação técnica"
+          >
+            <span>EDIÇÃO 01</span>
+            <span>GP—2026—0001</span>
+            <span>Amostra técnica</span>
+          </aside>
+
+          <figure class="feature-media">
+            <img
+              src={technicalImage.src}
+              width={technicalImage.width}
+              height={technicalImage.height}
+              alt="Retângulo técnico cinza usado para demonstrar uma abertura fotográfica ampla"
+              fetchpriority="high"
+            />
+            <figcaption class="feature-media__caption type-meta">
+              <span>Imagem de abertura · ativo técnico</span>
+              <span>Crédito: fixture interna</span>
+              <span>16:9 · foco central</span>
+            </figcaption>
+          </figure>
+
+          <div class="feature-copy">
+            <div class="feature-copy__body">
+              <div class="feature-copy__meta type-meta">
+                <span>ARQ. 001 · JUL. 2026</span>
+                <span class="number-stable">01 / 06</span>
+              </div>
+              <p class="type-label">Destaque · conteúdo provisório</p>
+              <h1 class="type-display" id="titulo-destaque">
+                Título editorial<br />de abertura
+              </h1>
+              <p class="type-intro">
+                Texto provisório para avaliar ritmo, contraste e hierarquia sem
+                atribuir uma narrativa real ao acervo.
+              </p>
+            </div>
+
+            <a class="link-editorial" href="#trabalhos">
+              Ver trabalho completo <span
+                class="link-editorial__mark"
+                aria-hidden="true">→</span
+              >
+            </a>
+          </div>
+        </section>
+
+        <section
+          class="system-section type-showcase"
+          id="escala"
+          aria-labelledby="titulo-escala"
+        >
+          <div class="section-heading">
+            <div>
+              <p class="type-label">Relações tipográficas</p>
+              <h2 class="type-section" id="titulo-escala">Escala editorial</h2>
+            </div>
+            <p class="type-meta">
+              Newsreader + IBM Plex Sans · fluidas com clamp()
+            </p>
+          </div>
+
+          <div class="type-specimen">
+            <div class="type-specimen__row">
+              <p class="type-label">Título de seção</p>
+              <p class="type-section type-specimen__sample">
+                Estrutura e permanência
+              </p>
+            </div>
+            <div class="type-specimen__row">
+              <p class="type-label">Título de projeto</p>
+              <p class="type-project type-specimen__sample">
+                Amostra de abertura visual
+              </p>
+            </div>
+            <div class="type-specimen__row">
+              <p class="type-label">Introdução</p>
+              <p class="type-intro type-specimen__sample">
+                Texto provisório para avaliação tipográfica em uma largura de
+                leitura confortável.
+              </p>
+            </div>
+            <div class="type-specimen__row">
+              <p class="type-label">Metadata</p>
+              <p class="type-meta type-specimen__sample number-stable">
+                ATIVO TÉCNICO · ITEM 0123 · LEITURA 04 MIN
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <div class="editorial-split">
+          <section
+            class="editorial-panel"
+            id="caderno"
+            aria-labelledby="titulo-caderno"
+          >
+            <div class="section-heading">
+              <div>
+                <p class="type-label">Lista editorial</p>
+                <h2 class="type-project" id="titulo-caderno">Caderno</h2>
+              </div>
+              <a class="link-editorial" href="#estados">
+                Ver estados <span
+                  class="link-editorial__mark"
+                  aria-hidden="true">→</span
+                >
+              </a>
+            </div>
+
+            <ol class="editorial-list" role="list">
+              <li class="editorial-list__item">
+                <div class="editorial-list__meta type-meta">
+                  <span class="type-label">Caderno 01</span>
+                  <span>ARQ. 014 · amostra</span>
+                </div>
+                <div class="editorial-list__content">
+                  <h3 class="type-article">
+                    Texto provisório para avaliação tipográfica
+                  </h3>
+                  <p class="type-caption">
+                    Ritmo de título, resumo e metadata em conjunto.
+                  </p>
+                </div>
+                <div class="editorial-list__thumb">
+                  <img
+                    src={technicalImage.src}
+                    width={technicalImage.width}
+                    height={technicalImage.height}
+                    alt="Ativo técnico em formato de miniatura editorial"
+                    loading="lazy"
+                  />
+                </div>
+              </li>
+              <li class="editorial-list__item">
+                <div class="editorial-list__meta type-meta">
+                  <span class="type-label">Caderno 02</span>
+                  <span>ARQ. 021 · amostra</span>
+                </div>
+                <div class="editorial-list__content">
+                  <h3 class="type-article">
+                    Nota técnica sobre ritmo e contraste
+                  </h3>
+                  <p class="type-caption">
+                    Exemplo curto sem informação pessoal.
+                  </p>
+                </div>
+                <div class="editorial-list__thumb">
+                  <img
+                    src={technicalImage.src}
+                    width={technicalImage.width}
+                    height={technicalImage.height}
+                    alt="Ativo técnico em um segundo uso de miniatura"
+                    loading="lazy"
+                  />
+                </div>
+              </li>
+              <li class="editorial-list__item">
+                <div class="editorial-list__meta type-meta">
+                  <span class="type-label">Caderno 03</span>
+                  <span>REV. 01 · sem mídia</span>
+                </div>
+                <div class="editorial-list__content">
+                  <h3 class="type-article">Amostra de leitura sem imagem</h3>
+                  <p class="type-caption">
+                    O texto permanece válido quando não há fotografia.
+                  </p>
+                </div>
+              </li>
+            </ol>
+          </section>
+
+          <section
+            class="editorial-panel work-grid"
+            id="trabalhos"
+            aria-labelledby="titulo-trabalhos"
+          >
+            <div class="section-heading">
+              <div>
+                <p class="type-label">Relações de imagem</p>
+                <h2 class="type-project" id="titulo-trabalhos">
+                  Trabalhos selecionados
+                </h2>
+              </div>
+              <p class="type-meta">Ativo técnico em proporções distintas</p>
+            </div>
+
+            <div class="work-grid__items">
+              <article class="work-sample work-sample--wide">
+                <p class="archive-marker type-meta">
+                  <span>ARQ. 017</span>
+                  <span>JUL. 2026</span>
+                  <span>Amostra técnica</span>
+                </p>
+                <div class="work-sample__body">
+                  <div class="media-frame media-frame--landscape">
+                    <img
+                      src={technicalImage.src}
+                      width={technicalImage.width}
+                      height={technicalImage.height}
+                      alt="Ativo técnico recortado em formato de paisagem"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div class="work-sample__copy">
+                    <p class="type-label">Formato A · imagem ampla</p>
+                    <h3 class="type-project">Título de trabalho provisório</h3>
+                    <p class="type-caption">
+                      Legenda curta para demonstrar abertura, data e número de
+                      arquivo sem formar um cartão de produto.
+                    </p>
+                  </div>
+                </div>
+              </article>
+
+              <article class="work-sample work-sample--portrait">
+                <header class="work-sample__copy">
+                  <p class="type-meta">ARQ. 023 · REV. 01 · amostra</p>
+                  <p class="type-label">Formato B · retrato vertical</p>
+                  <h3 class="type-article">Variação de proporção</h3>
+                </header>
+                <div class="media-frame media-frame--portrait">
+                  <img
+                    src={technicalImage.src}
+                    width={technicalImage.width}
+                    height={technicalImage.height}
+                    alt="Ativo técnico recortado em formato de retrato vertical"
+                    loading="lazy"
+                  />
+                </div>
+                <p class="type-meta">BAURU — SP · dado técnico provisório</p>
+              </article>
+
+              <article class="work-sample work-sample--sequence">
+                <p class="archive-marker type-meta">
+                  <span>ARQ. 031–032</span>
+                  <span>02 / 02</span>
+                  <span>Amostra técnica</span>
+                </p>
+                <div
+                  class="media-sequence"
+                  aria-label="Sequência de dois ativos técnicos"
+                >
+                  <div class="media-frame media-frame--square">
+                    <img
+                      src={technicalImage.src}
+                      width={technicalImage.width}
+                      height={technicalImage.height}
+                      alt="Primeiro ativo técnico de uma sequência"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div class="media-frame media-frame--portrait">
+                    <img
+                      src={technicalImage.src}
+                      width={technicalImage.width}
+                      height={technicalImage.height}
+                      alt="Segundo ativo técnico de uma sequência"
+                      loading="lazy"
+                    />
+                  </div>
+                </div>
+                <div class="work-sample__copy">
+                  <p class="type-label">Formato C · sequência</p>
+                  <h3 class="type-project">Relação entre imagens</h3>
+                  <p class="type-caption">
+                    Contexto em bloco independente; a ordem horizontal vira
+                    vertical sem perder a sequência semântica.
+                  </p>
+                </div>
+              </article>
+            </div>
+
+            <figure>
+              <div class="media-frame media-frame--opening">
+                <img
+                  src={technicalImage.src}
+                  width={technicalImage.width}
+                  height={technicalImage.height}
+                  alt="Ativo técnico usado como imagem ampla com legenda"
+                  loading="lazy"
+                />
+              </div>
+              <figcaption class="caption-row type-caption">
+                <span>Ativo técnico — demonstração de imagem com legenda.</span>
+                <span>Crédito: fixture técnica interna.</span>
+              </figcaption>
+            </figure>
+          </section>
+        </div>
+
+        <div class="lower-grid">
+          <section
+            class="lower-grid__panel about-sample"
+            aria-labelledby="titulo-sobre"
+          >
+            <div class="media-frame media-frame--portrait">
+              <img
+                src={technicalImage.src}
+                width={technicalImage.width}
+                height={technicalImage.height}
+                alt="Ativo técnico em espaço reservado para retrato do autor"
+                loading="lazy"
+              />
+            </div>
+            <div class="about-sample__copy u-stack">
+              <p class="type-label">Nota do autor · amostra técnica</p>
+              <p class="type-meta">AUTORIA 01 · BAURU — SP · REV. 01</p>
+              <h2 class="type-project" id="titulo-sobre">Gustavo Palhares</h2>
+              <p class="type-body">
+                Apresentação curta e explicitamente provisória para demonstrar
+                local, prática e presença autoral. Não é uma biografia aprovada
+                nem acrescenta credenciais, promessas ou disponibilidade.
+              </p>
+              <a class="link-editorial" href="#estados">
+                Futura página Sobre <span
+                  class="link-editorial__mark"
+                  aria-hidden="true">→</span
+                >
+              </a>
+            </div>
+          </section>
+
+          <section
+            class="lower-grid__panel quote-sample"
+            aria-labelledby="titulo-citacao"
+          >
+            <p class="type-label" id="titulo-citacao">
+              Amostra tipográfica · não atribuída
+            </p>
+            <blockquote>
+              Trecho provisório para avaliar itálico, ritmo e largura de
+              leitura.
+            </blockquote>
+            <p class="type-caption">Não é uma citação de Gustavo Palhares.</p>
+          </section>
+
+          <section
+            class="lower-grid__panel cta-sample"
+            aria-labelledby="titulo-cta"
+          >
+            <p class="type-label">CTA discreto · amostra</p>
+            <p class="type-meta">Linguagem provisória · não aprovada</p>
+            <h2 class="type-article" id="titulo-cta">
+              Tem uma pauta, projeto ou história?
+            </h2>
+            <p class="type-caption">
+              Contato editorial demonstrado sem canal, formulário ou promessa
+              comercial.
+            </p>
+            <a
+              class="button-editorial button-editorial--compact"
+              href="#estados">Vamos conversar →</a
+            >
+          </section>
+        </div>
+
+        <section
+          class="system-section"
+          id="estados"
+          aria-labelledby="titulo-estados"
+        >
+          <div class="section-heading">
+            <div>
+              <p class="type-label">Interação e acessibilidade</p>
+              <h2 class="type-project" id="titulo-estados">
+                Links, botões e foco
+              </h2>
+            </div>
+            <p class="type-meta">Use Tab para inspecionar o foco visível.</p>
+          </div>
+
+          <div class="state-samples">
+            <div class="state-sample">
+              <p class="type-meta">Navegação entre conteúdos</p>
+              <a class="link-editorial" href="#titulo-destaque">
+                Link editorial <span
+                  class="link-editorial__mark"
+                  aria-hidden="true">→</span
+                >
+              </a>
+            </div>
+            <div class="state-sample">
+              <p class="type-meta">Ação de interface</p>
+              <a
+                class="button-editorial button-editorial--quiet"
+                href="#titulo-caderno"
+              >
+                Botão secundário
+              </a>
+            </div>
+            <div class="state-sample">
+              <p class="type-meta">Ação profissional importante</p>
+              <a class="button-editorial" href="#titulo-cta">Botão primário</a>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="system-footer footer-grid type-meta">
+        <p>GP—2026—0001 · amostra técnica não indexável</p>
+        <p>BAURU — SP · EDIÇÃO 01 · dados provisórios</p>
+        <p>REV. 01 · sem JavaScript · preparada para impressão</p>
+      </footer>
+    </div>
+  </body>
+</html>
