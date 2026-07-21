@@ -27,6 +27,10 @@
     display: none !important;
   }
 
+  .work-continuity {
+    display: none !important;
+  }
+
   .feature-grid,
   .lower-grid,
   .work-grid__items,
@@ -60,6 +64,17 @@
   .work-sample,
   .editorial-list__item {
     break-inside: avoid;
+  }
+
+  .editorial-photo-number {
+    color: #000;
+  }
+
+  .work-header,
+  .work-opening,
+  .work-body,
+  .work-credits {
+    padding-inline: 0;
   }
 
   h1,

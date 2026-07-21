@@ -1,0 +1,99 @@
+---
+import { getCollection } from "astro:content";
+
+import EditorialImage from "../../components/editorial/EditorialImage.astro";
+import IndexLayout from "../../layouts/IndexLayout.astro";
+import {
+  buildInstant,
+  formatEditorialDate,
+  formatLocation,
+  isInPublicCirculation,
+  sortWorksByDate,
+  workPresentation,
+} from "../../lib/content/publication.ts";
+import { publicRoutes } from "../../lib/routes/public.ts";
+
+const at = buildInstant();
+const works = sortWorksByDate(
+  (await getCollection("trabalhos")).filter((entry) =>
+    isInPublicCirculation(entry, at),
+  ),
+);
+---
+
+<IndexLayout
+  title="Trabalhos"
+  introduction="Ensaios, coberturas e projetos fotográficos organizados como documentos permanentes."
+  count={works.length}
+  family="trabalhos"
+>
+  <ol class="works-index" role="list">
+    {
+      works.map((work, index) => {
+        const presentation = workPresentation(work.id, work.data);
+        const href = publicRoutes.trabalho(work.data.slug);
+        return (
+          <li
+            class:list={[
+              "works-index__item",
+              { "works-index__item--lead": index === 0 },
+            ]}
+          >
+            <article>
+              <div class="works-index__media">
+                <a href={href} aria-label={`Abrir ${work.data.title}`}>
+                  <EditorialImage
+                    asset={work.data.cover}
+                    layout={index === 0 ? "lead" : "sequence"}
+                    priority={index === 0}
+                    showCaption={false}
+                  />
+                </a>
+              </div>
+              <div class="works-index__copy">
+                <p class="archive-marker type-meta number-stable">
+                  <span>{work.data.archiveNumber}</span>
+                  <span>
+                    {formatEditorialDate(work.data.date, work.data.dateEnd)}
+                  </span>
+                </p>
+                <p class="works-index__category type-label">
+                  {presentation.formatLabel}
+                </p>
+                <h2 class="works-index__title type-project">
+                  <a href={href}>{work.data.title}</a>
+                </h2>
+                <p class="works-index__summary type-intro">
+                  {work.data.summary}
+                </p>
+                <dl class="works-index__metadata type-meta">
+                  <div>
+                    <>
+                      <dt>Cidade</dt>
+                      <dd>{formatLocation(work.data.location)}</dd>
+                    </>
+                  </div>
+                  <div>
+                    <>
+                      <dt>Formato</dt>
+                      <dd>{presentation.formatLabel}</dd>
+                    </>
+                  </div>
+                  <div>
+                    <>
+                      <dt>Contexto</dt>
+                      <dd>{presentation.contextLabel}</dd>
+                    </>
+                  </div>
+                </dl>
+                <a class="works-index__cta link-editorial" href={href}>
+                  Ver trabalho
+                </a>
+              </div>
+            </article>
+          </li>
+        );
+      })
+    }
+  </ol>
+</IndexLayout>

@@ -101,6 +101,7 @@
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--space-4) var(--space-3);
+  list-style: none;
 }
 
 .contact-sheet__item {
@@ -113,6 +114,11 @@
 
 .contact-sheet__index {
   padding-block-start: var(--space-2);
+}
+
+.editorial-shared-credit {
+  margin-block-start: var(--space-3);
+  text-align: end;
 }
 
 .film-strip {
@@ -202,6 +208,27 @@
   overflow-wrap: anywhere;
 }
 
+.credits--colophon {
+  inline-size: min(100%, 32rem);
+  border-block-end: var(--line-hairline) solid var(--color-line-strong);
+}
+
+.credits--colophon .credits__list {
+  padding-block: var(--space-3);
+}
+
+.credits--colophon .credits__item {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  padding-block: 0;
+  border-block-end: 0;
+}
+
+.credits--colophon .credits__item dt::after {
+  content: " —";
+}
+
 .related-works {
   border-block-start: var(--line-hairline) solid var(--color-line-strong);
 }
@@ -248,8 +275,36 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .diptych--end-emphasis {
+    grid-template-columns: minmax(0, 48fr) minmax(0, 52fr);
+  }
+
   .triptych {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .triptych--mosaic {
+    grid-template-columns: minmax(0, 32fr) minmax(0, 68fr);
+    grid-template-rows: minmax(0, 5fr) minmax(0, 3fr);
+    block-size: clamp(36rem, 53.34vw, 48rem);
+    gap: var(--grid-gap);
+  }
+
+  .triptych--mosaic .triptych__item {
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) auto;
+    min-block-size: 0;
+  }
+
+  .triptych--mosaic .triptych__item:nth-child(3) {
+    grid-column: 2;
+    grid-row: 1 / 3;
+  }
+
+  .triptych--mosaic .editorial-picture {
+    block-size: 100%;
+    min-block-size: 0;
+    aspect-ratio: auto;
   }
 
   .contact-sheet__grid {

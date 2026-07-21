@@ -26,6 +26,15 @@ function fixtureMedia(dataset: ContentDataset): ContentEntry<"midia"> {
   return entry;
 }
 
+function fixtureWork(dataset: ContentDataset): ContentEntry<"trabalhos"> {
+  const entry = dataset.trabalhos.find(
+    (candidate) => candidate.id === "fixture-trabalho",
+  );
+  if (!entry)
+    throw new Error("fixture-trabalho não encontrado no dataset de teste");
+  return entry;
+}
+
 function noteVariant(
   source: ContentEntry<"caderno">,
   id: string,
@@ -89,7 +98,7 @@ export const invalidScenarios: InvalidScenario[] = [
     name: "slug duplicado",
     expectedCode: "slug-duplicate",
     mutate: (dataset) => {
-      const duplicate = structuredClone(dataset.trabalhos[0]);
+      const duplicate = structuredClone(fixtureWork(dataset));
       duplicate.id = "fixture-trabalho-dois";
       duplicate.filePath = "tests/fixtures/content/fixture-trabalho-dois.md";
       duplicate.data.translationKey = "fixture-trabalho-dois";
@@ -101,13 +110,13 @@ export const invalidScenarios: InvalidScenario[] = [
     name: "referência inexistente",
     expectedCode: "reference-missing",
     mutate: (dataset) =>
-      dataset.trabalhos[0].data.relatedWorks.push("nao-existe"),
+      fixtureWork(dataset).data.relatedWorks.push("nao-existe"),
   },
   {
     name: "tipo de referência incorreto",
     expectedCode: "reference-type",
     mutate: (dataset) =>
-      dataset.trabalhos[0].data.relatedWorks.push("fixture-texto"),
+      fixtureWork(dataset).data.relatedWorks.push("fixture-texto"),
   },
   {
     name: "duas edições atuais",
@@ -164,14 +173,14 @@ export const invalidScenarios: InvalidScenario[] = [
     name: "trabalho sem clearance",
     expectedCode: "work-clearance",
     mutate: (dataset) => {
-      dataset.trabalhos[0].data.publicationClearance = "pending";
+      fixtureWork(dataset).data.publicationClearance = "pending";
     },
   },
   {
     name: "crédito fotográfico ausente",
     expectedCode: "photo-credit",
     mutate: (dataset) => {
-      dataset.trabalhos[0].data.credits[0].role = "direção";
+      fixtureWork(dataset).data.credits[0].role = "direção";
     },
   },
   {
@@ -185,7 +194,7 @@ export const invalidScenarios: InvalidScenario[] = [
     name: "alt efetivo ausente em conteúdo privado",
     expectedCode: "media-alt",
     mutate: (dataset) => {
-      dataset.trabalhos[0].data.status = "draft";
+      fixtureWork(dataset).data.status = "draft";
       fixtureMedia(dataset).data.defaultAlt = "";
     },
   },
@@ -193,7 +202,7 @@ export const invalidScenarios: InvalidScenario[] = [
     name: "destaque fora da coleção",
     expectedCode: "featured-membership",
     mutate: (dataset) => {
-      dataset.trabalhos[0].data.collections = [];
+      fixtureWork(dataset).data.collections = [];
     },
   },
   {
@@ -201,28 +210,28 @@ export const invalidScenarios: InvalidScenario[] = [
     expectedCode: "reference-not-circulating",
     mutate: (dataset) => {
       dataset.colecoes[0].data.status = "draft";
-      dataset.trabalhos[0].data.status = "archived";
+      fixtureWork(dataset).data.status = "archived";
     },
   },
   {
     name: "edição atual com item arquivado",
     expectedCode: "reference-not-circulating",
     mutate: (dataset) => {
-      dataset.trabalhos[0].data.status = "archived";
+      fixtureWork(dataset).data.status = "archived";
     },
   },
   {
     name: "data incoerente",
     expectedCode: "date-order",
     mutate: (dataset) => {
-      dataset.trabalhos[0].data.updatedAt = "2026-07-19T09:00:00-03:00";
+      fixtureWork(dataset).data.updatedAt = "2026-07-19T09:00:00-03:00";
     },
   },
   {
     name: "archive number duplicado",
     expectedCode: "archive-duplicate",
     mutate: (dataset) => {
-      const duplicate = structuredClone(dataset.trabalhos[0]);
+      const duplicate = structuredClone(fixtureWork(dataset));
       duplicate.id = "fixture-trabalho-dois";
       duplicate.filePath = "tests/fixtures/content/fixture-trabalho-dois.md";
       duplicate.data.slug = "fixture-trabalho-dois";
@@ -234,7 +243,7 @@ export const invalidScenarios: InvalidScenario[] = [
     name: "archive number com ano incorreto",
     expectedCode: "archive-year",
     mutate: (dataset) => {
-      dataset.trabalhos[0].data.archiveNumber = "GP-2025-0001";
+      fixtureWork(dataset).data.archiveNumber = "GP-2025-0001";
     },
   },
   {

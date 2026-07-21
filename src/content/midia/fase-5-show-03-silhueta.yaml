@@ -1,0 +1,10 @@
+src: ../../assets/media/fase-5-show-03-silhueta.jpg
+description: Silhueta de pessoa com microfone diante de luz azul e um feixe branco.
+defaultAlt: Pessoa em silhueta segura um microfone diante de luz azul.
+credit: { role: fotografia, name: Gustavo Palhares }
+rights:
+  status: cleared
+  holder: Gustavo Palhares
+  basis: authorship
+  scope: publicação pública no site; autorização nominal das pessoas retratadas não confirmada
+checksum: sha256:a5559005437bf364cf6e6c3b065c0296498a023570e762d05df362594eb1e53a

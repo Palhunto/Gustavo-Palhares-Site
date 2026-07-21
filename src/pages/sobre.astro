@@ -1,20 +1,64 @@
 ---
 import { siteConfig } from "../config/site.ts";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { publicRoutes } from "../lib/routes/public.ts";
 ---
 
 <BaseLayout
   title="Sobre"
   description="Informações sobre Gustavo Palhares e sua publicação digital pessoal."
+  variant="about-page"
 >
-  <article class="page-intro" aria-labelledby="titulo-sobre">
-    <p class="page-intro__marker type-label">Sobre</p>
-    <div class="page-intro__body">
-      <h1 id="titulo-sobre">{siteConfig.name}</h1>
-      <p class="type-intro">
+  <article class="about-page" aria-labelledby="titulo-sobre">
+    <header class="about-page__intro">
+      <p class="about-page__marker type-label">Sobre</p>
+      <h1 id="titulo-sobre" class="type-section">{siteConfig.name}</h1>
+      <p class="about-page__lead">
         Gustavo Palhares é o autor desta publicação digital pessoal, criada para
         reunir trabalhos fotográficos, textos e um arquivo permanente.
       </p>
-    </div>
+    </header>
+
+    <section class="about-page__details" aria-label="Perfil profissional">
+      <div class="about-page__detail">
+        <h2 class="type-label">Foco</h2>
+        <p>
+          Fotografia documental, ensaios autorais e registros do cotidiano, com
+          atenção à luz, ao tempo e às pessoas.
+        </p>
+      </div>
+
+      <div class="about-page__detail">
+        <h2 class="type-label">Abordagem</h2>
+        <p>
+          Interesse por narrativas visuais e escritas que conectam imagem,
+          contexto e experiência vivida.
+        </p>
+      </div>
+
+      <div class="about-page__detail">
+        <h2 class="type-label">Formação</h2>
+        <p>Jornalismo em formação na UNESP Bauru.</p>
+      </div>
+
+      <div class="about-page__detail">
+        <h2 class="type-label">Contato</h2>
+        <p>
+          Para colaborações, parcerias e projetos, acesse a página de contato.
+        </p>
+        <a class="about-page__cta" href={publicRoutes.contato}>
+          <span>Ir para Contato</span>
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="about-page__note" aria-labelledby="nota-sobre">
+      <h2 id="nota-sobre" class="type-label">Nota</h2>
+      <p>
+        Este site é um espaço em construção permanente. Novos trabalhos, textos
+        e coleções serão adicionados ao longo do tempo.
+      </p>
+    </section>
   </article>
 </BaseLayout>

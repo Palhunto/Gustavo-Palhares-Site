@@ -1,16 +1,9 @@
-import { readdir } from "node:fs/promises";
-import path from "node:path";
+import { inspectMediaBuild } from "../src/lib/media/build-gate.ts";
 
-const assetsDirectory = path.join(process.cwd(), "dist", "_astro");
-const files = await readdir(assetsDirectory, { recursive: true });
-const leaked = files.filter((file) =>
-  path.basename(file).startsWith("fase-5-"),
+const result = await inspectMediaBuild(process.cwd());
+
+console.log(
+  `Gate de mídia válido: ${result.publicMediaIds.length} IDs públicos aprovados; ` +
+    `${result.emittedMediaIds.length} IDs canônicos emitidos; ` +
+    `${result.privateOnlyIds.length} IDs exclusivos do catálogo privado.`,
 );
-
-if (leaked.length > 0) {
-  throw new Error(
-    `Mídia privada da Fase 5A encontrada no build: ${leaked.join(", ")}`,
-  );
-}
-
-console.log("Gate de mídia privada válido: nenhum ativo da Fase 5A em dist/.");

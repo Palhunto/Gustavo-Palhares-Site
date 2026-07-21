@@ -1,0 +1,86 @@
+---
+import { getCollection } from "astro:content";
+import IndexLayout from "../../layouts/IndexLayout.astro";
+import {
+  buildInstant,
+  isInPublicCirculation,
+} from "../../lib/content/publication.ts";
+import { publicRoutes } from "../../lib/routes/public.ts";
+
+const at = buildInstant();
+const entries = (await getCollection("colecoes")).filter((entry) =>
+  isInPublicCirculation(entry, at),
+);
+---
+
+<IndexLayout
+  title="Coleções"
+  introduction="Coleções organizam relações curatoriais entre trabalhos e textos publicados."
+  count={entries.length}
+  emptyMessage="Ainda não há uma coleção editorial aprovada para circulação pública."
+  family="colecoes"
+>
+  <Fragment slot="empty-state">
+    <section
+      class="collections-empty-state"
+      aria-labelledby="colecoes-estado-editorial"
+    >
+      <p id="colecoes-estado-editorial" class="type-label">Estado editorial</p>
+
+      <div class="collections-empty-state__main">
+        <span class="collections-empty-state__icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48" focusable="false">
+            <path
+              d="M5.5 9.5h12.25c3.45 0 6.25 2.8 6.25 6.25V40c0-3.45-2.8-6.25-6.25-6.25H5.5z"
+            ></path>
+            <path
+              d="M42.5 9.5H30.25c-3.45 0-6.25 2.8-6.25 6.25V40c0-3.45 2.8-6.25 6.25-6.25H42.5z"
+            ></path>
+            <path
+              d="M10.5 16h8M10.5 21h8M10.5 26h8M29.5 16h8M29.5 21h8M29.5 26h8"
+            ></path>
+          </svg>
+        </span>
+        <div class="collections-empty-state__copy">
+          <p class="collections-empty-state__title type-article">
+            Ainda não há uma coleção editorial aprovada para circulação pública.
+          </p>
+          <p class="collections-empty-state__description">
+            Quando houver relações curatoriais definidas,<br
+              class="collections-desktop-break"
+            /> elas aparecerão aqui com contexto, recorte e vínculos entre trabalhos.
+          </p>
+        </div>
+      </div>
+
+      <div class="collections-future">
+        <div class="collections-future__body">
+          <span class="collections-future__icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48" focusable="false">
+              <rect x="8" y="14" width="26" height="26"></rect>
+              <rect x="16" y="6" width="26" height="26"></rect>
+            </svg>
+          </span>
+          <div class="collections-future__copy">
+            <h2 class="type-article">Coleções futuras aparecerão aqui.</h2>
+            <p>
+              Ensaios, trabalhos e textos poderão ser reunidos por<br
+                class="collections-desktop-break"
+              /> afinidade temática, processo, linguagem ou contexto.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </Fragment>
+
+  <ol class="family-list" role="list">
+    {
+      entries.map((entry) => (
+        <li>
+          <a href={publicRoutes.colecao(entry.data.slug)}>{entry.data.title}</a>
+        </li>
+      ))
+    }
+  </ol>
+</IndexLayout>

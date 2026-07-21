@@ -1,0 +1,15 @@
+---
+interface Props {
+  credit?: { role: string; name: string };
+}
+
+const { credit } = Astro.props;
+---
+
+{
+  credit && (
+    <p class="editorial-shared-credit type-caption">
+      {credit.role}: {credit.name}
+    </p>
+  )
+}

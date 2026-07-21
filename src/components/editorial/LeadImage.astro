@@ -3,6 +3,7 @@ import {
   getContentMediaResolver,
   type EditorialMediaInput,
 } from "../../lib/media/index.ts";
+import { resolveEditorialNumber } from "../../lib/mdx/editorial-numbers.ts";
 import FigureCaption from "./_FigureCaption.astro";
 import MediaPicture from "./_MediaPicture.astro";
 
@@ -10,11 +11,20 @@ interface Props {
   asset: EditorialMediaInput;
   archiveNumber?: string;
   priority?: boolean;
+  creditMode?: "auto" | "document";
+  number?: string;
 }
 
-const { asset, archiveNumber, priority = true } = Astro.props;
+const {
+  asset,
+  archiveNumber,
+  priority = true,
+  creditMode = "auto",
+  number,
+} = Astro.props;
 const resolver = await getContentMediaResolver();
 const media = resolver.resolve(asset, { layout: "lead", priority });
+const editorialNumber = resolveEditorialNumber(number, "LeadImage");
 ---
 
 <figure class="lead-image" data-media-id={media.id}>
@@ -26,5 +36,9 @@ const media = resolver.resolve(asset, { layout: "lead", priority });
     )
   }
   <MediaPicture media={media} />
-  <FigureCaption media={media} />
+  <FigureCaption
+    media={media}
+    number={editorialNumber}
+    showCredit={creditMode === "auto"}
+  />
 </figure>

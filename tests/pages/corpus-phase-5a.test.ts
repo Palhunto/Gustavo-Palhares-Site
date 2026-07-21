@@ -43,8 +43,8 @@ function parseMdx(content: string): { body: string; data: PendingWork } {
   };
 }
 
-describe("corpus editorial inicial da Fase 5A", () => {
-  it("mantém os 11 derivados em catálogo privado com direitos pendentes", async () => {
+describe("intake histórico e promoção editorial da Fase 5A", () => {
+  it("preserva o manifesto histórico e promove os 11 derivados ao catálogo canônico", async () => {
     const manifestPath = path.join(
       root,
       "docs",
@@ -56,12 +56,10 @@ describe("corpus editorial inicial da Fase 5A", () => {
     expect(data.generatesRoute).toBe(false);
     expect(data.items).toHaveLength(11);
 
-    const productionMedia = await readdir(
-      path.join(root, "src", "content", "midia"),
-    );
-    expect(productionMedia.some((name) => name.startsWith("fase-5-"))).toBe(
-      false,
-    );
+    const productionMedia = (
+      await readdir(path.join(root, "src", "content", "midia"))
+    ).filter((name) => name.startsWith("fase-5-"));
+    expect(productionMedia).toHaveLength(11);
 
     for (const item of data.items) {
       expect(item.rights.status).toBe("pending");
@@ -71,10 +69,23 @@ describe("corpus editorial inicial da Fase 5A", () => {
       await expect(
         readFile(path.join(root, item.asset)),
       ).resolves.toBeInstanceOf(Buffer);
+      const canonical = parseYaml(
+        await readFile(
+          path.join(root, "src", "content", "midia", `${item.id}.yaml`),
+          "utf8",
+        ),
+      );
+      expect(canonical.rights).toMatchObject({
+        status: "cleared",
+        basis: "authorship",
+      });
+      expect(canonical).not.toHaveProperty("capturedAt");
+      expect(canonical).not.toHaveProperty("location");
+      expect(canonical).not.toHaveProperty("defaultCaption");
     }
   });
 
-  it("valida os dois trabalhos aprovados, privados e sem rota antes da Fase 5B", async () => {
+  it("preserva os dois intakes sem rota e distingue as versões canônicas promovidas", async () => {
     const pendingDir = path.join(root, "docs", "phase-5a");
     const files = (await readdir(pendingDir)).filter((name) =>
       name.endsWith(".mdx"),
@@ -135,10 +146,10 @@ describe("corpus editorial inicial da Fase 5A", () => {
       .sort();
     expect(productionWorks).not.toContain("trabalho-show-pendente.mdx");
     expect(productionWorks).not.toContain("trabalho-rua-pendente.mdx");
-    expect(productionWorks).not.toContain(
+    expect(productionWorks).toContain(
       "nephillin-uma-cobertura-sem-credencial.mdx",
     );
-    expect(productionWorks).not.toContain("feira-do-rolo.mdx");
+    expect(productionWorks).toContain("feira-do-rolo.mdx");
 
     const productionArchiveNumbers = await Promise.all(
       productionWorks.map(async (filename) => {
@@ -151,13 +162,7 @@ describe("corpus editorial inicial da Fase 5A", () => {
     );
     expect(productionArchiveNumbers).toContain("GP-2026-0001");
 
-    const pendingArchiveNumbers = [...works.values()].map(
-      ({ archiveNumber }) => archiveNumber,
-    );
-    const allArchiveNumbers = [
-      ...productionArchiveNumbers,
-      ...pendingArchiveNumbers,
-    ];
+    const allArchiveNumbers = productionArchiveNumbers;
     expect(
       allArchiveNumbers.every((value) => /^GP-\d{4}-\d{4}$/.test(value)),
     ).toBe(true);
@@ -168,13 +173,10 @@ describe("corpus editorial inicial da Fase 5A", () => {
         recursive: true,
       })
     ).map((name) => name.replaceAll("\\", "/"));
+    expect(pageFiles).toContain("trabalhos/[slug].astro");
+    expect(pageFiles).toContain("trabalhos/index.astro");
     expect(
-      pageFiles.some(
-        (name) =>
-          name.includes("trabalhos/") ||
-          name.includes("nephillin-uma-cobertura-sem-credencial") ||
-          name.includes("feira-do-rolo"),
-      ),
-    ).toBe(false);
+      [...works.values()].every((work) => work.generatesRoute === false),
+    ).toBe(true);
   });
 });

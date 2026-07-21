@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { publicRoutes } from "../lib/routes/public.ts";
 ---
 
 <BaseLayout
@@ -14,9 +15,9 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       <h1 id="titulo-404">Página não encontrada</h1>
       <p class="type-intro">A página solicitada não existe neste endereço.</p>
       <nav class="page-paths type-nav" aria-label="Recuperação de navegação">
-        <a class="link-editorial" href="/">Voltar ao início</a>
-        <a class="link-editorial" href="/sobre">Sobre</a>
-        <a class="link-editorial" href="/contato">Contato</a>
+        <a class="link-editorial" href={publicRoutes.home}>Voltar ao início</a>
+        <a class="link-editorial" href={publicRoutes.sobre}>Sobre</a>
+        <a class="link-editorial" href={publicRoutes.contato}>Contato</a>
       </nav>
     </div>
   </section>

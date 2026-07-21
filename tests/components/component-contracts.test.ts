@@ -52,6 +52,102 @@ describe("contratos dos componentes editoriais", () => {
     await expect(component("TextColumn")).resolves.toContain("<div");
   });
 
+  it("mantém uma única numeração editorial na folha de contato", async () => {
+    const contactSheet = await component("ContactSheet");
+    const styles = await readFile(
+      path.join(process.cwd(), "src", "styles", "components.css"),
+      "utf8",
+    );
+    expect(contactSheet).toContain('<ol class="contact-sheet__grid">');
+    expect(contactSheet.match(/contact-sheet__index/g)).toHaveLength(1);
+    expect(contactSheet).toContain("editorial-photo-number");
+    expect(contactSheet).toContain("resolveEditorialNumbers(");
+    expect(contactSheet).not.toMatch(/index\s*\+\s*1/);
+    expect(styles).toMatch(
+      /\.contact-sheet__grid\s*\{[^}]*list-style:\s*none/s,
+    );
+  });
+
+  it("centraliza números editoriais explícitos sem contadores locais", async () => {
+    const { resolveEditorialNumber, resolveEditorialNumbers } =
+      await import("../../src/lib/mdx/editorial-numbers.ts");
+    expect(resolveEditorialNumbers("04,05,06", 3, "Fixture")).toEqual([
+      "04",
+      "05",
+      "06",
+    ]);
+    expect(resolveEditorialNumber("01", "Fixture")).toBe("01");
+    expect(() => resolveEditorialNumbers("01,01", 2, "Fixture")).toThrow(
+      /repetidos/,
+    );
+    expect(() => resolveEditorialNumber("1", "Fixture")).toThrow(
+      /dois dígitos/,
+    );
+
+    for (const name of ["Diptych", "Triptych", "FilmStrip", "ContactSheet"]) {
+      const source = await component(name);
+      expect(source).toContain("resolveEditorialNumbers(");
+      expect(source).not.toMatch(/index\s*\+\s*1/);
+    }
+    for (const name of ["LeadImage", "FullBleed"]) {
+      await expect(component(name)).resolves.toContain(
+        "resolveEditorialNumber(",
+      );
+    }
+  });
+
+  it("deduplica crédito comum por dados e preserva créditos diferentes", async () => {
+    const { commonMediaCredit } =
+      await import("../../src/lib/media/credits.ts");
+    const media = (name: string) => ({ credit: { role: "fotografia", name } });
+    expect(
+      commonMediaCredit([
+        media("Gustavo Palhares"),
+        media("Gustavo Palhares"),
+      ] as never),
+    ).toEqual({
+      role: "fotografia",
+      name: "Gustavo Palhares",
+    });
+    expect(
+      commonMediaCredit([media("Autoria A"), media("Autoria B")] as never),
+    ).toBeUndefined();
+    for (const name of ["Diptych", "Triptych", "FilmStrip"]) {
+      const source = await component(name);
+      expect(source).toContain("commonMediaCredit(media)");
+      expect(source).toContain(
+        'showCredit={creditMode === "auto" && !sharedCredit}',
+      );
+      expect(source).toContain("<SharedCredit");
+      expect(source).toContain('creditMode?: "auto" | "document"');
+    }
+  });
+
+  it("permite um único crédito documental nas páginas de trabalho", async () => {
+    for (const name of [
+      "LeadImage",
+      "FullBleed",
+      "Diptych",
+      "Triptych",
+      "FilmStrip",
+    ]) {
+      const source = await component(name);
+      expect(source).toContain('creditMode?: "auto" | "document"');
+      expect(source).toContain('creditMode = "auto"');
+    }
+    const layout = await readFile(
+      path.join(process.cwd(), "src", "layouts", "WorkLayout.astro"),
+      "utf8",
+    );
+    expect(layout).toContain('creditMode="document"');
+    expect(layout).toContain("<Credits items={credits}");
+  });
+
+  it("não renderiza o bloco de relacionados quando a lista está vazia", async () => {
+    const related = await component("RelatedWorks");
+    expect(related).toContain("resolvedItems.length > 0");
+  });
+
   it("aceita dados estruturados serializados sem abrir expressões MDX", async () => {
     const fixture = await readFile(
       path.join(

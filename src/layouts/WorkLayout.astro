@@ -1,0 +1,137 @@
+---
+import Credits from "../components/editorial/Credits.astro";
+import LeadImage from "../components/editorial/LeadImage.astro";
+import RelatedWorks, {
+  type RelatedWorkItem,
+} from "../components/editorial/RelatedWorks.astro";
+import BaseLayout from "./BaseLayout.astro";
+
+interface ContinuityItem {
+  href: string;
+  title: string;
+}
+
+interface Props {
+  title: string;
+  summary: string;
+  archiveNumber: string;
+  dateLabel: string;
+  location?: string;
+  formatLabel: string;
+  contextLabel: string;
+  cover: unknown;
+  credits: readonly { role: string; name: string }[];
+  related?: readonly RelatedWorkItem[];
+  archived?: boolean;
+  previous?: ContinuityItem;
+  next?: ContinuityItem;
+}
+
+const {
+  title,
+  summary,
+  archiveNumber,
+  dateLabel,
+  location,
+  formatLabel,
+  contextLabel,
+  cover,
+  credits,
+  related = [],
+  archived = false,
+  previous,
+  next,
+} = Astro.props;
+const [titleLead, ...titleRemainder] = title.split(" — ");
+const titleContinuation = titleRemainder.join(" — ");
+---
+
+<BaseLayout title={title} description={summary} type="article">
+  <article class="work-document">
+    <header class="work-header">
+      <div class="work-header__marker">
+        <p class="type-label">Trabalho fotográfico</p>
+        <p class="type-meta number-stable">{archiveNumber}</p>
+        {archived && <p class="archive-status type-label">Arquivado</p>}
+      </div>
+      <div class="work-header__main">
+        <div class="work-header__copy">
+          <h1 class="type-display">
+            {titleLead}{
+              titleContinuation && (
+                <>
+                  {" "}
+                  —
+                  <span class="work-title__continuation">
+                    {" "}
+                    {titleContinuation}
+                  </span>
+                </>
+              )
+            }
+          </h1>
+          <p class="type-intro">{summary}</p>
+        </div>
+        <dl class="work-header__metadata type-meta">
+          <div><dt>Data</dt><dd>{dateLabel}</dd></div>
+          {
+            location && (
+              <div>
+                <>
+                  <dt>Cidade</dt>
+                  <dd>{location}</dd>
+                </>
+              </div>
+            )
+          }
+          <div><dt>Formato</dt><dd>{formatLabel}</dd></div>
+          <div><dt>Contexto</dt><dd>{contextLabel}</dd></div>
+        </dl>
+      </div>
+    </header>
+
+    <div class="work-opening">
+      <LeadImage asset={cover as never} number="01" creditMode="document" />
+    </div>
+
+    <div class="work-body">
+      <slot />
+    </div>
+
+    <div class="work-credits">
+      <Credits items={credits} variant="colophon" />
+    </div>
+
+    <RelatedWorks items={related} />
+
+    {
+      (previous || next) && (
+        <nav
+          class="work-continuity"
+          aria-label="Continuidade cronológica entre trabalhos"
+        >
+          {previous ? (
+            <a
+              class="work-continuity__link work-continuity__link--previous"
+              rel="prev"
+              href={previous.href}
+            >
+              <span class="type-label">Trabalho anterior</span>
+              <span class="type-article">{previous.title}</span>
+            </a>
+          ) : null}
+          {next && (
+            <a
+              class="work-continuity__link work-continuity__link--next"
+              rel="next"
+              href={next.href}
+            >
+              <span class="type-label">Próximo trabalho</span>
+              <span class="type-article">{next.title}</span>
+            </a>
+          )}
+        </nav>
+      )
+    }
+  </article>
+</BaseLayout>

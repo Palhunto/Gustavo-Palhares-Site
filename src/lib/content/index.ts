@@ -12,6 +12,7 @@ export * from "./integrity.ts";
 export * from "./issues.ts";
 export * from "./mdx-policy.ts";
 export * from "./normalization.ts";
+export * from "./publication.ts";
 export * from "./queries.ts";
 export * from "./schemas/collections.ts";
 export * from "./schemas/media.ts";

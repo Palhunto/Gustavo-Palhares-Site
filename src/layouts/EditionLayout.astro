@@ -1,0 +1,24 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+
+interface Props {
+  number: number;
+  period: string;
+  title: string;
+  summary: string;
+}
+const { number, period, title, summary } = Astro.props;
+---
+
+<BaseLayout title={title} description={summary}>
+  <article class="edition-document">
+    <header class="document-header">
+      <p class="type-label number-stable">
+        Edição {String(number).padStart(3, "0")} · {period}
+      </p>
+      <h1 class="type-section">{title}</h1>
+      <p class="type-intro">{summary}</p>
+    </header>
+    <div class="edition-composition"><slot /></div>
+  </article>
+</BaseLayout>

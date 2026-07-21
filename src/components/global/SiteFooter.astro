@@ -13,11 +13,13 @@ const year = new Date().getUTCFullYear();
   <nav aria-label="Navegação do rodapé">
     <ul role="list">
       {
-        siteConfig.navigation.map((item) => (
-          <li>
-            <a href={item.href}>{item.label}</a>
-          </li>
-        ))
+        [...siteConfig.navigation, ...siteConfig.footerNavigation].map(
+          (item) => (
+            <li>
+              <a href={item.href}>{item.label}</a>
+            </li>
+          ),
+        )
       }
     </ul>
   </nav>

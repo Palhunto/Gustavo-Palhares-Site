@@ -1,0 +1,77 @@
+---
+import { getCollection } from "astro:content";
+import IndexLayout from "../../layouts/IndexLayout.astro";
+import {
+  buildInstant,
+  isInPublicCirculation,
+} from "../../lib/content/publication.ts";
+import { publicRoutes } from "../../lib/routes/public.ts";
+
+const at = buildInstant();
+const entries = (await getCollection("caderno")).filter((entry) =>
+  isInPublicCirculation(entry, at),
+);
+---
+
+<IndexLayout
+  title="Caderno"
+  introduction="O Caderno reunirá textos, notas e processos ligados à fotografia e ao jornalismo."
+  count={entries.length}
+  emptyMessage="Ainda não há textos editoriais publicados nesta família."
+  family="caderno"
+>
+  <Fragment slot="empty-state">
+    <section
+      class="caderno-empty-state"
+      aria-labelledby="caderno-estado-editorial"
+    >
+      <p id="caderno-estado-editorial" class="type-label">Estado editorial</p>
+      <div class="caderno-empty-state__body">
+        <span class="caderno-empty-state__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false">
+            <path d="m4 20 4.2-1 10.6-10.6-3.2-3.2L5 15.8 4 20Z"></path>
+            <path d="m13.9 6.9 3.2 3.2M5 15.8l3.2 3.2"></path>
+          </svg>
+        </span>
+        <div class="caderno-empty-state__copy">
+          <p class="caderno-empty-state__title type-article">
+            Ainda não há textos editoriais publicados nesta família.
+          </p>
+          <p class="caderno-empty-state__description">
+            Este espaço será atualizado com artigos, notas e registros em breve.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="caderno-future" aria-labelledby="caderno-futuros-textos">
+      <div class="caderno-future__body">
+        <span class="caderno-future__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false">
+            <path d="M6 2.5h8l4 4V21.5H6z"></path>
+            <path d="M14 2.5v4h4M9 11h6M9 14h6M9 17h4"></path>
+          </svg>
+        </span>
+        <div class="caderno-future__copy">
+          <h2 id="caderno-futuros-textos" class="type-article">
+            Futuros textos aparecerão aqui.
+          </h2>
+          <p>
+            Reflexões, bastidores, ensaios e observações sobre imagem, narrativa
+            e o cotidiano do trabalho.
+          </p>
+        </div>
+      </div>
+    </section>
+  </Fragment>
+
+  <ol class="family-list" role="list">
+    {
+      entries.map((entry) => (
+        <li>
+          <a href={publicRoutes.caderno(entry.data.slug)}>{entry.data.title}</a>
+        </li>
+      ))
+    }
+  </ol>
+</IndexLayout>

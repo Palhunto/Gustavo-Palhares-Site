@@ -1,16 +1,18 @@
 # Entradas editoriais pendentes — Fase 5A
 
+> Registro histórico de intake. Os dois trabalhos abaixo foram promovidos para `src/content/trabalhos/` na Fase 5B; estes documentos continuam fora das collections e não geram rotas.
+
 ## Trabalho de show
 
 - Nenhuma entrada editorial pendente para os campos solicitados na Fase 5A.
 - A autorização recebida cobre a publicação pública pelo autor, mas não registra autorização nominal das pessoas retratadas.
-- A ativação da rota permanece reservada à Fase 5B.
+- A rota foi ativada pela promoção canônica da Fase 5B; este intake histórico continua sem gerar rota.
 
 ## Trabalho de rua
 
 - Nenhuma entrada editorial pendente para os campos solicitados na Fase 5A.
 - A autorização recebida cobre a publicação pública pelo autor, mas não registra autorização nominal das pessoas retratadas.
-- A ativação da rota permanece reservada à Fase 5B.
+- A rota foi ativada pela promoção canônica da Fase 5B; este intake histórico continua sem gerar rota.
 
 ## Caderno
 

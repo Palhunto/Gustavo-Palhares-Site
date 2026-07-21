@@ -10,9 +10,10 @@ export interface CreditItem {
 interface Props {
   items: string | readonly CreditItem[];
   heading?: string;
+  variant?: "table" | "colophon";
 }
 
-const { items, heading = "Créditos" } = Astro.props;
+const { items, heading = "Créditos", variant = "table" } = Astro.props;
 const parsedItems = parseStructuredItems<CreditItem>(
   items,
   "Credits.items",
@@ -28,8 +29,15 @@ const parsedItems = parseStructuredItems<CreditItem>(
 );
 ---
 
-<section class="credits" aria-label={heading}>
-  <h2 class="credits__heading type-label">{heading}</h2>
+<section class:list={["credits", `credits--${variant}`]} aria-label={heading}>
+  <h2
+    class:list={[
+      "credits__heading type-label",
+      { "u-visually-hidden": variant === "colophon" },
+    ]}
+  >
+    {heading}
+  </h2>
   <dl class="credits__list">
     {
       parsedItems.map((item) => (

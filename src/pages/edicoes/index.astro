@@ -1,0 +1,34 @@
+---
+import { getCollection } from "astro:content";
+import IndexLayout from "../../layouts/IndexLayout.astro";
+import {
+  buildInstant,
+  isInPublicCirculation,
+} from "../../lib/content/publication.ts";
+import { publicRoutes } from "../../lib/routes/public.ts";
+
+const at = buildInstant();
+const entries = (await getCollection("edicoes")).filter((entry) =>
+  isInPublicCirculation(entry, at),
+);
+---
+
+<IndexLayout
+  title="Edições"
+  introduction="Edições preservam composições editoriais publicadas como documentos permanentes."
+  count={entries.length}
+  emptyMessage="Ainda não há uma edição editorial aprovada para publicação."
+  family="edicoes"
+>
+  <ol class="family-list" role="list">
+    {
+      entries.map((entry) => (
+        <li>
+          <a href={publicRoutes.edicao(entry.data.number)}>
+            {entry.data.title}
+          </a>
+        </li>
+      ))
+    }
+  </ol>
+</IndexLayout>

@@ -1,31 +1,60 @@
 ---
 import {
+  commonMediaCredit,
   getContentMediaResolver,
   parseMediaList,
   type EditorialMediaInput,
 } from "../../lib/media/index.ts";
+import { resolveEditorialNumbers } from "../../lib/mdx/editorial-numbers.ts";
 import FigureCaption from "./_FigureCaption.astro";
 import MediaPicture from "./_MediaPicture.astro";
+import SharedCredit from "./_SharedCredit.astro";
 
 interface Props {
   assets: string | readonly EditorialMediaInput[];
   alignment?: "start" | "center" | "end";
+  balance?: "equal" | "end-emphasis";
+  creditMode?: "auto" | "document";
+  numbers?: string | readonly string[];
 }
 
-const { assets, alignment = "end" } = Astro.props;
+const {
+  assets,
+  alignment = "end",
+  balance = "equal",
+  creditMode = "auto",
+  numbers,
+} = Astro.props;
 const inputs = parseMediaList(assets);
 if (inputs.length !== 2) throw new Error("Diptych exige exatamente 2 mídias.");
 const resolver = await getContentMediaResolver();
 const media = resolver.resolveMany(inputs, { layout: "sequence" });
+const editorialNumbers = resolveEditorialNumbers(
+  numbers,
+  media.length,
+  "Diptych",
+);
+const sharedCredit = commonMediaCredit(media);
 ---
 
-<div class:list={["diptych", `diptych--${alignment}`]}>
+<div
+  class:list={[
+    "diptych",
+    `diptych--${alignment}`,
+    balance !== "equal" && `diptych--${balance}`,
+  ]}
+>
   {
     media.map((item, index) => (
       <figure class="diptych__item" data-media-id={item.id}>
         <MediaPicture media={item} />
-        <FigureCaption media={item} index={index + 1} />
+        <FigureCaption
+          media={item}
+          number={editorialNumbers[index]}
+          showCredit={creditMode === "auto" && !sharedCredit}
+        />
       </figure>
     ))
   }
 </div>
+{creditMode === "auto" && <SharedCredit credit={sharedCredit} />}

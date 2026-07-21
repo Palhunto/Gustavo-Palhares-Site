@@ -3,20 +3,28 @@ import {
   getContentMediaResolver,
   type EditorialMediaInput,
 } from "../../lib/media/index.ts";
+import { resolveEditorialNumber } from "../../lib/mdx/editorial-numbers.ts";
 import FigureCaption from "./_FigureCaption.astro";
 import MediaPicture from "./_MediaPicture.astro";
 
 interface Props {
   asset: EditorialMediaInput;
   priority?: boolean;
+  creditMode?: "auto" | "document";
+  number?: string;
 }
 
-const { asset, priority = false } = Astro.props;
+const { asset, priority = false, creditMode = "auto", number } = Astro.props;
 const resolver = await getContentMediaResolver();
 const media = resolver.resolve(asset, { layout: "full-bleed", priority });
+const editorialNumber = resolveEditorialNumber(number, "FullBleed");
 ---
 
 <figure class="full-bleed" data-media-id={media.id}>
   <MediaPicture media={media} />
-  <FigureCaption media={media} />
+  <FigureCaption
+    media={media}
+    number={editorialNumber}
+    showCredit={creditMode === "auto"}
+  />
 </figure>

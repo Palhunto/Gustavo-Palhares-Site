@@ -1,6 +1,7 @@
 ---
 import { siteConfig } from "../config/site.ts";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { publicRoutes } from "../lib/routes/public.ts";
 ---
 
 <BaseLayout
@@ -14,8 +15,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     <div class="provisional-home__body type-intro">
       <p>Esta publicação está em construção.</p>
       <nav class="page-paths type-nav" aria-label="Caminhos disponíveis">
-        <a class="link-editorial" href="/sobre">Sobre</a>
-        <a class="link-editorial" href="/contato">Contato</a>
+        <a class="link-editorial" href={publicRoutes.sobre}>Sobre</a>
+        <a class="link-editorial" href={publicRoutes.contato}>Contato</a>
       </nav>
     </div>
   </section>

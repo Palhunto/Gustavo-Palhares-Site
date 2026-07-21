@@ -1,0 +1,29 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+
+interface Props {
+  title: string;
+  summary: string;
+  typeLabel: string;
+  dateLabel: string;
+  authors: string;
+  readingTime?: string;
+}
+
+const { title, summary, typeLabel, dateLabel, authors, readingTime } =
+  Astro.props;
+---
+
+<BaseLayout title={title} description={summary} type="article">
+  <article class="article-document">
+    <header class="document-header">
+      <p class="type-label">Caderno / {typeLabel}</p>
+      <h1 class="type-section">{title}</h1>
+      <p class="type-intro">{summary}</p>
+      <p class="type-meta">
+        {dateLabel} · {authors}{readingTime && ` · ${readingTime}`}
+      </p>
+    </header>
+    <div class="article-body type-body"><slot /></div>
+  </article>
+</BaseLayout>

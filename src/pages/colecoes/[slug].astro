@@ -1,0 +1,63 @@
+---
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import CollectionLayout from "../../layouts/CollectionLayout.astro";
+import {
+  buildInstant,
+  isInPublicCirculation,
+  isIndividuallyPublic,
+} from "../../lib/content/publication.ts";
+import { referenceId } from "../../lib/content/schemas/shared.ts";
+import { publicRoutes } from "../../lib/routes/public.ts";
+
+export async function getStaticPaths() {
+  const at = buildInstant();
+  const entries = (await getCollection("colecoes")).filter((entry) =>
+    isIndividuallyPublic(entry, at),
+  );
+  return entries.map((entry) => ({
+    params: { slug: entry.data.slug },
+    props: { entry },
+  }));
+}
+
+interface Props {
+  entry: CollectionEntry<"colecoes">;
+}
+const { entry } = Astro.props;
+const at = buildInstant();
+const works = (await getCollection("trabalhos")).filter(
+  (item) =>
+    isInPublicCirculation(item, at) &&
+    item.data.collections.some((value) => referenceId(value) === entry.id),
+);
+const notebook = (await getCollection("caderno")).filter(
+  (item) =>
+    isInPublicCirculation(item, at) &&
+    item.data.collections.some((value) => referenceId(value) === entry.id),
+);
+const { Content } = await render(entry);
+---
+
+<CollectionLayout
+  title={entry.data.title}
+  summary={entry.data.summary}
+  curatorNote={entry.data.curatorNote}
+>
+  <Content />
+  <ol class="family-list" role="list">
+    {
+      works.map((item) => (
+        <li>
+          <a href={publicRoutes.trabalho(item.data.slug)}>{item.data.title}</a>
+        </li>
+      ))
+    }
+    {
+      notebook.map((item) => (
+        <li>
+          <a href={publicRoutes.caderno(item.data.slug)}>{item.data.title}</a>
+        </li>
+      ))
+    }
+  </ol>
+</CollectionLayout>

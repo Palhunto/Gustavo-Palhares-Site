@@ -1,24 +1,40 @@
 ---
 import {
+  commonMediaCredit,
   getContentMediaResolver,
   parseMediaList,
   type EditorialMediaInput,
 } from "../../lib/media/index.ts";
+import { resolveEditorialNumbers } from "../../lib/mdx/editorial-numbers.ts";
 import FigureCaption from "./_FigureCaption.astro";
 import MediaPicture from "./_MediaPicture.astro";
+import SharedCredit from "./_SharedCredit.astro";
 
 interface Props {
   assets: string | readonly EditorialMediaInput[];
   label?: string;
+  creditMode?: "auto" | "document";
+  numbers?: string | readonly string[];
 }
 
-const { assets, label = "Sequência fotográfica" } = Astro.props;
+const {
+  assets,
+  label = "Sequência fotográfica",
+  creditMode = "auto",
+  numbers,
+} = Astro.props;
 const inputs = parseMediaList(assets);
 if (inputs.length < 2 || inputs.length > 12) {
   throw new Error("FilmStrip exige entre 2 e 12 mídias.");
 }
 const resolver = await getContentMediaResolver();
 const media = resolver.resolveMany(inputs, { layout: "sequence" });
+const editorialNumbers = resolveEditorialNumbers(
+  numbers,
+  media.length,
+  "FilmStrip",
+);
+const sharedCredit = commonMediaCredit(media);
 ---
 
 <figure class="film-strip">
@@ -29,10 +45,15 @@ const media = resolver.resolveMany(inputs, { layout: "sequence" });
         <li class="film-strip__item" data-media-id={item.id}>
           <figure>
             <MediaPicture media={item} />
-            <FigureCaption media={item} index={index + 1} />
+            <FigureCaption
+              media={item}
+              number={editorialNumbers[index]}
+              showCredit={creditMode === "auto" && !sharedCredit}
+            />
           </figure>
         </li>
       ))
     }
   </ol>
+  {creditMode === "auto" && <SharedCredit credit={sharedCredit} />}
 </figure>

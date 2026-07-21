@@ -1,0 +1,22 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+
+interface Props {
+  title: string;
+  summary: string;
+  curatorNote?: string;
+}
+const { title, summary, curatorNote } = Astro.props;
+---
+
+<BaseLayout title={title} description={summary}>
+  <article class="collection-document">
+    <header class="document-header">
+      <p class="type-label">Coleção editorial</p>
+      <h1 class="type-section">{title}</h1>
+      <p class="type-intro">{summary}</p>
+      {curatorNote && <p class="type-body">{curatorNote}</p>}
+    </header>
+    <div class="collection-members"><slot /></div>
+  </article>
+</BaseLayout>

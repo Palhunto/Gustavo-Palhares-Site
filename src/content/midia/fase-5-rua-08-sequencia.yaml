@@ -1,0 +1,10 @@
+src: ../../assets/media/fase-5-rua-08-sequencia.jpg
+description: Pessoa caminha diante de uma banca ao ar livre em fotografia preto e branco.
+defaultAlt: Pessoa caminha diante de uma banca ao ar livre na feira.
+credit: { role: fotografia, name: Gustavo Palhares }
+rights:
+  status: cleared
+  holder: Gustavo Palhares
+  basis: authorship
+  scope: publicação pública no site; autorização nominal das pessoas retratadas não confirmada
+checksum: sha256:bf7e0701b5f73a9102bf51961238dfb9e1fc84e4cce03f3de20b5d0c29ca3328

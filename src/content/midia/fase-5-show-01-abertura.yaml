@@ -1,0 +1,10 @@
+src: ../../assets/media/fase-5-show-01-abertura.jpg
+description: Pessoa segura um microfone diante de fumaça iluminada em vermelho e azul.
+defaultAlt: Pessoa segura um microfone diante de fumaça vermelha e azul.
+credit: { role: fotografia, name: Gustavo Palhares }
+rights:
+  status: cleared
+  holder: Gustavo Palhares
+  basis: authorship
+  scope: publicação pública no site; autorização nominal das pessoas retratadas não confirmada
+checksum: sha256:03c0fba201eb354ac4e784deadbb7bdc4028431df6f76f40e53846ed9bc1e9b8

@@ -6,18 +6,67 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   title="Contato"
   description="Página de contato de Gustavo Palhares."
   robots="noindex, nofollow"
+  variant="contact-page"
 >
-  <section class="page-intro" aria-labelledby="titulo-contato">
-    <p class="page-intro__marker type-label">Contato</p>
-    <div class="page-intro__body">
-      <h1 id="titulo-contato">Contato</h1>
-      <p class="type-intro">
-        Os canais públicos de contato ainda estão sendo definidos.
-      </p>
-      <p class="type-body">
-        Esta página não possui formulário e não coleta nem armazena dados do
-        visitante.
-      </p>
-    </div>
+  <section class="contact-page" aria-labelledby="titulo-contato">
+    <header class="contact-page__intro">
+      <p class="contact-page__marker type-label">Contato</p>
+      <h1 id="titulo-contato" class="type-section">Contato</h1>
+    </header>
+
+    <address class="contact-page__list">
+      <a
+        class="contact-page__item"
+        href="https://wa.me/5514997173521"
+        aria-label="Conversar pelo WhatsApp no número (14) 99717-3521"
+      >
+        <span class="contact-page__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false">
+            <path d="M20 11.6a8 8 0 0 1-11.8 7l-4.2 1 1.1-4A8 8 0 1 1 20 11.6Z"
+            ></path>
+            <path
+              d="M9.2 7.8c.2-.4.4-.4.7-.4h.5c.2 0 .4 0 .5.4l.8 2c.1.3.1.5-.1.7l-.7.8c-.2.2-.1.5 0 .7.7 1.2 1.7 2.1 2.9 2.7.3.1.5.2.7 0l.9-1c.2-.2.4-.3.7-.2l1.9.9c.3.1.4.3.4.6 0 .5-.2 1.4-1 2-.7.6-1.7.9-2.7.7-1.6-.3-3.6-1.2-5.3-2.8-1.4-1.3-2.5-3-2.8-4.5-.2-1 .1-1.9.7-2.6Z"
+            ></path>
+          </svg>
+        </span>
+        <span class="contact-page__label type-label">WhatsApp</span>
+        <span class="contact-page__value">(14) 99717-3521</span>
+        <span class="contact-page__arrow" aria-hidden="true">→</span>
+      </a>
+
+      <a
+        class="contact-page__item"
+        href="https://www.instagram.com/gustavopalharess/"
+        aria-label="Abrir o Instagram @gustavopalharess"
+      >
+        <span class="contact-page__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false">
+            <rect x="4" y="4" width="16" height="16" rx="4"></rect>
+            <circle cx="12" cy="12" r="3.5"></circle>
+            <circle cx="17.3" cy="6.8" r="0.8" class="contact-page__icon-dot"
+            ></circle>
+          </svg>
+        </span>
+        <span class="contact-page__label type-label">Instagram</span>
+        <span class="contact-page__value">@gustavopalharess</span>
+        <span class="contact-page__arrow" aria-hidden="true">→</span>
+      </a>
+
+      <a
+        class="contact-page__item"
+        href="mailto:gustavo.palhares49@gmail.com"
+        aria-label="Enviar email para gustavo.palhares49@gmail.com"
+      >
+        <span class="contact-page__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false">
+            <rect x="3" y="5" width="18" height="14"></rect>
+            <path d="m4 6 8 7 8-7"></path>
+          </svg>
+        </span>
+        <span class="contact-page__label type-label">Email</span>
+        <span class="contact-page__value">gustavo.palhares49@gmail.com</span>
+        <span class="contact-page__arrow" aria-hidden="true">→</span>
+      </a>
+    </address>
   </section>
 </BaseLayout>

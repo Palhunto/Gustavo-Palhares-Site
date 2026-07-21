@@ -1,17 +1,26 @@
 ---
 import { siteConfig } from "../../config/site.ts";
+import { publicRoutes } from "../../lib/routes/public.ts";
 
 interface Props {
   currentPath: string;
 }
 
 const { currentPath } = Astro.props;
-const normalizedPath =
-  currentPath.length > 1 ? currentPath.replace(/\/$/, "") : currentPath;
+const normalizedPath = currentPath.endsWith("/")
+  ? currentPath
+  : `${currentPath}/`;
+const isCurrent = (href: string) =>
+  normalizedPath === href ||
+  (href !== publicRoutes.home && normalizedPath.startsWith(href));
 ---
 
 <header class="site-header">
-  <a class="site-identity" href="/" aria-label="Gustavo Palhares — início">
+  <a
+    class="site-identity"
+    href={publicRoutes.home}
+    aria-label="Gustavo Palhares — início"
+  >
     <span class="site-identity__name">{siteConfig.name}</span>
     <span class="site-identity__role">{siteConfig.shortIdentity}</span>
   </a>
@@ -23,7 +32,7 @@ const normalizedPath =
           <li>
             <a
               href={item.href}
-              aria-current={normalizedPath === item.href ? "page" : undefined}
+              aria-current={isCurrent(item.href) ? "page" : undefined}
             >
               {item.label}
             </a>

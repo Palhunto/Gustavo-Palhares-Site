@@ -55,28 +55,30 @@ const resolvedItems: Array<
 }));
 ---
 
-<section class="related-works" aria-label={heading}>
-  <div class="related-works__heading">
-    <h2 class="type-project">{heading}</h2>
-    <p class="type-meta number-stable">
-      {String(resolvedItems.length).padStart(2, "0")} itens
-    </p>
-  </div>
-  <ul class="related-works__list" role="list">
-    {
-      resolvedItems.map((item) => (
-        <li class="related-works__item">
-          {item.image && <MediaPicture media={item.image} />}
-          <div class="related-works__copy">
-            <p class="type-meta number-stable">{item.archiveNumber}</p>
-            <p class="type-label">{item.kind}</p>
-            <h3 class="type-article">
-              {item.href ? <a href={item.href}>{item.title}</a> : item.title}
-            </h3>
-            {item.summary && <p class="type-caption">{item.summary}</p>}
-          </div>
-        </li>
-      ))
-    }
-  </ul>
-</section>
+{
+  resolvedItems.length > 0 && (
+    <section class="related-works" aria-label={heading}>
+      <div class="related-works__heading">
+        <h2 class="type-project">{heading}</h2>
+        <p class="type-meta number-stable">
+          {String(resolvedItems.length).padStart(2, "0")} itens
+        </p>
+      </div>
+      <ul class="related-works__list" role="list">
+        {resolvedItems.map((item) => (
+          <li class="related-works__item">
+            {item.image && <MediaPicture media={item.image} />}
+            <div class="related-works__copy">
+              <p class="type-meta number-stable">{item.archiveNumber}</p>
+              <p class="type-label">{item.kind}</p>
+              <h3 class="type-article">
+                {item.href ? <a href={item.href}>{item.title}</a> : item.title}
+              </h3>
+              {item.summary && <p class="type-caption">{item.summary}</p>}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}

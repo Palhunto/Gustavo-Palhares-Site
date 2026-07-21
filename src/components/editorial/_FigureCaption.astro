@@ -3,29 +3,34 @@ import type { ResolvedEditorialMedia } from "../../lib/media/index.ts";
 
 interface Props {
   media: ResolvedEditorialMedia;
-  index?: number;
+  number?: string;
+  showCredit?: boolean;
 }
 
-const { media, index } = Astro.props;
+const { media, number, showCredit = true } = Astro.props;
 ---
 
 {
-  (media.caption || media.credit.name) && (
+  (number !== undefined ||
+    media.caption ||
+    (showCredit && media.credit.name)) && (
     <figcaption
       class:list={[
         "editorial-caption type-caption",
-        { "editorial-caption--indexed": index !== undefined },
+        { "editorial-caption--indexed": number !== undefined },
       ]}
     >
-      {index !== undefined && (
-        <span class="editorial-caption__index number-stable">
-          {String(index).padStart(2, "0")}
+      {number !== undefined && (
+        <span class="editorial-caption__index editorial-photo-number number-stable">
+          {number}
         </span>
       )}
       {media.caption && <span>{media.caption}</span>}
-      <span class="editorial-caption__credit">
-        {media.credit.role}: {media.credit.name}
-      </span>
+      {showCredit && (
+        <span class="editorial-caption__credit">
+          {media.credit.role}: {media.credit.name}
+        </span>
+      )}
     </figcaption>
   )
 }

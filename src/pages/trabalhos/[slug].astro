@@ -1,0 +1,83 @@
+---
+import { getCollection, render, type CollectionEntry } from "astro:content";
+
+import WorkLayout from "../../layouts/WorkLayout.astro";
+import {
+  buildInstant,
+  formatEditorialDate,
+  formatLocation,
+  isInPublicCirculation,
+  isIndividuallyPublic,
+  publicRelatedWorks,
+  publicWorkContinuity,
+  workPresentation,
+} from "../../lib/content/publication.ts";
+import { MDX_COMPONENT_REGISTRY } from "../../lib/mdx/registry.ts";
+import { publicRoutes } from "../../lib/routes/public.ts";
+
+export async function getStaticPaths() {
+  const at = buildInstant();
+  const allWorks = await getCollection("trabalhos");
+  const individual = allWorks.filter((entry) =>
+    isIndividuallyPublic(entry, at),
+  );
+  const circulating = allWorks.filter((entry) =>
+    isInPublicCirculation(entry, at),
+  );
+
+  return individual.map((entry) => ({
+    params: { slug: entry.data.slug },
+    props: { entry, continuity: publicWorkContinuity(circulating, entry.id) },
+  }));
+}
+
+interface Props {
+  entry: CollectionEntry<"trabalhos">;
+  continuity: ReturnType<typeof publicWorkContinuity>;
+}
+
+const { entry, continuity } = Astro.props;
+const { Content } = await render(entry);
+const presentation = workPresentation(entry.id, entry.data);
+const at = buildInstant();
+const related = publicRelatedWorks(
+  entry,
+  await getCollection("trabalhos"),
+  at,
+).map((work) => {
+  const relatedPresentation = workPresentation(work.id, work.data);
+  return {
+    archiveNumber: work.data.archiveNumber,
+    title: work.data.title,
+    kind: relatedPresentation.formatLabel,
+    summary: work.data.summary,
+    href: publicRoutes.trabalho(work.data.slug),
+    media: work.data.cover,
+  };
+});
+const credits = entry.data.credits.flatMap((credit) =>
+  credit.name ? [{ role: credit.role, name: credit.name }] : [],
+);
+const linkFor = (work: CollectionEntry<"trabalhos"> | undefined) =>
+  work
+    ? { href: publicRoutes.trabalho(work.data.slug), title: work.data.title }
+    : undefined;
+---
+
+<WorkLayout
+  title={entry.data.title}
+  summary={entry.data.summary}
+  archiveNumber={entry.data.archiveNumber}
+  dateLabel={formatEditorialDate(entry.data.date, entry.data.dateEnd)}
+  location={formatLocation(entry.data.location)}
+  formatLabel={presentation.formatLabel}
+  contextLabel={presentation.contextLabel}
+  cover={entry.data.cover}
+  credits={credits}
+  related={related}
+  archived={entry.data.status === "archived"}
+  previous={linkFor(continuity.previous)}
+  next={linkFor(continuity.next)}
+>
+  <Content components={MDX_COMPONENT_REGISTRY} />
+</WorkLayout>

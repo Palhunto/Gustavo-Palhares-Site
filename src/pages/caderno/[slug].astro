@@ -1,0 +1,50 @@
+---
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import ArticleLayout from "../../layouts/ArticleLayout.astro";
+import {
+  buildInstant,
+  formatEditorialDate,
+  isIndividuallyPublic,
+} from "../../lib/content/publication.ts";
+import { referenceId } from "../../lib/content/schemas/shared.ts";
+import { MDX_COMPONENT_REGISTRY } from "../../lib/mdx/registry.ts";
+
+export async function getStaticPaths() {
+  const at = buildInstant();
+  const entries = (await getCollection("caderno")).filter((entry) =>
+    isIndividuallyPublic(entry, at),
+  );
+  return entries.map((entry) => ({
+    params: { slug: entry.data.slug },
+    props: { entry },
+  }));
+}
+
+interface Props {
+  entry: CollectionEntry<"caderno">;
+}
+const { entry } = Astro.props;
+const people = new Map(
+  (await getCollection("pessoas")).map((person) => [
+    person.id,
+    person.data.name,
+  ]),
+);
+const authors = entry.data.authors
+  .flatMap((credit) => {
+    const name = credit.name ?? people.get(referenceId(credit.person) ?? "");
+    return name ? [name] : [];
+  })
+  .join(", ");
+const { Content } = await render(entry);
+---
+
+<ArticleLayout
+  title={entry.data.title}
+  summary={entry.data.summary}
+  typeLabel={entry.data.tipo}
+  dateLabel={formatEditorialDate(entry.data.date)}
+  authors={authors}
+>
+  <Content components={MDX_COMPONENT_REGISTRY} />
+</ArticleLayout>

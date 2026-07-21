@@ -8,6 +8,7 @@ import {
   normalizeTheme,
   referenceId,
 } from "./schemas/shared.ts";
+import { publicRoutes } from "../routes/public.ts";
 import type {
   CadernoData,
   EdicaoData,
@@ -188,12 +189,17 @@ export function validateIntegrity(
     >,
   ): string | undefined => {
     if (entry.collection === "trabalhos")
-      return `/trabalhos/${entry.data.slug}`;
-    if (entry.collection === "caderno") return `/caderno/${entry.data.slug}`;
-    if (entry.collection === "colecoes") return `/colecoes/${entry.data.slug}`;
+      return publicRoutes.trabalho(entry.data.slug);
+    if (entry.collection === "caderno")
+      return publicRoutes.caderno(entry.data.slug);
+    if (entry.collection === "colecoes")
+      return publicRoutes.colecao(entry.data.slug);
     if (entry.collection === "edicoes")
-      return `/edicoes/${String(entry.data.number).padStart(3, "0")}`;
-    if (entry.collection === "paginas") return `/${entry.data.slug}`;
+      return publicRoutes.edicao(entry.data.number);
+    if (entry.collection === "paginas") {
+      if (entry.data.slug === "sobre") return publicRoutes.sobre;
+      if (entry.data.slug === "contato") return publicRoutes.contato;
+    }
     return undefined;
   };
   for (const entry of [

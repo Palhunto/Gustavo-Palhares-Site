@@ -4,6 +4,7 @@ export {
   parseMediaList,
 } from "./resolver.ts";
 export { getContentMediaResolver } from "./content-resolver.ts";
+export { commonMediaCredit } from "./credits.ts";
 export type {
   EditorialMediaInput,
   MediaLayout,

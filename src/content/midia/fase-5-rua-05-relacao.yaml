@@ -1,0 +1,10 @@
+src: ../../assets/media/fase-5-rua-05-relacao.jpg
+description: Duas pessoas conversam diante de uma banca coberta em fotografia preto e branco.
+defaultAlt: Duas pessoas conversam diante de uma banca coberta na feira.
+credit: { role: fotografia, name: Gustavo Palhares }
+rights:
+  status: cleared
+  holder: Gustavo Palhares
+  basis: authorship
+  scope: publicação pública no site; autorização nominal das pessoas retratadas não confirmada
+checksum: sha256:691720b03da2ef6336b55141b4224953b36ba22782bed312a5a925f46011e0a4

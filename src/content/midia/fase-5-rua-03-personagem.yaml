@@ -1,0 +1,10 @@
+src: ../../assets/media/fase-5-rua-03-personagem.jpg
+description: Pessoa caminha por uma feira carregando um objeto coberto por folhagens.
+defaultAlt: Pessoa caminha pela feira carregando um objeto coberto por folhagens.
+credit: { role: fotografia, name: Gustavo Palhares }
+rights:
+  status: cleared
+  holder: Gustavo Palhares
+  basis: authorship
+  scope: publicação pública no site; autorização nominal das pessoas retratadas não confirmada
+checksum: sha256:c784ff5a97888255aa447ff8b4b7f1097ef56d8ccef90b1f18c7da81d58c1cdc

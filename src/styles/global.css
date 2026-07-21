@@ -24,7 +24,6 @@
   }
 
   body {
-    min-block-size: 100vh;
     margin: 0;
     overflow-x: clip;
     background: var(--color-paper);

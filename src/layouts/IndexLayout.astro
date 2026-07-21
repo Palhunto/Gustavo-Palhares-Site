@@ -1,0 +1,54 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+
+interface Props {
+  title: string;
+  introduction: string;
+  count: number;
+  emptyMessage?: string;
+  family: "trabalhos" | "caderno" | "colecoes" | "edicoes";
+}
+
+const { title, introduction, count, emptyMessage, family } = Astro.props;
+const hasCustomEmptyState = Astro.slots.has("empty-state");
+---
+
+<BaseLayout
+  title={title}
+  description={introduction}
+  variant={family === "trabalhos"
+    ? "works-index"
+    : family === "caderno"
+      ? "caderno-index"
+      : family === "colecoes"
+        ? "collections-index"
+        : "standard"}
+>
+  <header class:list={["family-header", `family-header--${family}`]}>
+    <p class="family-header__marker type-label">Publicação / {title}</p>
+    <div class="family-header__copy">
+      <h1 class="type-section">{title}</h1>
+      <p class="type-intro">{introduction}</p>
+    </div>
+    <p class="family-header__count type-meta number-stable">
+      {
+        count === 0
+          ? "Nenhuma entrada publicada"
+          : `${String(count).padStart(2, "0")} ${count === 1 ? "entrada" : "entradas"}`
+      }
+    </p>
+  </header>
+
+  {
+    count === 0 && hasCustomEmptyState ? (
+      <slot name="empty-state" />
+    ) : count === 0 ? (
+      <section class="empty-state" aria-label={`Estado atual de ${title}`}>
+        <p class="type-label">Estado editorial</p>
+        <p class="type-intro">{emptyMessage}</p>
+      </section>
+    ) : (
+      <slot />
+    )
+  }
+</BaseLayout>

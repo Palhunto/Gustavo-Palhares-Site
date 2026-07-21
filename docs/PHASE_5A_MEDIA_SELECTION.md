@@ -1,12 +1,14 @@
 # Seleção de mídia — Fase 5A
 
+> Registro histórico de seleção. Na Fase 5B, os 11 derivados aprovados foram promovidos ao catálogo canônico, sem duplicar arquivos; os seis IDs da Fase 4 continuam reutilizados. O manifesto privado preserva o estado original do intake.
+
 ## Escopo e processamento
 
 A pasta `seleção fase 5/` contém 17 JPEGs: oito em `Show/` e nove em `Rua/`. Todos foram decodificados integralmente; não há RAW, TIFF, PSD, arquivo incompatível ou corrompido. Os originais medem entre 4,3 e 13,8 MB e chegam a 5568 px no lado maior. Eles permanecem intocados e fora do Git.
 
 Uma comparação visual e perceptual encontrou seis imagens já catalogadas na Fase 4. Esses ativos reutilizam seus IDs existentes. Para as outras 11 imagens foram gerados derivados JPEG sRGB de até 2560 px, sem EXIF incorporado, totalizando aproximadamente 3 MB antes das variantes produzidas pelo Astro.
 
-Como o loader de imagens da collection `midia` copia qualquer ativo referenciado para o build mesmo sem rota, os 11 registros pendentes ficam no manifesto privado `docs/phase-5a/media-pendente.yaml`, fora das collections carregadas em produção. Os derivados permanecem canônicos em `src/assets/media/`, mas só poderão migrar para `src/content/midia/` após clearance público. O script `check:private-media` interrompe o build se um arquivo `fase-5-*` chegar a `dist/`.
+Na Fase 5A, como o loader de imagens da collection `midia` copia qualquer ativo referenciado para o build mesmo sem rota, os 11 registros pendentes ficaram no manifesto privado `docs/phase-5a/media-pendente.yaml`, fora das collections carregadas em produção. Após o clearance e a promoção da Fase 5B, eles passaram a `src/content/midia/`. O script `check:private-media` agora distingue mídia canônica aprovada, mídia privada e derivados órfãos pelo estado editorial real.
 
 ## Inventário e mapeamento
 
@@ -39,4 +41,4 @@ As duas ordens seguem a numeração dos arquivos originais. O autor autorizou am
 
 ## Limites editoriais
 
-As funções da tabela descrevem somente o papel provisório de cada quadro na montagem. Títulos, resumos, datas, cidade, assunto, formato, contexto, ordem, crédito e clearance editorial dos dois trabalhos foram confirmados. Nomes das pessoas, local exato, horário, organização, contexto histórico e legendas individuais não foram registrados. Os 11 novos ativos permanecem no catálogo técnico privado até a ativação editorial da Fase 5B; nenhuma mídia ou rota é publicada nesta operação.
+As funções da tabela descrevem somente o papel provisório de cada quadro na montagem. Títulos, resumos, datas, cidade, assunto, formato, contexto, ordem, crédito e clearance editorial dos dois trabalhos foram confirmados. Nomes das pessoas, local exato, horário, organização, contexto histórico e legendas individuais não foram registrados. Na Fase 5A, os 11 novos ativos permaneceram no catálogo técnico privado e nenhuma mídia ou rota foi publicada. A Fase 5B promoveu somente esses ativos e os dois trabalhos aprovados; o manifesto permanece como registro do intake original.

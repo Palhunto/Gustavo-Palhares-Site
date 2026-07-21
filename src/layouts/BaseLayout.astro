@@ -11,7 +11,15 @@ interface Props {
   robots?: RobotsDirective;
   socialImage?: string;
   type?: "website" | "article";
-  variant?: "standard" | "provisional" | "utility";
+  variant?:
+    | "standard"
+    | "provisional"
+    | "utility"
+    | "works-index"
+    | "caderno-index"
+    | "collections-index"
+    | "about-page"
+    | "contact-page";
 }
 
 const {

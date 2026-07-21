@@ -1,0 +1,35 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import EditionLayout from "../../layouts/EditionLayout.astro";
+import {
+  buildInstant,
+  isIndividuallyPublic,
+} from "../../lib/content/publication.ts";
+
+export async function getStaticPaths() {
+  const at = buildInstant();
+  const entries = (await getCollection("edicoes")).filter((entry) =>
+    isIndividuallyPublic(entry, at),
+  );
+  return entries.map((entry) => ({
+    params: { numero: String(entry.data.number).padStart(3, "0") },
+    props: { entry },
+  }));
+}
+
+interface Props {
+  entry: CollectionEntry<"edicoes">;
+}
+const { entry } = Astro.props;
+---
+
+<EditionLayout
+  number={entry.data.number}
+  period={entry.data.period}
+  title={entry.data.title}
+  summary={entry.data.summary}
+>
+  <ol class="edition-blocks" aria-label="Composição documental da edição">
+    {entry.data.blocks.map((block) => <li class="type-meta">{block.type}</li>)}
+  </ol>
+</EditionLayout>
