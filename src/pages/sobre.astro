@@ -1,0 +1,20 @@
+---
+import { siteConfig } from "../config/site.ts";
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Sobre"
+  description="Informações sobre Gustavo Palhares e sua publicação digital pessoal."
+>
+  <article class="page-intro" aria-labelledby="titulo-sobre">
+    <p class="page-intro__marker type-label">Sobre</p>
+    <div class="page-intro__body">
+      <h1 id="titulo-sobre">{siteConfig.name}</h1>
+      <p class="type-intro">
+        Gustavo Palhares é o autor desta publicação digital pessoal, criada para
+        reunir trabalhos fotográficos, textos e um arquivo permanente.
+      </p>
+    </div>
+  </article>
+</BaseLayout>

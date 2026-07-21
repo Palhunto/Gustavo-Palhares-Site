@@ -1,0 +1,82 @@
+documentType: catalogo-tecnico-fora-da-collection
+productionCollection: midia
+publicationClearance: pending
+generatesRoute: false
+items:
+  - id: fase-5-rua-02-plano-geral
+    asset: src/assets/media/fase-5-rua-02-plano-geral.jpg
+    description: Pedestres e uma pessoa com bicicleta circulam por um corredor de feira em preto e branco.
+    defaultAlt: Pessoas circulam por corredor de feira, uma delas com bicicleta.
+    credit: { role: fotografia, name: Gustavo Palhares }
+    rights: { status: pending, holder: Gustavo Palhares, basis: authorship, scope: processamento técnico local na Fase 5A }
+    checksum: sha256:4d7650196ab9babb9cd28800a7f3348faf109e9ebba3d02b149ae7e05886c6b2
+  - id: fase-5-rua-03-personagem
+    asset: src/assets/media/fase-5-rua-03-personagem.jpg
+    description: Pessoa caminha por uma feira carregando um objeto coberto por folhagens.
+    defaultAlt: Pessoa em feira carrega objeto coberto por folhagens.
+    credit: { role: fotografia, name: Gustavo Palhares }
+    rights: { status: pending, holder: Gustavo Palhares, basis: authorship, scope: processamento técnico local na Fase 5A }
+    checksum: sha256:c784ff5a97888255aa447ff8b4b7f1097ef56d8ccef90b1f18c7da81d58c1cdc
+  - id: fase-5-rua-05-relacao
+    asset: src/assets/media/fase-5-rua-05-relacao.jpg
+    description: Duas pessoas conversam diante de uma banca coberta em fotografia preto e branco.
+    defaultAlt: Duas pessoas conversam diante de banca em uma feira.
+    credit: { role: fotografia, name: Gustavo Palhares }
+    rights: { status: pending, holder: Gustavo Palhares, basis: authorship, scope: processamento técnico local na Fase 5A }
+    checksum: sha256:691720b03da2ef6336b55141b4224953b36ba22782bed312a5a925f46011e0a4
+  - id: fase-5-rua-06-detalhe
+    asset: src/assets/media/fase-5-rua-06-detalhe.jpg
+    description: Pequenos cartazes e chaveiros pendem de um expositor em fotografia preto e branco.
+    defaultAlt: Cartazes e chaveiros pendurados em expositor de feira.
+    credit: { role: fotografia, name: Gustavo Palhares }
+    rights: { status: pending, holder: Gustavo Palhares, basis: authorship, scope: processamento técnico local na Fase 5A }
+    checksum: sha256:5b2b8c931e66946382c20150230aafc6e31e852f7474f8965d905704301ec498
+  - id: fase-5-rua-07-espaco
+    asset: src/assets/media/fase-5-rua-07-espaco.jpg
+    description: Corredor de feira com barracas e pessoas caminhando em fotografia preto e branco.
+    defaultAlt: Pessoas caminham entre barracas em corredor de feira.
+    credit: { role: fotografia, name: Gustavo Palhares }
+    rights: { status: pending, holder: Gustavo Palhares, basis: authorship, scope: processamento técnico local na Fase 5A }
+    checksum: sha256:0d0e93049e4527577a3af69bc93c02e1d61b8b26b212e438d92de627ee360054
+  - id: fase-5-rua-08-sequencia
+    asset: src/assets/media/fase-5-rua-08-sequencia.jpg
+    description: Pessoa caminha diante de uma banca ao ar livre em fotografia preto e branco.
+    defaultAlt: Pessoa caminha diante de banca em uma feira.
+    credit: { role: fotografia, name: Gustavo Palhares }
+    rights: { status: pending, holder: Gustavo Palhares, basis: authorship, scope: processamento técnico local na Fase 5A }
+    checksum: sha256:bf7e0701b5f73a9102bf51961238dfb9e1fc84e4cce03f3de20b5d0c29ca3328
+  - id: fase-5-show-01-abertura
+    asset: src/assets/media/fase-5-show-01-abertura.jpg
+    description: Pessoa segura um microfone diante de fumaça iluminada em vermelho e azul.
+    defaultAlt: Pessoa com microfone diante de fumaça vermelha e azul.
+    credit: { role: fotografia, name: Gustavo Palhares }
+    rights: { status: pending, holder: Gustavo Palhares, basis: authorship, scope: processamento técnico local na Fase 5A }
+    checksum: sha256:03c0fba201eb354ac4e784deadbb7bdc4028431df6f76f40e53846ed9bc1e9b8
+  - id: fase-5-show-02-ambiente
+    asset: src/assets/media/fase-5-show-02-ambiente.jpg
+    description: Mão segura um telefone que enquadra uma pessoa em um palco iluminado.
+    defaultAlt: Telefone enquadra uma pessoa em palco sob luz violeta.
+    credit: { role: fotografia, name: Gustavo Palhares }
+    rights: { status: pending, holder: Gustavo Palhares, basis: authorship, scope: processamento técnico local na Fase 5A }
+    checksum: sha256:3e5391b79a8abaf7cfa2a425959668fe55e69041867580ee06230ef5825053cb
+  - id: fase-5-show-03-silhueta
+    asset: src/assets/media/fase-5-show-03-silhueta.jpg
+    description: Silhueta de pessoa com microfone diante de luz azul e um feixe branco.
+    defaultAlt: Pessoa em silhueta segura um microfone diante de luz azul.
+    credit: { role: fotografia, name: Gustavo Palhares }
+    rights: { status: pending, holder: Gustavo Palhares, basis: authorship, scope: processamento técnico local na Fase 5A }
+    checksum: sha256:a5559005437bf364cf6e6c3b065c0296498a023570e762d05df362594eb1e53a
+  - id: fase-5-show-07-confronto
+    asset: src/assets/media/fase-5-show-07-confronto.jpg
+    description: Pessoa canta próxima a um microfone enquanto braços se apoiam diante do palco.
+    defaultAlt: Pessoa canta junto a braços erguidos diante do palco.
+    credit: { role: fotografia, name: Gustavo Palhares }
+    rights: { status: pending, holder: Gustavo Palhares, basis: authorship, scope: processamento técnico local na Fase 5A }
+    checksum: sha256:4878fece856c4b2c332c30d0c8d76449d1646256ab1a66627450bb1ac37c732d
+  - id: fase-5-show-08-encerramento
+    asset: src/assets/media/fase-5-show-08-encerramento.jpg
+    description: Grupo posa diante de um público com braços erguidos.
+    defaultAlt: Grupo diante de público com braços erguidos ao fundo.
+    credit: { role: fotografia, name: Gustavo Palhares }
+    rights: { status: pending, holder: Gustavo Palhares, basis: authorship, scope: processamento técnico local na Fase 5A }
+    checksum: sha256:eba5e6aa5b585952c9398d69280a758d49fc1b9a70b5bd112969c8afb4905bab

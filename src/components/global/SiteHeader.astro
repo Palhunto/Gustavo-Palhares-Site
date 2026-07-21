@@ -1,0 +1,35 @@
+---
+import { siteConfig } from "../../config/site.ts";
+
+interface Props {
+  currentPath: string;
+}
+
+const { currentPath } = Astro.props;
+const normalizedPath =
+  currentPath.length > 1 ? currentPath.replace(/\/$/, "") : currentPath;
+---
+
+<header class="site-header">
+  <a class="site-identity" href="/" aria-label="Gustavo Palhares — início">
+    <span class="site-identity__name">{siteConfig.name}</span>
+    <span class="site-identity__role">{siteConfig.shortIdentity}</span>
+  </a>
+
+  <nav class="site-header__nav type-nav" aria-label="Navegação principal">
+    <ul role="list">
+      {
+        siteConfig.navigation.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              aria-current={normalizedPath === item.href ? "page" : undefined}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</header>

@@ -1,0 +1,51 @@
+---
+import SiteFooter from "../components/global/SiteFooter.astro";
+import SiteHeader from "../components/global/SiteHeader.astro";
+import SeoHead from "../components/global/SeoHead.astro";
+import type { RobotsDirective } from "../lib/seo/metadata.ts";
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+  robots?: RobotsDirective;
+  socialImage?: string;
+  type?: "website" | "article";
+  variant?: "standard" | "provisional" | "utility";
+}
+
+const {
+  title,
+  description,
+  robots,
+  socialImage,
+  type = "website",
+  variant = "standard",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <SeoHead
+      title={title}
+      description={description}
+      pathname={Astro.url.pathname}
+      robots={robots}
+      socialImage={socialImage}
+      type={type}
+    />
+  </head>
+  <body class:list={["public-page", `public-page--${variant}`]}>
+    <a class="skip-link" href="#conteudo-principal">Ir para o conteúdo</a>
+    <div class="site-frame">
+      <SiteHeader currentPath={Astro.url.pathname} />
+      <main id="conteudo-principal" class="site-main">
+        <slot />
+      </main>
+      <SiteFooter />
+    </div>
+  </body>
+</html>

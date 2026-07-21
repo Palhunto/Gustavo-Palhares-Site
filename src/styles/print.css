@@ -19,6 +19,8 @@
 
   .skip-link,
   .publication-nav,
+  .site-header__nav,
+  .site-footer nav,
   .technical-controls,
   .button-editorial,
   [data-print="hide"] {

@@ -13,8 +13,11 @@ describe("integração do gate com o build", () => {
     const packageJson = JSON.parse(await readFile("package.json", "utf8")) as {
       scripts: Record<string, string>;
     };
-    expect(packageJson.scripts.build).toMatch(
-      /^npm run content:validate && astro build$/,
+    expect(packageJson.scripts.build).toBe(
+      "npm run content:validate && astro build && npm run check:private-media",
+    );
+    expect(packageJson.scripts["check:private-media"]).toBe(
+      "node --experimental-strip-types scripts/check-private-media.ts",
     );
   });
 

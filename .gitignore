@@ -6,6 +6,7 @@ node_modules/
 dist/
 coverage/
 /seleção inicial/
+/seleção fase 5/
 
 # Environment and logs
 .env

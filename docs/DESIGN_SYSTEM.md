@@ -241,3 +241,13 @@ Sequências preservam a ordem do documento e recompõem de uma coluna para duas,
 `MetadataBlock` e `Credits` usam listas de descrição; `PullQuote` usa `blockquote` e só inclui `cite` quando há atribuição; `RelatedWorks` não cria link sem `href`. Como a política MDX proíbe expressões, os atributos estruturados `items` de `MetadataBlock`, `Credits` e `RelatedWorks` são arrays JSON passados como texto e validados pelo componente antes da renderização. A rota técnica `/exploracoes/componentes-editoriais/` é `noindex`, usa fotografias catalogadas e não antecipa páginas públicas da Fase 5.
 
 A lista nominal fica em `src/lib/mdx/component-names.ts` e é compartilhada pela política de validação e pelo registro de renderização. Imports, exports, expressões arbitrárias, caminhos diretos e componentes fora desse conjunto continuam rejeitados.
+
+## 15. Estrutura global pública da Fase 5A
+
+`BaseLayout` estabelece o documento público, metadata, skip link, cabeçalho, um único `main` e rodapé. A identidade e os destinos disponíveis derivam de `src/config/site.ts`; nesta fase a navegação contém somente Início, Sobre e Contato. Os cabeçalhos próprios das explorações técnicas permanecem isolados para não confundir amostra e produto.
+
+O cabeçalho usa assinatura serifada e identificação curta, com navegação sempre visível e flexível. Não há menu cliente. O rodapé repete apenas identidade, rotas existentes e ano do build; contatos ausentes não produzem regiões ou links vazios. Todos os alvos mantêm altura mínima de 44 px e o estado corrente usa `aria-current`.
+
+As páginas institucionais usam uma abertura assimétrica com marcador arquivístico, título e coluna de leitura. A homepage continua deliberadamente provisória e não contém capa, edição ou trabalhos. Contato permanece `noindex` enquanto não houver canal público confirmado, e a página 404 oferece somente rotas existentes.
+
+A camada de SEO compõe título, descrição, robots, Open Graph e Twitter Card. Canonical e URLs sociais só são emitidos quando `SITE_URL` fornece uma base HTTP ou HTTPS válida; a ausência de domínio não gera URL fictícia.

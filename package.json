@@ -5,17 +5,19 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "npm run content:validate && astro build",
+    "build": "npm run content:validate && astro build && npm run check:private-media",
     "preview": "astro preview",
     "check": "astro check",
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "content:validate": "node --experimental-strip-types scripts/content-validate.ts",
+    "check:private-media": "node --experimental-strip-types scripts/check-private-media.ts",
     "test": "vitest run",
     "test:content": "vitest run tests/content",
     "test:components": "vitest run tests/components",
-    "validate": "npm run check && npm run lint && npm run format:check && npm run test:content && npm run test:components && npm run content:validate && npm run build"
+    "test:pages": "vitest run tests/pages",
+    "validate": "npm run check && npm run lint && npm run format:check && npm run test:content && npm run test:components && npm run test:pages && npm run content:validate && npm run build"
   },
   "engines": {
     "node": ">=24.0.0 <25"

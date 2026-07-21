@@ -1,22 +1,22 @@
 ---
-import "../styles/global.css";
+import { siteConfig } from "../config/site.ts";
+import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<!doctype html>
-<html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <meta
-      name="description"
-      content="Publicação digital de Gustavo Palhares em construção."
-    />
-    <title>Gustavo Palhares</title>
-  </head>
-  <body class="construction-page">
-    <main class="construction-page__main">
-      <h1>Gustavo Palhares</h1>
-      <p>Publicação digital em construção.</p>
-    </main>
-  </body>
-</html>
+<BaseLayout
+  description={siteConfig.description}
+  variant="provisional"
+  robots="noindex, follow"
+>
+  <section class="provisional-home" aria-labelledby="titulo-inicio">
+    <p class="type-label">{siteConfig.shortIdentity}</p>
+    <h1 id="titulo-inicio">{siteConfig.name}</h1>
+    <div class="provisional-home__body type-intro">
+      <p>Esta publicação está em construção.</p>
+      <nav class="page-paths type-nav" aria-label="Caminhos disponíveis">
+        <a class="link-editorial" href="/sobre">Sobre</a>
+        <a class="link-editorial" href="/contato">Contato</a>
+      </nav>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,23 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Página não encontrada"
+  description="A página solicitada não foi encontrada."
+  robots="noindex, nofollow"
+  variant="utility"
+>
+  <section class="page-intro" aria-labelledby="titulo-404">
+    <p class="page-intro__marker type-label number-stable">Erro 404</p>
+    <div class="page-intro__body">
+      <h1 id="titulo-404">Página não encontrada</h1>
+      <p class="type-intro">A página solicitada não existe neste endereço.</p>
+      <nav class="page-paths type-nav" aria-label="Recuperação de navegação">
+        <a class="link-editorial" href="/">Voltar ao início</a>
+        <a class="link-editorial" href="/sobre">Sobre</a>
+        <a class="link-editorial" href="/contato">Contato</a>
+      </nav>
+    </div>
+  </section>
+</BaseLayout>

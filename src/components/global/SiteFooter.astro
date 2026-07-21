@@ -1,0 +1,36 @@
+---
+import { siteConfig } from "../../config/site.ts";
+
+const year = new Date().getUTCFullYear();
+---
+
+<footer class="site-footer type-meta">
+  <div>
+    <p class="site-footer__name">{siteConfig.name}</p>
+    <p>{siteConfig.shortIdentity}</p>
+  </div>
+
+  <nav aria-label="Navegação do rodapé">
+    <ul role="list">
+      {
+        siteConfig.navigation.map((item) => (
+          <li>
+            <a href={item.href}>{item.label}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+
+  {
+    siteConfig.contacts.length > 0 && (
+      <address>
+        {siteConfig.contacts.map((contact) => (
+          <a href={contact.href}>{contact.label}</a>
+        ))}
+      </address>
+    )
+  }
+
+  <p class="site-footer__year number-stable">© {year}</p>
+</footer>

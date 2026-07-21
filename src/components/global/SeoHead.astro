@@ -1,0 +1,46 @@
+---
+import {
+  createSeoMetadata,
+  type RobotsDirective,
+} from "../../lib/seo/metadata.ts";
+
+interface Props {
+  title?: string;
+  description?: string;
+  pathname: string;
+  robots?: RobotsDirective;
+  socialImage?: string;
+  type?: "website" | "article";
+}
+
+const metadata = createSeoMetadata({
+  ...Astro.props,
+  siteUrl: import.meta.env.SITE_URL,
+});
+---
+
+<title>{metadata.title}</title>
+<meta name="description" content={metadata.description} />
+<meta name="robots" content={metadata.robots} />
+{metadata.canonical && <link rel="canonical" href={metadata.canonical} />}
+<meta property="og:title" content={metadata.title} />
+<meta property="og:description" content={metadata.description} />
+<meta property="og:type" content={metadata.type} />
+<meta property="og:locale" content="pt_BR" />
+{metadata.canonical && <meta property="og:url" content={metadata.canonical} />}
+{
+  metadata.socialImage && (
+    <meta property="og:image" content={metadata.socialImage} />
+  )
+}
+<meta
+  name="twitter:card"
+  content={metadata.socialImage ? "summary_large_image" : "summary"}
+/>
+<meta name="twitter:title" content={metadata.title} />
+<meta name="twitter:description" content={metadata.description} />
+{
+  metadata.socialImage && (
+    <meta name="twitter:image" content={metadata.socialImage} />
+  )
+}
