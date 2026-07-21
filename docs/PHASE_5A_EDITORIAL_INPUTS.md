@@ -2,19 +2,15 @@
 
 ## Trabalho de show
 
-- título final e resumo;
-- data, cidade e nome do evento ou contexto;
-- `formato`, `contexto` e número de arquivo;
-- confirmação da ordem das imagens;
-- clearance de publicação e eventuais legendas.
+- Nenhuma entrada editorial pendente para os campos solicitados na Fase 5A.
+- A autorização recebida cobre a publicação pública pelo autor, mas não registra autorização nominal das pessoas retratadas.
+- A ativação da rota permanece reservada à Fase 5B.
 
 ## Trabalho de rua
 
-- título final e resumo;
-- data, cidade e contexto;
-- `formato` e número de arquivo;
-- confirmação da ordem das imagens;
-- clearance de publicação e eventuais legendas.
+- Nenhuma entrada editorial pendente para os campos solicitados na Fase 5A.
+- A autorização recebida cobre a publicação pública pelo autor, mas não registra autorização nominal das pessoas retratadas.
+- A ativação da rota permanece reservada à Fase 5B.
 
 ## Caderno
 

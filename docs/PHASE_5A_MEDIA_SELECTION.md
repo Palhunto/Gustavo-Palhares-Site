@@ -30,6 +30,13 @@ Como o loader de imagens da collection `midia` copia qualquer ativo referenciado
 | `Rua/rua-08-sequencia.jpg` | 5568 × 3712 | horizontal, 3:2 | `fase-5-rua-08-sequencia` | continuidade | nova; direitos `pending` |
 | `Rua/rua-09-encerramento.jpg` | 5568 × 3712 | horizontal, 3:2 | `fase-4-retrato-amplo` | encerramento e retrato próximo | reutiliza ativo da Fase 4 |
 
+## Ordens confirmadas e clearance
+
+- **Nephillin — Uma cobertura sem credencial:** `fase-5-show-01-abertura`, `fase-5-show-02-ambiente`, `fase-5-show-03-silhueta`, `fase-4-palco-02`, `fase-4-palco-03`, `fase-4-palco-04`, `fase-5-show-07-confronto`, `fase-5-show-08-encerramento`.
+- **Feira do Rolo:** `fase-4-mercado-01`, `fase-5-rua-02-plano-geral`, `fase-5-rua-03-personagem`, `fase-4-mercado-02`, `fase-5-rua-05-relacao`, `fase-5-rua-06-detalhe`, `fase-5-rua-07-espaco`, `fase-5-rua-08-sequencia`, `fase-4-retrato-amplo`.
+
+As duas ordens seguem a numeração dos arquivos originais. O autor autorizou ambos os trabalhos para publicação pública no site, sem legendas individuais. Essa autorização não registra autorização nominal das pessoas retratadas. Os trabalhos continuam privados, e suas rotas só poderão ser ativadas na Fase 5B.
+
 ## Limites editoriais
 
-As funções da tabela descrevem somente o papel provisório de cada quadro na montagem. Evento, data, cidade, contexto, nomes das pessoas, legendas e narrativa não foram confirmados. Os 11 novos ativos possuem crédito de fotografia de Gustavo Palhares e autorização de processamento técnico, mas permanecem `pending` para publicação. A liberação técnica registrada na Fase 4 para os seis ativos reutilizados também não substitui o clearance editorial dos futuros trabalhos.
+As funções da tabela descrevem somente o papel provisório de cada quadro na montagem. Títulos, resumos, datas, cidade, assunto, formato, contexto, ordem, crédito e clearance editorial dos dois trabalhos foram confirmados. Nomes das pessoas, local exato, horário, organização, contexto histórico e legendas individuais não foram registrados. Os 11 novos ativos permanecem no catálogo técnico privado até a ativação editorial da Fase 5B; nenhuma mídia ou rota é publicada nesta operação.
