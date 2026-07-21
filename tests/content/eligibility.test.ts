@@ -37,14 +37,17 @@ describe("elegibilidade central", () => {
     const rssIds = getRssEntries(dataset, BUILD_INSTANT).map(
       (entry) => entry.id,
     );
-    expect(rssIds).toContain("fixture-texto");
+    expect(rssIds).not.toContain("fixture-texto");
     expect(rssIds).toContain("fixture-agendado-vencido");
     expect(rssIds).not.toContain("fixture-arquivado");
     expect(rssIds).not.toContain("fixture-agendado-futuro");
 
-    expect(
-      getSitemapEntries(dataset, BUILD_INSTANT).map((entry) => entry.id),
-    ).toContain("fixture-arquivado");
+    const sitemapIds = getSitemapEntries(dataset, BUILD_INSTANT).map(
+      (entry) => entry.id,
+    );
+    expect(sitemapIds).toContain("fixture-arquivado");
+    expect(sitemapIds).not.toContain("fixture-texto");
+    expect(sitemapIds).not.toContain("fixture-trabalho");
     expect(
       getSearchEntries(dataset, BUILD_INSTANT).map((entry) => entry.id),
     ).toContain("fixture-arquivado");

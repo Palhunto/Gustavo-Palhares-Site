@@ -9,6 +9,7 @@ interface Props {
   title?: string;
   description?: string;
   robots?: RobotsDirective;
+  canonical?: boolean;
   socialImage?: string;
   type?: "website" | "article";
   variant?:
@@ -26,6 +27,7 @@ const {
   title,
   description,
   robots,
+  canonical,
   socialImage,
   type = "website",
   variant = "standard",
@@ -42,6 +44,7 @@ const {
       description={description}
       pathname={Astro.url.pathname}
       robots={robots}
+      canonical={canonical}
       socialImage={socialImage}
       type={type}
     />

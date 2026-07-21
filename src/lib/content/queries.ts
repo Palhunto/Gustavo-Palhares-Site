@@ -2,11 +2,10 @@ import {
   isArchived,
   isEffectivelyPublic,
   isHomepageEligible,
-  isRssEligible,
   isSearchEligible,
-  isSitemapEligible,
   isStandardCirculation,
 } from "./eligibility.ts";
+import { isPublicInRss, isPublicInSitemap } from "./publication.ts";
 import { referenceId } from "./schemas/shared.ts";
 import type {
   CadernoData,
@@ -16,9 +15,14 @@ import type {
   PessoaData,
   TrabalhoData,
 } from "./schemas/collections.ts";
-import type { CollectionName, ContentDataset, ContentEntry } from "./types.ts";
+import type {
+  CollectionName,
+  ContentDataset,
+  ContentEntry,
+  EntryOf,
+} from "./types.ts";
 
-type EditorialEntry = ContentEntry<
+type EditorialEntry = EntryOf<
   "trabalhos" | "caderno" | "colecoes" | "edicoes" | "paginas"
 >;
 
@@ -64,7 +68,7 @@ export function getSitemapEntries(
   buildInstant: Date,
 ): EditorialEntry[] {
   return editorialEntries(dataset).filter((entry) =>
-    isSitemapEligible(entry.data, buildInstant),
+    isPublicInSitemap(entry, buildInstant),
   );
 }
 
@@ -148,7 +152,7 @@ export function getRssEntries(
   buildInstant: Date,
 ): Array<ContentEntry<"trabalhos"> | ContentEntry<"caderno">> {
   return [...dataset.trabalhos, ...dataset.caderno].filter((entry) =>
-    isRssEligible(entry.data, buildInstant),
+    isPublicInRss(entry, buildInstant),
   );
 }
 

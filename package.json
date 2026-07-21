@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "astro dev",
     "build": "npm run content:validate && astro build && npm run check:private-media",
+    "build:technical": "node --experimental-strip-types scripts/run-site-command.ts technical build",
+    "build:public": "node --experimental-strip-types scripts/run-site-command.ts public build",
     "preview": "astro preview",
     "check": "astro check",
     "lint": "eslint .",
@@ -17,7 +19,8 @@
     "test:content": "vitest run tests/content",
     "test:components": "vitest run tests/components",
     "test:pages": "vitest run tests/pages",
-    "validate": "npm run check && npm run lint && npm run format:check && npm run test:content && npm run test:components && npm run test:pages && npm run content:validate && npm run build"
+    "validate": "npm run check && npm run lint && npm run format:check && npm run test:content && npm run test:components && npm run test:pages && npm run content:validate && npm run build",
+    "validate:public": "node --experimental-strip-types scripts/run-site-command.ts public validate"
   },
   "engines": {
     "node": ">=24.0.0 <25"

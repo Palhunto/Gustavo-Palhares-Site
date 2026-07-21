@@ -8,15 +8,13 @@ interface Props {
   title?: string;
   description?: string;
   pathname: string;
+  canonical?: boolean;
   robots?: RobotsDirective;
   socialImage?: string;
   type?: "website" | "article";
 }
 
-const metadata = createSeoMetadata({
-  ...Astro.props,
-  siteUrl: import.meta.env.SITE_URL,
-});
+const metadata = createSeoMetadata(Astro.props);
 ---
 
 <title>{metadata.title}</title>

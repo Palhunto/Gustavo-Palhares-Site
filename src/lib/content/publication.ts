@@ -2,13 +2,15 @@ import type { CollectionEntry } from "astro:content";
 
 import {
   isEffectivelyPublic,
+  isRssEligible,
+  isSitemapEligible,
   isStandardCirculation,
   type EligibilityInput,
 } from "./eligibility.ts";
 import { referenceId } from "./schemas/shared.ts";
 
 export type PublicEditorialCollection =
-  "trabalhos" | "caderno" | "colecoes" | "edicoes";
+  "trabalhos" | "caderno" | "colecoes" | "edicoes" | "paginas";
 
 const TECHNICAL_FIXTURES: Readonly<
   Record<PublicEditorialCollection, ReadonlySet<string>>
@@ -17,6 +19,7 @@ const TECHNICAL_FIXTURES: Readonly<
   caderno: new Set(["fixture-texto"]),
   colecoes: new Set(["fixture-colecao"]),
   edicoes: new Set(["001"]),
+  paginas: new Set(["sobre", "contato"]),
 };
 
 export const APPROVED_WORK_PRESENTATION = {
@@ -78,6 +81,20 @@ export function isInPublicCirculation(
   return (
     !isTechnicalFixture(entry.collection, entry.id) &&
     isStandardCirculation(entry.data, at)
+  );
+}
+
+export function isPublicInSitemap(entry: PublicEntryLike, at: Date): boolean {
+  return (
+    !isTechnicalFixture(entry.collection, entry.id) &&
+    isSitemapEligible(entry.data, at)
+  );
+}
+
+export function isPublicInRss(entry: PublicEntryLike, at: Date): boolean {
+  return (
+    !isTechnicalFixture(entry.collection, entry.id) &&
+    isRssEligible(entry.data, at)
   );
 }
 

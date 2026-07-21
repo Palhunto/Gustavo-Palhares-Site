@@ -71,7 +71,7 @@ describe("layout e rotas globais da Fase 5A", () => {
     expect(pages.home).toContain("Esta publicação está em construção.");
     expect(pages.home).not.toMatch(/(?:LeadImage|edicoes|trabalhos)/i);
     expect(pages.about).toContain('title="Sobre"');
-    expect(pages.contact).toContain('robots="noindex, nofollow"');
+    expect(pages.contact).toContain('robots="index, follow"');
     expect(pages.contact).toContain("https://wa.me/5514997173521");
     expect(pages.contact).toContain(
       "https://www.instagram.com/gustavopalharess/",

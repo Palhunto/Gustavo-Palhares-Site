@@ -229,11 +229,12 @@ describe("Fase 5B — promoção e superfície pública", () => {
       "edicoes/[numero].astro",
     ])
       expect(pageFiles).toContain(route);
-    expect(
-      pageFiles.some((name) =>
-        /(?:arquivo|busca|rss|sitemap|robots)/i.test(name),
-      ),
-    ).toBe(false);
+    expect(pageFiles.some((name) => /(?:arquivo|busca)/i.test(name))).toBe(
+      false,
+    );
+    expect(pageFiles).toEqual(
+      expect.arrayContaining(["rss.xml.ts", "sitemap.xml.ts", "robots.txt.ts"]),
+    );
 
     const dataset = await loadContentFromDisk(root);
     expect(
