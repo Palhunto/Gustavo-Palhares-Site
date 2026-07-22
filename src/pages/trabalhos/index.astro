@@ -12,20 +12,31 @@ import {
   workPresentation,
 } from "../../lib/content/publication.ts";
 import { publicRoutes } from "../../lib/routes/public.ts";
+import { configuredSiteUrl } from "../../lib/seo/site-url.ts";
+import { worksIndexStructuredData } from "../../lib/seo/structured-data.ts";
 
 const at = buildInstant();
+const introduction =
+  "Ensaios, coberturas e projetos fotográficos organizados como documentos permanentes.";
 const works = sortWorksByDate(
   (await getCollection("trabalhos")).filter((entry) =>
     isInPublicCirculation(entry, at),
   ),
 );
+const structuredData = worksIndexStructuredData(
+  works,
+  at,
+  configuredSiteUrl(),
+  introduction,
+);
 ---
 
 <IndexLayout
   title="Trabalhos"
-  introduction="Ensaios, coberturas e projetos fotográficos organizados como documentos permanentes."
+  introduction={introduction}
   count={works.length}
   family="trabalhos"
+  structuredData={structuredData}
 >
   <ol class="works-index" role="list">
     {

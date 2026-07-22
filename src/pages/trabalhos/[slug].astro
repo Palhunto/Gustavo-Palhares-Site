@@ -14,6 +14,9 @@ import {
 } from "../../lib/content/publication.ts";
 import { MDX_COMPONENT_REGISTRY } from "../../lib/mdx/registry.ts";
 import { publicRoutes } from "../../lib/routes/public.ts";
+import { resolveSocialImage } from "../../lib/seo/social-image.ts";
+import { configuredSiteUrl } from "../../lib/seo/site-url.ts";
+import { creativeWorkStructuredData } from "../../lib/seo/structured-data.ts";
 
 export async function getStaticPaths() {
   const at = buildInstant();
@@ -40,6 +43,14 @@ const { entry, continuity } = Astro.props;
 const { Content } = await render(entry);
 const presentation = workPresentation(entry.id, entry.data);
 const at = buildInstant();
+const siteUrl = configuredSiteUrl();
+const socialImage = await resolveSocialImage(entry.data.cover, at, siteUrl);
+const structuredData = creativeWorkStructuredData(
+  entry,
+  at,
+  siteUrl,
+  socialImage,
+);
 const related = publicRelatedWorks(
   entry,
   await getCollection("trabalhos"),
@@ -78,6 +89,10 @@ const linkFor = (work: CollectionEntry<"trabalhos"> | undefined) =>
   archived={entry.data.status === "archived"}
   previous={linkFor(continuity.previous)}
   next={linkFor(continuity.next)}
+  socialImage={socialImage}
+  publishedTime={entry.data.publishAt}
+  modifiedTime={entry.data.updatedAt}
+  structuredData={structuredData}
 >
   <Content components={MDX_COMPONENT_REGISTRY} />
 </WorkLayout>

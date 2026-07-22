@@ -6,19 +6,30 @@ import {
   isInPublicCirculation,
 } from "../../lib/content/publication.ts";
 import { publicRoutes } from "../../lib/routes/public.ts";
+import { configuredSiteUrl } from "../../lib/seo/site-url.ts";
+import { collectionPageStructuredData } from "../../lib/seo/structured-data.ts";
 
 const at = buildInstant();
+const introduction =
+  "O Caderno reunirá textos, notas e processos ligados à fotografia e ao jornalismo.";
 const entries = (await getCollection("caderno")).filter((entry) =>
   isInPublicCirculation(entry, at),
+);
+const structuredData = collectionPageStructuredData(
+  configuredSiteUrl(),
+  publicRoutes.cadernoIndex,
+  "Caderno",
+  introduction,
 );
 ---
 
 <IndexLayout
   title="Caderno"
-  introduction="O Caderno reunirá textos, notas e processos ligados à fotografia e ao jornalismo."
+  introduction={introduction}
   count={entries.length}
   emptyMessage="Ainda não há textos editoriais publicados nesta família."
   family="caderno"
+  structuredData={structuredData}
 >
   <Fragment slot="empty-state">
     <section

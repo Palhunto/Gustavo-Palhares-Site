@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
+import type { StructuredData } from "../lib/seo/metadata.ts";
 
 interface Props {
   title: string;
@@ -7,15 +8,18 @@ interface Props {
   count: number;
   emptyMessage?: string;
   family: "trabalhos" | "caderno" | "colecoes" | "edicoes";
+  structuredData?: StructuredData;
 }
 
-const { title, introduction, count, emptyMessage, family } = Astro.props;
+const { title, introduction, count, emptyMessage, family, structuredData } =
+  Astro.props;
 const hasCustomEmptyState = Astro.slots.has("empty-state");
 ---
 
 <BaseLayout
   title={title}
   description={introduction}
+  structuredData={structuredData}
   variant={family === "trabalhos"
     ? "works-index"
     : family === "caderno"

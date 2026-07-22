@@ -2,12 +2,17 @@
 import { siteConfig } from "../config/site.ts";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { publicRoutes } from "../lib/routes/public.ts";
+import { configuredSiteUrl } from "../lib/seo/site-url.ts";
+import { personStructuredData } from "../lib/seo/structured-data.ts";
+
+const structuredData = personStructuredData(configuredSiteUrl());
 ---
 
 <BaseLayout
   title="Sobre"
   description="Informações sobre Gustavo Palhares e sua publicação digital pessoal."
   variant="about-page"
+  structuredData={structuredData}
 >
   <article class="about-page" aria-labelledby="titulo-sobre">
     <header class="about-page__intro">

@@ -15,6 +15,7 @@
     "format:check": "prettier --check .",
     "content:validate": "node --experimental-strip-types scripts/content-validate.ts",
     "check:private-media": "node --experimental-strip-types scripts/check-private-media.ts",
+    "check:public-integrity": "node --experimental-strip-types scripts/check-public-integrity.ts",
     "test": "vitest run",
     "test:content": "vitest run tests/content",
     "test:components": "vitest run tests/components",

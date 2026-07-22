@@ -158,6 +158,10 @@ Uma camada única produz:
 
 O RSS exclui `draft`, `review`, `scheduled` futuro e `archived`. Entradas `archived` conservam canonical e podem permanecer no sitemap e na busca, mas não voltam ao RSS. Páginas de filtros combinatórios não devem criar canonicals ou URLs indexáveis infinitas.
 
+Canonical, `og:url`, imagens sociais absolutas e dados estruturados dependentes de URL só são emitidos quando `SITE_URL` está configurada. O build público recusa host local, IP privado e domínio reservado; o build técnico pode usar explicitamente o domínio `.test`. Não existe imagem social global: somente trabalhos com capa centralmente resolvida, derivado público existente e direitos `cleared` recebem `og:image` e `twitter:image`.
+
+Os tipos JSON-LD fundadores são `WebSite` na homepage, `Person` em Sobre, `CreativeWork` em cada trabalho e `CollectionPage` nos índices editoriais; o índice de Trabalhos acrescenta `ItemList` apenas com entradas realmente elegíveis. Contato não declara entidade comercial e famílias vazias não publicam listas fictícias. `npm run check:public-integrity`, executado ao final dos comandos públicos, audita metadata única, links, assets, imagens sociais, isolamento técnico e concordância entre canonical, sitemap e RSS no `dist/`.
+
 ### 3.9 Navegação e movimento
 
 Links normais e documentos completos são a base. View Transitions nativas entre documentos podem conectar imagens, títulos e elementos persistentes sem converter o produto em SPA.

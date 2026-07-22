@@ -2,7 +2,11 @@
 import SiteFooter from "../components/global/SiteFooter.astro";
 import SiteHeader from "../components/global/SiteHeader.astro";
 import SeoHead from "../components/global/SeoHead.astro";
-import type { RobotsDirective } from "../lib/seo/metadata.ts";
+import type {
+  RobotsDirective,
+  SocialImageMetadata,
+  StructuredData,
+} from "../lib/seo/metadata.ts";
 import "../styles/global.css";
 
 interface Props {
@@ -10,8 +14,12 @@ interface Props {
   description?: string;
   robots?: RobotsDirective;
   canonical?: boolean;
-  socialImage?: string;
+  socialImage?: SocialImageMetadata;
   type?: "website" | "article";
+  author?: string;
+  publishedTime?: string;
+  modifiedTime?: string;
+  structuredData?: StructuredData;
   variant?:
     | "standard"
     | "provisional"
@@ -30,6 +38,10 @@ const {
   canonical,
   socialImage,
   type = "website",
+  author,
+  publishedTime,
+  modifiedTime,
+  structuredData,
   variant = "standard",
 } = Astro.props;
 ---
@@ -47,6 +59,10 @@ const {
       canonical={canonical}
       socialImage={socialImage}
       type={type}
+      author={author}
+      publishedTime={publishedTime}
+      modifiedTime={modifiedTime}
+      structuredData={structuredData}
     />
   </head>
   <body class:list={["public-page", `public-page--${variant}`]}>

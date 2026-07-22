@@ -34,6 +34,10 @@ describe("configuração pública global", () => {
     const withoutBase = createSeoMetadata({
       pathname: publicRoutes.sobre,
       siteUrl: "",
+      socialImage: {
+        url: "/social.jpg",
+        alt: "Retrato factual",
+      },
     });
     expect(withoutBase.canonical).toBeUndefined();
     expect(withoutBase.socialImage).toBeUndefined();
@@ -41,10 +45,20 @@ describe("configuração pública global", () => {
     const withBase = createSeoMetadata({
       pathname: publicRoutes.sobre,
       siteUrl: "https://example.test",
-      socialImage: "/social.jpg",
+      socialImage: {
+        url: "/social.jpg",
+        alt: "Retrato factual",
+        width: 1200,
+        height: 630,
+      },
     });
     expect(withBase.canonical).toBe("https://example.test/sobre/");
-    expect(withBase.socialImage).toBe("https://example.test/social.jpg");
+    expect(withBase.socialImage).toEqual({
+      url: "https://example.test/social.jpg",
+      alt: "Retrato factual",
+      width: 1200,
+      height: 630,
+    });
   });
 
   it("normaliza somente bases HTTP(S) e protege o gate público", () => {

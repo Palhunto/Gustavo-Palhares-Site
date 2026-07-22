@@ -6,19 +6,30 @@ import {
   isInPublicCirculation,
 } from "../../lib/content/publication.ts";
 import { publicRoutes } from "../../lib/routes/public.ts";
+import { configuredSiteUrl } from "../../lib/seo/site-url.ts";
+import { collectionPageStructuredData } from "../../lib/seo/structured-data.ts";
 
 const at = buildInstant();
+const introduction =
+  "Edições preservam composições editoriais publicadas como documentos permanentes.";
 const entries = (await getCollection("edicoes")).filter((entry) =>
   isInPublicCirculation(entry, at),
+);
+const structuredData = collectionPageStructuredData(
+  configuredSiteUrl(),
+  publicRoutes.edicoesIndex,
+  "Edições",
+  introduction,
 );
 ---
 
 <IndexLayout
   title="Edições"
-  introduction="Edições preservam composições editoriais publicadas como documentos permanentes."
+  introduction={introduction}
   count={entries.length}
   emptyMessage="Ainda não há uma edição editorial aprovada para publicação."
   family="edicoes"
+  structuredData={structuredData}
 >
   <ol class="family-list" role="list">
     {

@@ -40,4 +40,24 @@ if (result.error) {
   console.error(result.error.message);
   process.exit(1);
 }
-process.exit(result.status ?? 1);
+if (result.status !== 0) process.exit(result.status ?? 1);
+
+if (mode === "public") {
+  const integrity = spawnSync(
+    process.execPath,
+    [npmCli, "run", "check:public-integrity"],
+    {
+      cwd: process.cwd(),
+      env: environment,
+      stdio: "inherit",
+      windowsHide: true,
+    },
+  );
+  if (integrity.error) {
+    console.error(integrity.error.message);
+    process.exit(1);
+  }
+  if (integrity.status !== 0) process.exit(integrity.status ?? 1);
+}
+
+process.exit(0);

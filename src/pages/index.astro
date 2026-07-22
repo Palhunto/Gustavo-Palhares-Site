@@ -2,12 +2,17 @@
 import { siteConfig } from "../config/site.ts";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { publicRoutes } from "../lib/routes/public.ts";
+import { configuredSiteUrl } from "../lib/seo/site-url.ts";
+import { websiteStructuredData } from "../lib/seo/structured-data.ts";
+
+const structuredData = websiteStructuredData(configuredSiteUrl());
 ---
 
 <BaseLayout
   description={siteConfig.description}
   variant="provisional"
-  robots="noindex, follow"
+  robots="index, follow"
+  structuredData={structuredData}
 >
   <section class="provisional-home" aria-labelledby="titulo-inicio">
     <p class="type-label">{siteConfig.shortIdentity}</p>

@@ -1,8 +1,12 @@
 ---
 import {
   createSeoMetadata,
+  serializeStructuredData,
   type RobotsDirective,
+  type SocialImageMetadata,
+  type StructuredData,
 } from "../../lib/seo/metadata.ts";
+import { siteConfig } from "../../config/site.ts";
 
 interface Props {
   title?: string;
@@ -10,8 +14,12 @@ interface Props {
   pathname: string;
   canonical?: boolean;
   robots?: RobotsDirective;
-  socialImage?: string;
+  socialImage?: SocialImageMetadata;
   type?: "website" | "article";
+  author?: string;
+  publishedTime?: string;
+  modifiedTime?: string;
+  structuredData?: StructuredData;
 }
 
 const metadata = createSeoMetadata(Astro.props);
@@ -24,11 +32,38 @@ const metadata = createSeoMetadata(Astro.props);
 <meta property="og:title" content={metadata.title} />
 <meta property="og:description" content={metadata.description} />
 <meta property="og:type" content={metadata.type} />
+<meta property="og:site_name" content={siteConfig.name} />
 <meta property="og:locale" content="pt_BR" />
 {metadata.canonical && <meta property="og:url" content={metadata.canonical} />}
 {
   metadata.socialImage && (
-    <meta property="og:image" content={metadata.socialImage} />
+    <>
+      <meta property="og:image" content={metadata.socialImage.url} />
+      <meta property="og:image:alt" content={metadata.socialImage.alt} />
+      {metadata.socialImage.width && (
+        <meta
+          property="og:image:width"
+          content={String(metadata.socialImage.width)}
+        />
+      )}
+      {metadata.socialImage.height && (
+        <meta
+          property="og:image:height"
+          content={String(metadata.socialImage.height)}
+        />
+      )}
+    </>
+  )
+}
+{metadata.author && <meta name="author" content={metadata.author} />}
+{
+  metadata.type === "article" && metadata.publishedTime && (
+    <meta property="article:published_time" content={metadata.publishedTime} />
+  )
+}
+{
+  metadata.type === "article" && metadata.modifiedTime && (
+    <meta property="article:modified_time" content={metadata.modifiedTime} />
   )
 }
 <meta
@@ -39,6 +74,18 @@ const metadata = createSeoMetadata(Astro.props);
 <meta name="twitter:description" content={metadata.description} />
 {
   metadata.socialImage && (
-    <meta name="twitter:image" content={metadata.socialImage} />
+    <>
+      <meta name="twitter:image" content={metadata.socialImage.url} />
+      <meta name="twitter:image:alt" content={metadata.socialImage.alt} />
+    </>
+  )
+}
+{
+  metadata.structuredData && (
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={serializeStructuredData(metadata.structuredData)}
+    />
   )
 }

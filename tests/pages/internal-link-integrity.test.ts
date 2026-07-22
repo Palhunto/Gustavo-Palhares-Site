@@ -6,6 +6,8 @@ import { promisify } from "node:util";
 import { beforeAll, describe, expect, it } from "vitest";
 
 import { publicRoutes } from "../../src/lib/routes/public.ts";
+import { auditPublicIntegrity } from "../../src/lib/seo/public-integrity.ts";
+import { normalizeSiteUrl } from "../../src/lib/seo/site-url.ts";
 
 const execFileAsync = promisify(execFile);
 const root = process.cwd();
@@ -61,6 +63,7 @@ beforeAll(async () => {
     env: {
       ...process.env,
       BUILD_INSTANT: "2026-07-21T12:00:00-03:00",
+      SITE_URL: "https://publicacao.test",
     },
     maxBuffer: 50 * 1024 * 1024,
     windowsHide: true,
@@ -68,6 +71,20 @@ beforeAll(async () => {
 }, 120_000);
 
 describe("integridade dos links internos gerados", () => {
+  it("aprova metadata, distribuição, assets e isolamento público em dist", async () => {
+    const report = await auditPublicIntegrity({
+      root,
+      base: normalizeSiteUrl("https://publicacao.test")!,
+    });
+    expect(report.errors).toEqual([]);
+    expect(report).toMatchObject({
+      htmlPages: 12,
+      publicPages: 9,
+      socialImages: 2,
+      structuredDataBlocks: 8,
+    });
+  });
+
   it("faz todo link interno apontar para uma rota HTML emitida", async () => {
     const pages = await emittedHtml();
     const routes = new Set(pages.map((page) => page.route));
@@ -182,7 +199,15 @@ describe("integridade dos links internos gerados", () => {
       expect(count(html, /\bdata-media-id=/g), contract.route).toBe(
         contract.numbers.length,
       );
-      expect(count(html, new RegExp(contract.archiveNumber, "g"))).toBe(1);
+      expect(
+        count(
+          html,
+          new RegExp(
+            `<p class="type-meta number-stable">${contract.archiveNumber}<\\/p>`,
+            "g",
+          ),
+        ),
+      ).toBe(1);
       expect(html).not.toMatch(/(?:1\.\s*01|2\.\s*02)/);
     }
   });

@@ -6,19 +6,30 @@ import {
   isInPublicCirculation,
 } from "../../lib/content/publication.ts";
 import { publicRoutes } from "../../lib/routes/public.ts";
+import { configuredSiteUrl } from "../../lib/seo/site-url.ts";
+import { collectionPageStructuredData } from "../../lib/seo/structured-data.ts";
 
 const at = buildInstant();
+const introduction =
+  "Coleções organizam relações curatoriais entre trabalhos e textos publicados.";
 const entries = (await getCollection("colecoes")).filter((entry) =>
   isInPublicCirculation(entry, at),
+);
+const structuredData = collectionPageStructuredData(
+  configuredSiteUrl(),
+  publicRoutes.colecoesIndex,
+  "Coleções",
+  introduction,
 );
 ---
 
 <IndexLayout
   title="Coleções"
-  introduction="Coleções organizam relações curatoriais entre trabalhos e textos publicados."
+  introduction={introduction}
   count={entries.length}
   emptyMessage="Ainda não há uma coleção editorial aprovada para circulação pública."
   family="colecoes"
+  structuredData={structuredData}
 >
   <Fragment slot="empty-state">
     <section

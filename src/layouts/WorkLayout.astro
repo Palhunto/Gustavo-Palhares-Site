@@ -4,6 +4,10 @@ import LeadImage from "../components/editorial/LeadImage.astro";
 import RelatedWorks, {
   type RelatedWorkItem,
 } from "../components/editorial/RelatedWorks.astro";
+import type {
+  SocialImageMetadata,
+  StructuredData,
+} from "../lib/seo/metadata.ts";
 import BaseLayout from "./BaseLayout.astro";
 
 interface ContinuityItem {
@@ -25,6 +29,10 @@ interface Props {
   archived?: boolean;
   previous?: ContinuityItem;
   next?: ContinuityItem;
+  socialImage?: SocialImageMetadata;
+  publishedTime?: string;
+  modifiedTime?: string;
+  structuredData?: StructuredData;
 }
 
 const {
@@ -41,12 +49,25 @@ const {
   archived = false,
   previous,
   next,
+  socialImage,
+  publishedTime,
+  modifiedTime,
+  structuredData,
 } = Astro.props;
 const [titleLead, ...titleRemainder] = title.split(" — ");
 const titleContinuation = titleRemainder.join(" — ");
 ---
 
-<BaseLayout title={title} description={summary} type="article">
+<BaseLayout
+  title={title}
+  description={summary}
+  type="article"
+  socialImage={socialImage}
+  author="Gustavo Palhares"
+  publishedTime={publishedTime}
+  modifiedTime={modifiedTime}
+  structuredData={structuredData}
+>
   <article class="work-document">
     <header class="work-header">
       <div class="work-header__marker">

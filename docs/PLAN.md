@@ -203,6 +203,10 @@ Componentes editoriais maduros.
 
 Curadoria da capa, filtros e Pagefind.
 
+### Registro de conclusão da Fase 5C
+
+A distribuição pública (5C-A) e o contrato de metadata social, dados estruturados e integridade do `dist/` (5C-B) estão implementados. O gate público exige `SITE_URL` válida e executa a auditoria consolidada após o build; a fundação não define imagem social institucional. A Fase 6 permanece condicionada à aprovação explícita deste fechamento.
+
 ## 8. Fase 6 — Homepage por edição
 
 ### Objetivo
