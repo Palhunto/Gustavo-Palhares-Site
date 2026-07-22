@@ -1,0 +1,20 @@
+---
+interface Props {
+  id: string;
+  number: string;
+  title: string;
+  note: string;
+}
+
+const { id, number, title, note } = Astro.props;
+---
+
+<header class="home-section-heading">
+  <p class="home-section-heading__number number-stable" aria-hidden="true">
+    {number}
+  </p>
+  <h2 id={id}>{title}</h2>
+  <span class="home-section-heading__line" data-motion-rule aria-hidden="true"
+  ></span>
+  <p class="home-section-heading__note type-meta">{note}</p>
+</header>

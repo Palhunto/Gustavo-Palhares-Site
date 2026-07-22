@@ -1,0 +1,93 @@
+---
+import {
+  homepageEditorialCopy,
+  homepageSections,
+} from "../../config/homepage.ts";
+import { siteConfig } from "../../config/site.ts";
+import type { HomepageModel } from "../../lib/homepage/model.ts";
+import { publicRoutes } from "../../lib/routes/public.ts";
+import EditorialImage from "../editorial/EditorialImage.astro";
+
+interface Props {
+  model: HomepageModel;
+}
+
+const { model } = Astro.props;
+const [givenName, ...familyName] = siteConfig.name.split(" ");
+---
+
+<section
+  id="capa"
+  class="home-moment home-cover"
+  aria-labelledby="home-title"
+  data-motion-section="capa"
+>
+  <div class="home-cover__status type-meta">
+    <p>{homepageEditorialCopy.coverLabel}</p>
+    <p>{homepageEditorialCopy.coverStatus}</p>
+  </div>
+
+  <div class="home-cover__copy">
+    <h1 id="home-title" class="home-cover__title">
+      {
+        [givenName, familyName.join(" ")].map((line, index) => (
+          <span class="home-cover__title-line" data-motion-title-line>
+            <span class="home-cover__title-word">
+              {line}
+              {index === 0 && " "}
+            </span>
+            <span
+              class="home-cover__title-rule"
+              data-motion-rule
+              aria-hidden="true"
+            />
+          </span>
+        ))
+      }
+    </h1>
+    <p class="home-cover__intro">{homepageEditorialCopy.coverPlaceholder}</p>
+    <a class="home-cover__enter type-nav" href="#trabalhos">
+      {homepageEditorialCopy.enterLabel}
+      <span aria-hidden="true">↓</span>
+    </a>
+  </div>
+
+  <a
+    class="home-cover__media"
+    href={publicRoutes.trabalho(model.cover.work.data.slug)}
+    aria-label={`Ver ${model.cover.work.data.title}`}
+  >
+    <EditorialImage
+      asset={model.cover.media}
+      layout="lead"
+      priority={true}
+      showCaption={false}
+    />
+  </a>
+
+  <nav class="home-cover__rail" aria-label="Índice desta página">
+    <ol role="list">
+      {
+        homepageSections.map((section, index) => (
+          <li
+            class:list={[
+              "home-cover__rail-item",
+              { "is-current": index === 0 },
+            ]}
+            data-motion-section-indicator={section.id}
+          >
+            <a href={`#${section.id}`}>
+              <span class="home-cover__rail-number number-stable">
+                {section.number}
+              </span>
+              <span class="type-label">{section.label}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ol>
+    <a class="home-cover__scroll type-nav" href="#trabalhos">
+      Rolar <span aria-hidden="true">↓</span>
+    </a>
+  </nav>
+</section>

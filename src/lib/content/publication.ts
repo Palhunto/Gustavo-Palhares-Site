@@ -156,6 +156,25 @@ export function formatEditorialDate(start: string, end?: string): string {
   return end ? `${format(start)} a ${format(end)}` : format(start);
 }
 
+export function formatCompactEditorialDate(
+  start: string,
+  end?: string,
+): string {
+  if (!end || start.slice(0, 7) !== end.slice(0, 7)) {
+    return formatEditorialDate(start, end);
+  }
+
+  const monthAndYear = new Intl.DateTimeFormat("pt-BR", {
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  }).format(new Date(`${start}T00:00:00Z`));
+  const startDay = Number.parseInt(start.slice(8, 10), 10);
+  const endDay = Number.parseInt(end.slice(8, 10), 10);
+
+  return `${startDay}–${endDay} de ${monthAndYear}`;
+}
+
 export function formatLocation(location?: {
   city: string;
   subdivision?: string;

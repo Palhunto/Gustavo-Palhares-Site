@@ -1,28 +1,29 @@
 ---
+import { getCollection } from "astro:content";
+
+import HomePage from "../components/home/HomePage.astro";
 import { siteConfig } from "../config/site.ts";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { publicRoutes } from "../lib/routes/public.ts";
+import { buildInstant } from "../lib/content/publication.ts";
+import { buildHomepageModel } from "../lib/homepage/model.ts";
 import { configuredSiteUrl } from "../lib/seo/site-url.ts";
 import { websiteStructuredData } from "../lib/seo/structured-data.ts";
 
+const at = buildInstant();
+const works = await getCollection("trabalhos");
+const model = buildHomepageModel({
+  works,
+  at,
+});
 const structuredData = websiteStructuredData(configuredSiteUrl());
 ---
 
 <BaseLayout
   description={siteConfig.description}
-  variant="provisional"
+  variant="homepage"
   robots="index, follow"
   structuredData={structuredData}
+  showHeader={false}
 >
-  <section class="provisional-home" aria-labelledby="titulo-inicio">
-    <p class="type-label">{siteConfig.shortIdentity}</p>
-    <h1 id="titulo-inicio">{siteConfig.name}</h1>
-    <div class="provisional-home__body type-intro">
-      <p>Esta publicação está em construção.</p>
-      <nav class="page-paths type-nav" aria-label="Caminhos disponíveis">
-        <a class="link-editorial" href={publicRoutes.sobre}>Sobre</a>
-        <a class="link-editorial" href={publicRoutes.contato}>Contato</a>
-      </nav>
-    </div>
-  </section>
+  <HomePage model={model} />
 </BaseLayout>

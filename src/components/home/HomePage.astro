@@ -1,0 +1,20 @@
+---
+import type { HomepageModel } from "../../lib/homepage/model.ts";
+import HomeCover from "./HomeCover.astro";
+import HomeIndex from "./HomeIndex.astro";
+import HomePresence from "./HomePresence.astro";
+import HomeWorks from "./HomeWorks.astro";
+
+interface Props {
+  model: HomepageModel;
+}
+
+const { model } = Astro.props;
+---
+
+<div class="homepage-composition" data-homepage-composition>
+  <HomeCover model={model} />
+  <HomeWorks model={model} />
+  <HomePresence />
+  <HomeIndex model={model} />
+</div>

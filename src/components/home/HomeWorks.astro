@@ -1,0 +1,102 @@
+---
+import { homepageEditorialCopy } from "../../config/homepage.ts";
+import {
+  formatCompactEditorialDate,
+  formatLocation,
+  workPresentation,
+} from "../../lib/content/publication.ts";
+import type { HomepageModel } from "../../lib/homepage/model.ts";
+import { publicRoutes } from "../../lib/routes/public.ts";
+import EditorialImage from "../editorial/EditorialImage.astro";
+import HomeSectionHeading from "./HomeSectionHeading.astro";
+
+interface Props {
+  model: HomepageModel;
+}
+
+const { model } = Astro.props;
+---
+
+<section
+  id="trabalhos"
+  class="home-moment home-works"
+  aria-labelledby="home-works-title"
+  data-motion-section="trabalhos"
+>
+  <HomeSectionHeading
+    id="home-works-title"
+    number="02"
+    title="Trabalhos"
+    note={homepageEditorialCopy.worksCountLabel(model.works.length)}
+  />
+  <div class="home-works__list">
+    {
+      model.works.map((work, index) => {
+        const presentation = workPresentation(work.id, work.data);
+        const location = formatLocation(work.data.location);
+        return (
+          <article
+            class:list={[
+              "home-work",
+              index === 0 ? "home-work--lead" : "home-work--reverse",
+            ]}
+            data-motion-item={`work-${index + 1}`}
+          >
+            <a
+              class="home-work__media"
+              href={publicRoutes.trabalho(work.data.slug)}
+              aria-label={`Ver ${work.data.title}`}
+            >
+              <EditorialImage
+                asset={work.data.cover}
+                layout="sequence"
+                showCaption={false}
+              />
+            </a>
+            <div class="home-work__copy">
+              <p class="home-work__number number-stable">
+                {String(index + 1).padStart(2, "0")}
+              </p>
+              <p class="home-work__format type-label">
+                {presentation.formatLabel}
+              </p>
+              <h3 class="home-work__title">
+                <a href={publicRoutes.trabalho(work.data.slug)}>
+                  {work.data.title}
+                </a>
+              </h3>
+              <p class="home-work__summary">{work.data.summary}</p>
+              <dl class="home-work__meta type-meta">
+                <div>
+                  <dt>Data</dt>
+                  <dd>
+                    {formatCompactEditorialDate(
+                      work.data.date,
+                      work.data.dateEnd,
+                    )}
+                  </dd>
+                </div>
+                {location && (
+                  <div>
+                    <dt>Cidade</dt>
+                    <dd>{location}</dd>
+                  </div>
+                )}
+                <div>
+                  <dt>Contexto</dt>
+                  <dd>{presentation.contextLabel}</dd>
+                </div>
+              </dl>
+              <a
+                class="home-work__cta type-nav"
+                href={publicRoutes.trabalho(work.data.slug)}
+              >
+                Ver trabalho <span aria-hidden="true">⟶</span>
+              </a>
+            </div>
+          </article>
+        );
+      })
+    }
+  </div>
+</section>

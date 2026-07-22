@@ -2,6 +2,7 @@
 import SiteFooter from "../components/global/SiteFooter.astro";
 import SiteHeader from "../components/global/SiteHeader.astro";
 import SeoHead from "../components/global/SeoHead.astro";
+import HomeFooter from "../components/home/HomeFooter.astro";
 import type {
   RobotsDirective,
   SocialImageMetadata,
@@ -28,7 +29,9 @@ interface Props {
     | "caderno-index"
     | "collections-index"
     | "about-page"
-    | "contact-page";
+    | "contact-page"
+    | "homepage";
+  showHeader?: boolean;
 }
 
 const {
@@ -43,6 +46,7 @@ const {
   modifiedTime,
   structuredData,
   variant = "standard",
+  showHeader = true,
 } = Astro.props;
 ---
 
@@ -68,11 +72,11 @@ const {
   <body class:list={["public-page", `public-page--${variant}`]}>
     <a class="skip-link" href="#conteudo-principal">Ir para o conteúdo</a>
     <div class="site-frame">
-      <SiteHeader currentPath={Astro.url.pathname} />
+      {showHeader && <SiteHeader currentPath={Astro.url.pathname} />}
       <main id="conteudo-principal" class="site-main">
         <slot />
       </main>
-      <SiteFooter />
+      {variant === "homepage" ? <HomeFooter /> : <SiteFooter />}
     </div>
   </body>
 </html>

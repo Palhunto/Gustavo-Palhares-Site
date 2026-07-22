@@ -1,0 +1,64 @@
+---
+import { homepageEditorialCopy } from "../../config/homepage.ts";
+import HomeSectionHeading from "./HomeSectionHeading.astro";
+
+const caderno = homepageEditorialCopy.presence.find(
+  (item) => item.key === "caderno",
+)!;
+const secondary = homepageEditorialCopy.presence.filter(
+  (item) => item.key !== "caderno",
+);
+---
+
+<section
+  id="publicacao"
+  class="home-moment home-presence"
+  aria-labelledby="home-presence-title"
+  data-motion-section="publicacao"
+>
+  <HomeSectionHeading
+    id="home-presence-title"
+    number="03"
+    title="Publicação e presença"
+    note={homepageEditorialCopy.presenceLabel}
+  />
+
+  <div class="home-presence__composition">
+    <article class="home-presence__feature" data-motion-item="presence-caderno">
+      <div class="home-presence__feature-copy">
+        <h3>{caderno.title}</h3>
+        <p>{caderno.placeholder}</p>
+        <dl class="home-presence__state type-meta">
+          <div>
+            <dt>{homepageEditorialCopy.presenceState.label}</dt>
+            <dd>{homepageEditorialCopy.presenceState.value}</dd>
+          </div>
+        </dl>
+        <a class="type-nav" href={caderno.href}>
+          {caderno.action}
+          <span aria-hidden="true">⟶</span>
+        </a>
+      </div>
+    </article>
+
+    <div class="home-presence__secondary" data-motion-item="presence-grid">
+      {
+        secondary.map((item) => (
+          <article
+            class:list={[
+              "home-presence__item",
+              `home-presence__item--${item.key}`,
+            ]}
+            data-motion-item={`presence-${item.key}`}
+          >
+            <h3>{item.title}</h3>
+            <p>{item.placeholder}</p>
+            <a class="type-nav" href={item.href}>
+              {item.action} <span aria-hidden="true">⟶</span>
+            </a>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

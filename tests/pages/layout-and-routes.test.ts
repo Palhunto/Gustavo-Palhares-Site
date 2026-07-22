@@ -61,15 +61,18 @@ describe("layout e rotas globais da Fase 5A", () => {
     }
   });
 
-  it("mantém homepage provisória e metadata coerente nas páginas permitidas", async () => {
+  it("mantém homepage editorial e metadata coerente nas páginas permitidas", async () => {
     const pages = {
       home: await source("src/pages/index.astro"),
       about: await source("src/pages/sobre.astro"),
       contact: await source("src/pages/contato.astro"),
       notFound: await source("src/pages/404.astro"),
     };
-    expect(pages.home).toContain("Esta publicação está em construção.");
-    expect(pages.home).not.toMatch(/(?:LeadImage|edicoes|trabalhos)/i);
+    expect(pages.home).toContain("buildHomepageModel");
+    expect(pages.home).toContain("<HomePage model={model} />");
+    expect(pages.home).toContain('variant="homepage"');
+    expect(pages.home).not.toContain("Esta publicação está em construção.");
+    expect(pages.home).not.toMatch(/getCollection\("edicoes"\)|HomeEdition/i);
     expect(pages.about).toContain('title="Sobre"');
     expect(pages.contact).toContain('robots="index, follow"');
     expect(pages.contact).toContain("https://wa.me/5514997173521");
