@@ -22,12 +22,14 @@ const { model } = Astro.props;
   class="home-moment home-works"
   aria-labelledby="home-works-title"
   data-motion-section="trabalhos"
+  data-home-works-motion
 >
   <HomeSectionHeading
     id="home-works-title"
     number="02"
     title="Trabalhos"
     note={homepageEditorialCopy.worksCountLabel(model.works.length)}
+    motion="works"
   />
   <div class="home-works__list">
     {
@@ -35,66 +37,83 @@ const { model } = Astro.props;
         const presentation = workPresentation(work.id, work.data);
         const location = formatLocation(work.data.location);
         return (
-          <article
-            class:list={[
-              "home-work",
-              index === 0 ? "home-work--lead" : "home-work--reverse",
-            ]}
-            data-motion-item={`work-${index + 1}`}
-          >
-            <a
-              class="home-work__media"
-              href={publicRoutes.trabalho(work.data.slug)}
-              aria-label={`Ver ${work.data.title}`}
-            >
-              <EditorialImage
-                asset={work.data.cover}
-                layout="sequence"
-                showCaption={false}
+          <>
+            {index > 0 && (
+              <span
+                class="home-work__divider"
+                data-home-works-divider
+                aria-hidden="true"
               />
-            </a>
-            <div class="home-work__copy">
-              <p class="home-work__number number-stable">
-                {String(index + 1).padStart(2, "0")}
-              </p>
-              <p class="home-work__format type-label">
-                {presentation.formatLabel}
-              </p>
-              <h3 class="home-work__title">
-                <a href={publicRoutes.trabalho(work.data.slug)}>
-                  {work.data.title}
-                </a>
-              </h3>
-              <p class="home-work__summary">{work.data.summary}</p>
-              <dl class="home-work__meta type-meta">
-                <div>
-                  <dt>Data</dt>
-                  <dd>
-                    {formatCompactEditorialDate(
-                      work.data.date,
-                      work.data.dateEnd,
-                    )}
-                  </dd>
-                </div>
-                {location && (
-                  <div>
-                    <dt>Cidade</dt>
-                    <dd>{location}</dd>
-                  </div>
-                )}
-                <div>
-                  <dt>Contexto</dt>
-                  <dd>{presentation.contextLabel}</dd>
-                </div>
-              </dl>
+            )}
+            <article
+              class:list={[
+                "home-work",
+                index === 0 ? "home-work--lead" : "home-work--reverse",
+              ]}
+              data-motion-item={`work-${index + 1}`}
+              data-home-works-item={index === 0 ? "lead" : "reverse"}
+            >
               <a
-                class="home-work__cta type-nav"
+                class="home-work__media"
                 href={publicRoutes.trabalho(work.data.slug)}
+                aria-label={`Ver ${work.data.title}`}
+                data-home-works-image
               >
-                Ver trabalho <span aria-hidden="true">⟶</span>
+                <EditorialImage
+                  asset={work.data.cover}
+                  layout="sequence"
+                  showCaption={false}
+                />
               </a>
-            </div>
-          </article>
+              <div class="home-work__copy">
+                <p
+                  class="home-work__number number-stable"
+                  data-home-works-eyebrow
+                >
+                  {String(index + 1).padStart(2, "0")}
+                </p>
+                <p class="home-work__format type-label" data-home-works-eyebrow>
+                  {presentation.formatLabel}
+                </p>
+                <h3 class="home-work__title" data-home-works-title>
+                  <a href={publicRoutes.trabalho(work.data.slug)}>
+                    {work.data.title}
+                  </a>
+                </h3>
+                <p class="home-work__summary" data-home-works-summary>
+                  {work.data.summary}
+                </p>
+                <dl class="home-work__meta type-meta" data-home-works-meta>
+                  <div>
+                    <dt>Data</dt>
+                    <dd>
+                      {formatCompactEditorialDate(
+                        work.data.date,
+                        work.data.dateEnd,
+                      )}
+                    </dd>
+                  </div>
+                  {location && (
+                    <div>
+                      <dt>Cidade</dt>
+                      <dd>{location}</dd>
+                    </div>
+                  )}
+                  <div>
+                    <dt>Contexto</dt>
+                    <dd>{presentation.contextLabel}</dd>
+                  </div>
+                </dl>
+                <a
+                  class="home-work__cta type-nav"
+                  href={publicRoutes.trabalho(work.data.slug)}
+                  data-home-works-cta
+                >
+                  Ver trabalho <span aria-hidden="true">⟶</span>
+                </a>
+              </div>
+            </article>
+          </>
         );
       })
     }

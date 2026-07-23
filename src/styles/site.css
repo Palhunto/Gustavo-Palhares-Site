@@ -1280,6 +1280,35 @@
   text-transform: uppercase;
 }
 
+.home-work__cta {
+  position: relative;
+  border-block-end: 0;
+}
+
+.home-work__cta::after {
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline-start: 0;
+  inline-size: 100%;
+  block-size: var(--line-hairline);
+  background: var(--color-accent);
+  content: "";
+  transform: scaleX(0.62);
+  transform-origin: left center;
+}
+
+.home-work__cta > span[aria-hidden="true"] {
+  display: inline-block;
+}
+
+.home-work__cta:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.home-work__cta:focus-visible > span[aria-hidden="true"] {
+  transform: translateX(0.22rem);
+}
+
 .home-cover__enter,
 .home-cover__scroll {
   position: relative;
@@ -1395,6 +1424,21 @@
 }
 
 @media (hover: hover) and (pointer: fine) {
+  .home-work__cta::after,
+  .home-work__cta > span[aria-hidden="true"] {
+    transition-duration: var(--home-works-interaction-duration);
+    transition-property: transform;
+    transition-timing-function: var(--ease-editorial);
+  }
+
+  .home-work__cta:hover::after {
+    transform: scaleX(1);
+  }
+
+  .home-work__cta:hover > span[aria-hidden="true"] {
+    transform: translateX(0.22rem);
+  }
+
   .home-cover__enter::after,
   .home-cover__scroll::after,
   .home-cover__rail-item a::after,
@@ -1437,6 +1481,16 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .home-work__cta::after,
+  .home-work__cta > span[aria-hidden="true"] {
+    transition: none;
+  }
+
+  .home-work__cta:hover > span[aria-hidden="true"],
+  .home-work__cta:focus-visible > span[aria-hidden="true"] {
+    transform: none;
+  }
+
   .home-cover__enter::after,
   .home-cover__scroll::after,
   .home-cover__rail-item a::after,
@@ -1459,6 +1513,10 @@
   padding: 0 var(--gutter) clamp(1.75rem, 3vw, 3rem);
 }
 
+.home-works {
+  --home-works-interaction-duration: 180ms;
+}
+
 .home-work {
   display: grid;
   gap: clamp(1.5rem, 3vw, 3rem);
@@ -1474,8 +1532,12 @@
   grid-template-columns: minmax(18rem, 0.72fr) minmax(0, 1.65fr);
 }
 
-.home-work + .home-work {
-  border-block-start: var(--line-hairline) solid var(--color-line);
+.home-work__divider {
+  display: block;
+  inline-size: 100%;
+  block-size: var(--line-hairline);
+  background: var(--color-line);
+  transform-origin: left center;
 }
 
 .home-work--reverse .home-work__media {
@@ -1490,6 +1552,7 @@
 
 .home-work__media {
   display: block;
+  overflow: hidden;
   min-inline-size: 0;
 }
 

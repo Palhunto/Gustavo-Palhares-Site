@@ -4,17 +4,36 @@ interface Props {
   number: string;
   title: string;
   note: string;
+  motion?: "works";
 }
 
-const { id, number, title, note } = Astro.props;
+const { id, number, title, note, motion } = Astro.props;
+const worksMotion = motion === "works";
 ---
 
-<header class="home-section-heading">
-  <p class="home-section-heading__number number-stable" aria-hidden="true">
+<header
+  class="home-section-heading"
+  data-home-works-header={worksMotion || undefined}
+>
+  <p
+    class="home-section-heading__number number-stable"
+    aria-hidden="true"
+    data-home-works-heading-copy={worksMotion || undefined}
+  >
     {number}
   </p>
-  <h2 id={id}>{title}</h2>
-  <span class="home-section-heading__line" data-motion-rule aria-hidden="true"
-  ></span>
-  <p class="home-section-heading__note type-meta">{note}</p>
+  <h2 id={id} data-home-works-heading-copy={worksMotion || undefined}>
+    {title}
+  </h2>
+  <span
+    class="home-section-heading__line"
+    data-motion-rule
+    data-home-works-heading-rule={worksMotion || undefined}
+    aria-hidden="true"></span>
+  <p
+    class="home-section-heading__note type-meta"
+    data-home-works-heading-note={worksMotion || undefined}
+  >
+    {note}
+  </p>
 </header>

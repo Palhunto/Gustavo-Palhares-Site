@@ -30,13 +30,10 @@ const structuredData = websiteStructuredData(configuredSiteUrl());
 
 <script>
   import { MOTION_LIFECYCLE_EVENTS } from "../lib/motion/config.ts";
-  import { initializeHomeCoverMotion } from "../lib/motion/home-cover.ts";
+  import { initializeHomepageMotion } from "../lib/motion/homepage.ts";
 
-  const cover = document.querySelector<HTMLElement>("[data-home-cover-motion]");
-  if (cover) {
-    const cleanup = initializeHomeCoverMotion(cover);
-    window.addEventListener(MOTION_LIFECYCLE_EVENTS.pageHide, cleanup, {
-      once: true,
-    });
-  }
+  const cleanup = initializeHomepageMotion(document);
+  window.addEventListener(MOTION_LIFECYCLE_EVENTS.pageHide, cleanup, {
+    once: true,
+  });
 </script>

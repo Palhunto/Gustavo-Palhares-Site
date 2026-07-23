@@ -96,6 +96,63 @@ export const HOME_COVER_TIMELINE = {
   totalDuration: 1.44,
 } as const;
 
+export const HOME_WORKS_TIMELINES = {
+  trigger: {
+    heading: "top 84%",
+    work: "top 80%",
+    divider: "top 82%",
+  },
+  heading: {
+    at: {
+      copy: 0,
+      rule: 0.1,
+      note: 0.32,
+    },
+    duration: {
+      copy: 0.5,
+      rule: 0.68,
+      note: 0.42,
+    },
+    stagger: 0.055,
+    totalDuration: 0.78,
+  },
+  lead: {
+    at: {
+      image: 0,
+      eyebrow: 0.14,
+      title: 0.28,
+      support: 0.45,
+    },
+    imageDuration: {
+      compact: 0.9,
+      regular: 1.05,
+    },
+    totalDuration: 1.11,
+  },
+  reverse: {
+    at: {
+      eyebrow: 0,
+      image: 0.08,
+      title: 0.22,
+      support: 0.42,
+    },
+    imageDuration: {
+      compact: 0.9,
+      regular: 1.05,
+    },
+    initialClip: "inset(0 7% 0 0)",
+    initialScale: 1.028,
+    totalDuration: 1.13,
+  },
+  text: {
+    duration: 0.52,
+    titleDuration: 0.68,
+    stagger: 0.07,
+    initialOpacity: 0.68,
+  },
+  dividerDuration: 0.68,
+} as const;
+
 export function responsiveMotionTokens(viewportWidth: number) {
   const compact = viewportWidth < MOTION_TOKENS.breakpoint.compact;
   return {

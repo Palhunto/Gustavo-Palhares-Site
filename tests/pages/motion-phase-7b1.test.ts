@@ -32,8 +32,12 @@ describe("Fase 7B1 — coreografia de abertura da capa", () => {
       ].map(source),
     );
 
-    expect(homepage).toContain("initializeHomeCoverMotion");
-    expect(homepage).toContain('from "../lib/motion/home-cover.ts"');
+    const orchestrator = await source("src/lib/motion/homepage.ts");
+
+    expect(homepage).toContain("initializeHomepageMotion");
+    expect(homepage).toContain('from "../lib/motion/homepage.ts"');
+    expect(orchestrator).toContain("initializeHomeCoverMotion");
+    expect(orchestrator).toContain('from "./home-cover.ts"');
     expect(globalLayout).not.toMatch(/gsap|lib\/motion|<script/i);
     expect(otherPublicPages.join("\n")).not.toMatch(
       /gsap|ScrollTrigger|lib\/motion/i,
