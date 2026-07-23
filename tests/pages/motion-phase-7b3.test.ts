@@ -138,17 +138,10 @@ describe("Fase 7B3 — movimento da seção Publicação e presença", () => {
     );
   });
 
-  it("não antecipa movimento no Índice ou footer", async () => {
-    const orchestrator = await source("src/lib/motion/homepage.ts");
-    const futureSections = await Promise.all(
-      ["HomeIndex", "HomeFooter"].map((component) =>
-        source(`src/components/home/${component}.astro`),
-      ),
-    );
+  it("mantém o módulo da 7B3 restrito a Publicação e presença", async () => {
+    const motion = await source("src/lib/motion/home-presence.ts");
 
-    expect(orchestrator).not.toMatch(/initializeHome(?:Index|Footer)Motion/);
-    expect(futureSections.join("\n")).not.toMatch(
-      /data-home-presence|lib\/motion|<script/i,
-    );
+    expect(motion).not.toMatch(/data-home-index|data-home-footer/i);
+    expect(motion).not.toMatch(/initializeHome(?:Index|Footer)Motion/);
   });
 });

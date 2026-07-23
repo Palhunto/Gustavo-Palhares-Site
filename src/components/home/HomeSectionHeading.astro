@@ -4,24 +4,27 @@ interface Props {
   number: string;
   title: string;
   note: string;
-  motion?: "works" | "presence";
+  motion?: "works" | "presence" | "index";
 }
 
 const { id, number, title, note, motion } = Astro.props;
 const worksMotion = motion === "works";
 const presenceMotion = motion === "presence";
+const indexMotion = motion === "index";
 ---
 
 <header
   class="home-section-heading"
   data-home-works-header={worksMotion || undefined}
   data-home-presence-header={presenceMotion || undefined}
+  data-home-index-header={indexMotion || undefined}
 >
   <p
     class="home-section-heading__number number-stable"
     aria-hidden="true"
     data-home-works-heading-copy={worksMotion || undefined}
     data-home-presence-heading-copy={presenceMotion || undefined}
+    data-home-index-heading-copy={indexMotion || undefined}
   >
     {number}
   </p>
@@ -29,6 +32,7 @@ const presenceMotion = motion === "presence";
     id={id}
     data-home-works-heading-copy={worksMotion || undefined}
     data-home-presence-heading-copy={presenceMotion || undefined}
+    data-home-index-heading-copy={indexMotion || undefined}
   >
     {title}
   </h2>
@@ -37,11 +41,13 @@ const presenceMotion = motion === "presence";
     data-motion-rule
     data-home-works-heading-rule={worksMotion || undefined}
     data-home-presence-heading-rule={presenceMotion || undefined}
+    data-home-index-heading-rule={indexMotion || undefined}
     aria-hidden="true"></span>
   <p
     class="home-section-heading__note type-meta"
     data-home-works-heading-note={worksMotion || undefined}
     data-home-presence-heading-note={presenceMotion || undefined}
+    data-home-index-heading-note={indexMotion || undefined}
   >
     {note}
   </p>

@@ -4,8 +4,11 @@ import { siteConfig } from "../../config/site.ts";
 const year = new Date().getUTCFullYear();
 ---
 
-<footer class="site-footer home-footer type-meta">
-  <div class="home-footer__identity">
+<footer class="site-footer home-footer type-meta" data-home-footer-motion>
+  <span class="home-footer__rule" data-home-footer-rule aria-hidden="true"
+  ></span>
+
+  <div class="home-footer__identity" data-home-footer-group>
     <p class="home-footer__monogram" aria-hidden="true">GP</p>
     <div>
       <p class="home-footer__name">{siteConfig.name}</p>
@@ -13,15 +16,23 @@ const year = new Date().getUTCFullYear();
     </div>
   </div>
 
-  <p class="home-footer__copyright number-stable">
+  <p class="home-footer__copyright number-stable" data-home-footer-group>
     {`© ${year} ${siteConfig.name}. Todos os direitos reservados.`}
   </p>
 
-  <a class="home-footer__email" href="mailto:gustavo.palhares49@gmail.com">
+  <a
+    class="home-footer__email"
+    href="mailto:gustavo.palhares49@gmail.com"
+    data-home-footer-group
+  >
     gustavo.palhares49@gmail.com
   </a>
 
-  <nav class="home-footer__channels" aria-label="Canais de contato">
+  <nav
+    class="home-footer__channels"
+    aria-label="Canais de contato"
+    data-home-footer-group
+  >
     <a
       href="https://www.instagram.com/gustavopalharess/"
       aria-label="Instagram de Gustavo Palhares"

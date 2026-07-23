@@ -1,4 +1,5 @@
 import { initializeHomeCoverMotion } from "./home-cover.ts";
+import { initializeHomeIndexEndMotion } from "./home-index-end.ts";
 import { initializeHomePresenceMotion } from "./home-presence.ts";
 import { initializeHomeWorksMotion } from "./home-works.ts";
 
@@ -15,10 +16,18 @@ export function initializeHomepageMotion(documentRoot: Document): Cleanup {
   const presence = documentRoot.querySelector<HTMLElement>(
     "[data-home-presence-motion]",
   );
+  const index = documentRoot.querySelector<HTMLElement>(
+    "[data-home-index-motion]",
+  );
+  const footer = documentRoot.querySelector<HTMLElement>(
+    "[data-home-footer-motion]",
+  );
 
   if (cover) cleanups.push(initializeHomeCoverMotion(cover));
   if (works) cleanups.push(initializeHomeWorksMotion(works));
   if (presence) cleanups.push(initializeHomePresenceMotion(presence));
+  if (index)
+    cleanups.push(initializeHomeIndexEndMotion(index, footer ?? undefined));
 
   return () => {
     cleanups

@@ -33,79 +33,183 @@ const contato = presenceItem("contato");
   class="home-moment home-index"
   aria-labelledby="home-index-title"
   data-motion-section="indice"
+  data-home-index-motion
 >
   <HomeSectionHeading
     id="home-index-title"
     number="04"
     title="Índice"
     note={homepageEditorialCopy.indexLabel}
+    motion="index"
   />
 
-  <div class="home-index__list" data-motion-item="index-list">
+  <div
+    class="home-index__list"
+    data-motion-item="index-list"
+    data-home-index-list
+  >
     <article
       class="home-index__item home-index__item--works"
       data-motion-item="index-item"
+      data-home-index-item="trabalhos"
     >
-      <h3><a href={publicRoutes.trabalhosIndex}>Trabalhos</a></h3>
+      <span
+        class="home-index__rule home-index__rule--inline"
+        data-home-index-rule="inline"
+        aria-hidden="true"></span>
+      <span
+        class="home-index__rule home-index__rule--block"
+        data-home-index-rule="block"
+        aria-hidden="true"></span>
+      <h3 data-home-index-item-title>
+        <a class="home-index__text-link" href={publicRoutes.trabalhosIndex}
+          >Trabalhos</a
+        >
+      </h3>
       <ol class="home-index__works">
         {
           model.works.map((work, index) => (
-            <li>
+            <li data-home-index-work>
               <span class="number-stable" aria-hidden="true">
                 {String(index + 1).padStart(2, "0")}
               </span>
-              <a href={publicRoutes.trabalho(work.data.slug)}>
+              <a
+                class="home-index__text-link"
+                href={publicRoutes.trabalho(work.data.slug)}
+              >
                 {work.data.title.split(" — ")[0]}
               </a>
             </li>
           ))
         }
       </ol>
-      <a class="home-index__action type-nav" href={publicRoutes.trabalhosIndex}>
+      <a
+        class="home-index__action type-nav"
+        href={publicRoutes.trabalhosIndex}
+        data-home-index-item-action
+      >
         Ver todos <span aria-hidden="true">⟶</span>
       </a>
     </article>
 
-    <article class="home-index__item" data-motion-item="index-item">
-      <h3><a href={caderno.href}>{caderno.title}</a></h3>
-      <p class="home-index__status">
+    <article
+      class="home-index__item"
+      data-motion-item="index-item"
+      data-home-index-item="caderno"
+    >
+      <span
+        class="home-index__rule home-index__rule--inline"
+        data-home-index-rule="inline"
+        aria-hidden="true"></span>
+      <span
+        class="home-index__rule home-index__rule--block"
+        data-home-index-rule="block"
+        aria-hidden="true"></span>
+      <h3 data-home-index-item-title>
+        <a class="home-index__text-link" href={caderno.href}>{caderno.title}</a>
+      </h3>
+      <p class="home-index__status" data-home-index-item-state>
         {homepageEditorialCopy.indexStates.caderno}
       </p>
-      <a class="home-index__action type-nav" href={caderno.href}>
+      <a
+        class="home-index__action type-nav"
+        href={caderno.href}
+        data-home-index-item-action
+      >
         {caderno.action}
         <span aria-hidden="true">⟶</span>
       </a>
     </article>
 
-    <article class="home-index__item" data-motion-item="index-item">
-      <h3><a href={colecoes.href}>{colecoes.title}</a></h3>
-      <p class="home-index__status">
+    <article
+      class="home-index__item"
+      data-motion-item="index-item"
+      data-home-index-item="colecoes"
+    >
+      <span
+        class="home-index__rule home-index__rule--inline"
+        data-home-index-rule="inline"
+        aria-hidden="true"></span>
+      <span
+        class="home-index__rule home-index__rule--block"
+        data-home-index-rule="block"
+        aria-hidden="true"></span>
+      <h3 data-home-index-item-title>
+        <a class="home-index__text-link" href={colecoes.href}
+          >{colecoes.title}</a
+        >
+      </h3>
+      <p class="home-index__status" data-home-index-item-state>
         {homepageEditorialCopy.indexStates.colecoes}
       </p>
-      <a class="home-index__action type-nav" href={colecoes.href}>
+      <a
+        class="home-index__action type-nav"
+        href={colecoes.href}
+        data-home-index-item-action
+      >
         {colecoes.action}
         <span aria-hidden="true">⟶</span>
       </a>
     </article>
 
-    <article class="home-index__item" data-motion-item="index-item">
-      <h3><a href={edicoes.href}>{edicoes.title}</a></h3>
-      <p class="home-index__status">
+    <article
+      class="home-index__item"
+      data-motion-item="index-item"
+      data-home-index-item="edicoes"
+    >
+      <span
+        class="home-index__rule home-index__rule--inline"
+        data-home-index-rule="inline"
+        aria-hidden="true"></span>
+      <span
+        class="home-index__rule home-index__rule--block"
+        data-home-index-rule="block"
+        aria-hidden="true"></span>
+      <h3 data-home-index-item-title>
+        <a class="home-index__text-link" href={edicoes.href}>{edicoes.title}</a>
+      </h3>
+      <p class="home-index__status" data-home-index-item-state>
         {homepageEditorialCopy.indexStates.edicoes}
       </p>
-      <a class="home-index__action type-nav" href={edicoes.href}>
+      <a
+        class="home-index__action type-nav"
+        href={edicoes.href}
+        data-home-index-item-action
+      >
         {edicoes.action}
         <span aria-hidden="true">⟶</span>
       </a>
     </article>
 
-    <article class="home-index__item" data-motion-item="index-item">
-      <h3>Sobre &amp; Contato</h3>
+    <article
+      class="home-index__item"
+      data-motion-item="index-item"
+      data-home-index-item="sobre-contato"
+    >
+      <span
+        class="home-index__rule home-index__rule--inline"
+        data-home-index-rule="inline"
+        aria-hidden="true"></span>
+      <span
+        class="home-index__rule home-index__rule--block"
+        data-home-index-rule="block"
+        aria-hidden="true"></span>
+      <h3 data-home-index-item-title>Sobre &amp; Contato</h3>
       <ul class="home-index__links" role="list">
-        <li><a href={sobre.href}>{sobre.title}</a></li>
-        <li><a href={contato.href}>{contato.title}</a></li>
+        <li data-home-index-item-sublink>
+          <a class="home-index__text-link" href={sobre.href}>{sobre.title}</a>
+        </li>
+        <li data-home-index-item-sublink>
+          <a class="home-index__text-link" href={contato.href}
+            >{contato.title}</a
+          >
+        </li>
       </ul>
-      <a class="home-index__action type-nav" href={sobre.href}>
+      <a
+        class="home-index__action type-nav"
+        href={sobre.href}
+        data-home-index-item-action
+      >
         Ir para <span aria-hidden="true">⟶</span>
       </a>
     </article>
