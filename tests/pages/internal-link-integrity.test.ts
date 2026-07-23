@@ -78,7 +78,7 @@ describe("integridade dos links internos gerados", () => {
     });
     expect(report.errors).toEqual([]);
     expect(report).toMatchObject({
-      htmlPages: 12,
+      htmlPages: 13,
       publicPages: 9,
       socialImages: 2,
       structuredDataBlocks: 8,

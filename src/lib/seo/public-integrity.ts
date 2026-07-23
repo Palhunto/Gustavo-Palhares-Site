@@ -24,6 +24,7 @@ const WORK_ROUTES = [
 const TECHNICAL_ROUTES = [
   "/404",
   "/exploracoes/componentes-editoriais/",
+  "/exploracoes/movimento/",
   "/exploracoes/sistema-visual/",
 ] as const;
 

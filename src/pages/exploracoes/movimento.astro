@@ -1,0 +1,524 @@
+---
+import technicalPhoto from "../../assets/media/fase-4-palco-04.jpg";
+import "../../styles/global.css";
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta
+      name="description"
+      content="Laboratório técnico, não indexável, do sistema de movimento editorial."
+    />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Laboratório de movimento — Gustavo Palhares</title>
+  </head>
+  <body class="motion-lab-page">
+    <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+
+    <div class="motion-lab" data-motion-lab>
+      <header class="motion-lab__header">
+        <div>
+          <p class="type-label">Fase 7A · exploração técnica</p>
+          <p class="motion-lab__signature">Gustavo Palhares</p>
+        </div>
+        <p class="type-meta">
+          GSAP + ScrollTrigger · aprimoramento progressivo
+        </p>
+      </header>
+
+      <main id="conteudo">
+        <header class="motion-lab__intro">
+          <p class="type-meta number-stable">LAB—MOV—01 · NOINDEX</p>
+          <h1 class="type-section">Movimento subordinado à leitura.</h1>
+          <p class="type-intro">
+            Cinco ensaios técnicos verificam ritmo, entrada e continuidade sem
+            transformar movimento em requisito para acessar o conteúdo.
+          </p>
+        </header>
+
+        <section
+          class="motion-sample motion-sample--headline"
+          id="manchete"
+          aria-labelledby="titulo-manchete"
+          data-motion="headline-lines"
+        >
+          <header class="motion-sample__heading">
+            <p class="type-label">A · Revelação de manchete por linhas</p>
+            <p class="type-meta">Clipping controlado · palavras preservadas</p>
+          </header>
+          <h2 class="motion-headline" id="titulo-manchete">
+            <span class="motion-headline__clip">
+              <span data-motion-target>Forma, ritmo</span>
+            </span>
+            <span class="motion-headline__clip">
+              <span data-motion-target>e permanência.</span>
+            </span>
+          </h2>
+          <p class="type-caption">
+            O texto completo permanece no DOM e visível antes de qualquer
+            aprimoramento.
+          </p>
+        </section>
+
+        <section
+          class="motion-sample motion-sample--rule"
+          id="filete"
+          aria-labelledby="titulo-filete"
+          data-motion="rule-growth"
+        >
+          <header class="motion-sample__heading">
+            <p class="type-label">B · Crescimento de filete</p>
+            <p class="type-meta">
+              Transformação por scaleX · origem à esquerda
+            </p>
+          </header>
+          <div class="motion-rule" data-motion-target aria-hidden="true"></div>
+          <h2 class="type-project" id="titulo-filete">
+            A linha organiza antes de ornamentar.
+          </h2>
+        </section>
+
+        <section
+          class="motion-sample motion-sample--image"
+          id="imagem"
+          aria-labelledby="titulo-imagem"
+          data-motion="editorial-image"
+        >
+          <header class="motion-sample__heading">
+            <p class="type-label">C · Entrada de imagem editorial</p>
+            <p class="type-meta">
+              Escala contida · opacidade · recorte performático
+            </p>
+          </header>
+          <h2 class="u-visually-hidden" id="titulo-imagem">
+            Demonstração de entrada de imagem
+          </h2>
+          <figure class="motion-image">
+            <div class="motion-image__frame" data-motion-target>
+              <img
+                src={technicalPhoto.src}
+                width={technicalPhoto.width}
+                height={technicalPhoto.height}
+                alt="Pessoa diante de um público sob luzes vermelhas e azuis"
+                loading="lazy"
+              />
+            </div>
+            <figcaption class="type-caption">
+              Ativo já aprovado, reutilizado exclusivamente para aferição
+              técnica do movimento.
+            </figcaption>
+          </figure>
+        </section>
+
+        <section
+          class="motion-sample motion-sample--block"
+          id="bloco"
+          aria-labelledby="titulo-bloco"
+          data-motion="editorial-block"
+        >
+          <header class="motion-sample__heading">
+            <p class="type-label">D · Entrada de bloco no scroll</p>
+            <p class="type-meta">Conjunto único · stagger moderado</p>
+          </header>
+          <article class="motion-block">
+            <p class="motion-block__number number-stable" data-motion-target>
+              04
+            </p>
+            <p class="type-label" data-motion-target>Estrutura técnica</p>
+            <h2 class="type-project" id="titulo-bloco" data-motion-target>
+              Número, categoria e texto entram como uma composição.
+            </h2>
+            <p class="type-body" data-motion-target>
+              O intervalo curto mantém as relações editoriais e não atrasa a
+              leitura em telas estreitas.
+            </p>
+            <a class="link-editorial" href="#indice" data-motion-target>
+              Ver índice ativo <span
+                class="link-editorial__mark"
+                aria-hidden="true">↓</span
+              >
+            </a>
+          </article>
+        </section>
+
+        <section
+          class="motion-sample motion-sample--index"
+          id="indice"
+          aria-labelledby="titulo-indice"
+          data-motion="active-index"
+        >
+          <header class="motion-sample__heading">
+            <h2 class="type-label" id="titulo-indice">
+              E · Estado ativo de índice
+            </h2>
+            <p class="type-meta">Links nativos · sem rolagem artificial</p>
+          </header>
+          <div class="motion-index">
+            <nav
+              class="motion-index__nav"
+              aria-label="Capítulos da demonstração"
+            >
+              <p class="type-label">Índice técnico</p>
+              <ol role="list">
+                <li>
+                  <a
+                    class="is-active"
+                    href="#indice-estrutura"
+                    aria-current="location"
+                    data-motion-index-link
+                    ><span class="number-stable">01</span> Estrutura</a
+                  >
+                </li>
+                <li>
+                  <a href="#indice-ritmo" data-motion-index-link
+                    ><span class="number-stable">02</span> Ritmo</a
+                  >
+                </li>
+                <li>
+                  <a href="#indice-imagem" data-motion-index-link
+                    ><span class="number-stable">03</span> Imagem</a
+                  >
+                </li>
+                <li>
+                  <a href="#indice-fallback" data-motion-index-link
+                    ><span class="number-stable">04</span> Fallback</a
+                  >
+                </li>
+              </ol>
+            </nav>
+
+            <div class="motion-index__chapters">
+              <article id="indice-estrutura" data-motion-index-section>
+                <p class="type-meta number-stable">01 / 04</p>
+                <h3 class="type-project">Estrutura</h3>
+                <p class="type-body">
+                  O documento define a ordem; o movimento somente reforça sua
+                  chegada.
+                </p>
+              </article>
+              <article id="indice-ritmo" data-motion-index-section>
+                <p class="type-meta number-stable">02 / 04</p>
+                <h3 class="type-project">Ritmo</h3>
+                <p class="type-body">
+                  Durações e distâncias compartilham tokens, sem valores soltos
+                  nos módulos.
+                </p>
+              </article>
+              <article id="indice-imagem" data-motion-index-section>
+                <p class="type-meta number-stable">03 / 04</p>
+                <h3 class="type-project">Imagem</h3>
+                <p class="type-body">
+                  A fotografia conserva prioridade visual sem parallax ou zoom
+                  agressivo.
+                </p>
+              </article>
+              <article id="indice-fallback" data-motion-index-section>
+                <p class="type-meta number-stable">04 / 04</p>
+                <h3 class="type-project">Fallback</h3>
+                <p class="type-body">
+                  Links, texto e fotografia continuam disponíveis quando o
+                  módulo não é executado.
+                </p>
+              </article>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="motion-lab__footer type-meta">
+        <p>Exploração técnica · noindex · conteúdo completo no HTML</p>
+        <p>Sem ClientRouter · sem smooth scroll · sem dependência de hover</p>
+      </footer>
+    </div>
+
+    <script>
+      import { MOTION_LIFECYCLE_EVENTS } from "../../lib/motion/config.ts";
+      import { initializeMotionLaboratory } from "../../lib/motion/laboratory.ts";
+
+      const root = document.querySelector<HTMLElement>("[data-motion-lab]");
+      if (root) {
+        const cleanup = initializeMotionLaboratory(root);
+        window.addEventListener(MOTION_LIFECYCLE_EVENTS.pageHide, cleanup, {
+          once: true,
+        });
+      }
+    </script>
+  </body>
+</html>
+
+<style>
+  .motion-lab {
+    inline-size: min(100%, var(--page-max));
+    margin-inline: auto;
+  }
+
+  .motion-lab__header,
+  .motion-lab__intro,
+  .motion-sample,
+  .motion-lab__footer {
+    padding-inline: var(--gutter);
+  }
+
+  .motion-lab__header,
+  .motion-lab__footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3) var(--space-7);
+    align-items: end;
+    justify-content: space-between;
+    padding-block: var(--space-5);
+    border-block-end: var(--line-hairline) solid var(--color-line-strong);
+  }
+
+  .motion-lab__signature {
+    font-family: var(--font-serif);
+    font-size: var(--text-article);
+    line-height: var(--leading-tight);
+  }
+
+  .motion-lab__intro {
+    display: grid;
+    gap: var(--space-4);
+    max-inline-size: 74rem;
+    padding-block: var(--space-8);
+  }
+
+  .motion-lab__intro .type-section {
+    max-inline-size: 14ch;
+  }
+
+  .motion-lab__intro .type-intro {
+    max-inline-size: 50ch;
+  }
+
+  .motion-sample {
+    display: grid;
+    gap: var(--space-7);
+    min-block-size: 34rem;
+    padding-block: var(--space-8);
+    border-block-start: var(--line-hairline) solid var(--color-line-strong);
+  }
+
+  .motion-sample__heading {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3) var(--space-7);
+    align-items: baseline;
+    justify-content: space-between;
+  }
+
+  .motion-sample--headline {
+    align-content: center;
+  }
+
+  .motion-headline {
+    display: grid;
+    font-family: var(--font-serif);
+    font-size: var(--text-display);
+    font-weight: 450;
+    line-height: var(--leading-display);
+    letter-spacing: -0.035em;
+  }
+
+  .motion-headline__clip {
+    display: block;
+    overflow: hidden;
+    padding-block-end: 0.08em;
+  }
+
+  .motion-headline__clip > span {
+    display: block;
+  }
+
+  .motion-sample--rule {
+    align-content: center;
+  }
+
+  .motion-rule {
+    inline-size: 100%;
+    block-size: var(--line-emphasis);
+    background: var(--color-ink);
+    transform-origin: left center;
+  }
+
+  .motion-sample--rule .type-project {
+    max-inline-size: 22ch;
+  }
+
+  .motion-image {
+    display: grid;
+    gap: var(--space-3);
+    inline-size: min(100%, 72rem);
+    margin-inline: auto;
+  }
+
+  .motion-image__frame {
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+    background: var(--color-surface);
+  }
+
+  .motion-image img {
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+  }
+
+  .motion-sample--block {
+    align-content: center;
+  }
+
+  .motion-block {
+    display: grid;
+    grid-template-columns: minmax(4rem, 0.24fr) minmax(0, 1fr);
+    gap: var(--space-4) var(--grid-gap);
+    inline-size: min(100%, 68rem);
+    padding-block: var(--space-6);
+    border-block: var(--line-hairline) solid var(--color-line);
+  }
+
+  .motion-block > :not(.motion-block__number) {
+    grid-column: 2;
+  }
+
+  .motion-block__number {
+    grid-row: 1 / span 5;
+    font-family: var(--font-serif);
+    font-size: var(--text-section);
+    line-height: var(--leading-heading);
+  }
+
+  .motion-block .type-project,
+  .motion-block .type-body {
+    max-inline-size: 34ch;
+  }
+
+  .motion-index {
+    display: grid;
+    grid-template-columns: minmax(12rem, 0.32fr) minmax(0, 1fr);
+    gap: var(--grid-gap);
+    align-items: start;
+  }
+
+  .motion-index__nav {
+    position: sticky;
+    inset-block-start: var(--space-5);
+    display: grid;
+    gap: var(--space-5);
+  }
+
+  .motion-index__nav ol {
+    display: grid;
+  }
+
+  .motion-index__nav a {
+    display: grid;
+    grid-template-columns: 2rem 1fr;
+    gap: var(--space-3);
+    align-items: center;
+    min-block-size: 2.75rem;
+    border-block-start: var(--line-hairline) solid var(--color-line);
+    color: var(--color-text-secondary);
+    font-size: var(--text-nav);
+    text-decoration: none;
+  }
+
+  .motion-index__nav a::after {
+    content: "";
+    grid-column: 1 / -1;
+    inline-size: 100%;
+    block-size: var(--line-emphasis);
+    background: var(--color-accent);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform var(--duration-medium) var(--ease-editorial);
+  }
+
+  .motion-index__nav a.is-active {
+    color: var(--color-ink);
+  }
+
+  .motion-index__nav a.is-active::after {
+    transform: scaleX(1);
+  }
+
+  .motion-index__chapters {
+    border-block-start: var(--line-hairline) solid var(--color-line);
+  }
+
+  .motion-index__chapters article {
+    display: grid;
+    align-content: center;
+    gap: var(--space-4);
+    min-block-size: 28rem;
+    padding: var(--space-7);
+    border-block-end: var(--line-hairline) solid var(--color-line);
+  }
+
+  .motion-index__chapters .type-body {
+    max-inline-size: 42ch;
+  }
+
+  .motion-lab__footer {
+    border-block-start: var(--line-hairline) solid var(--color-line-strong);
+    border-block-end: 0;
+  }
+
+  @media (max-width: 47.99rem) {
+    .motion-lab__header,
+    .motion-sample__heading,
+    .motion-lab__footer {
+      align-items: start;
+      flex-direction: column;
+    }
+
+    .motion-lab__intro,
+    .motion-sample {
+      min-block-size: 0;
+      padding-block: var(--space-7);
+    }
+
+    .motion-headline {
+      font-size: clamp(3rem, 15vw, 5rem);
+    }
+
+    .motion-block,
+    .motion-index {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .motion-block > :not(.motion-block__number) {
+      grid-column: 1;
+    }
+
+    .motion-block__number {
+      grid-row: auto;
+    }
+
+    .motion-index__nav {
+      position: static;
+    }
+
+    .motion-index__nav ol {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .motion-index__nav a {
+      padding-inline-end: var(--space-3);
+    }
+
+    .motion-index__chapters article {
+      min-block-size: 22rem;
+      padding: var(--space-6) 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .motion-index__nav a::after {
+      transition: none;
+    }
+  }
+</style>

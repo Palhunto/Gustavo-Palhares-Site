@@ -233,6 +233,15 @@ Regra: uma decisão aceita só muda por novo registro que a substitua; não se r
 
 **Revisão:** falha comprovada de legibilidade ou renderização, cobertura linguística insuficiente, custo de fonte desproporcional ou mudança material da identidade visual.
 
+## ADR-025 — Movimento progressivo e carregado por página
+
+**Status:** aceita
+**Contexto:** revelações editoriais e estados ligados ao scroll exigem coordenação e cleanup, mas não podem transformar movimento em requisito de leitura nem adicionar runtime às páginas que não o utilizam.
+**Decisão:** usar CSS para microinterações, GSAP com ScrollTrigger para movimentos editoriais compostos e View Transitions nativas do Astro para a futura continuidade entre documentos. GSAP possui um único ponto de registro, ciclo de vida idempotente e carregamento apenas nas páginas que declaram movimento. O HTML e o CSS entregam o estado final; JavaScript aplica estados transitórios somente após inicialização bem-sucedida. `prefers-reduced-motion` evita revelações e ScrollTrigger sem atrasar conteúdo.
+**Alternativas rejeitadas:** GSAP global, animações essenciais, `ClientRouter`, Lenis, smooth scroll artificial, biblioteca adicional de movimento e interceptação da rolagem.
+**Consequências:** páginas sem movimento não recebem o bundle; falha ou ausência de JavaScript preserva leitura e links; cada integração futura deve montar e desmontar seu escopo e medir o custo do chunk.
+**Revisão:** custo de bundle desproporcional, falha de acessibilidade ou necessidade concreta que GSAP, CSS e View Transitions nativas não atendam dentro desses limites.
+
 ## Decisões adiadas com gatilho
 
 | Tema | Estado atual | Gatilho de decisão |
