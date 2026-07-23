@@ -15,33 +15,65 @@ const secondary = homepageEditorialCopy.presence.filter(
   class="home-moment home-presence"
   aria-labelledby="home-presence-title"
   data-motion-section="publicacao"
+  data-home-presence-motion
 >
   <HomeSectionHeading
     id="home-presence-title"
     number="03"
     title="Publicação e presença"
     note={homepageEditorialCopy.presenceLabel}
+    motion="presence"
   />
 
   <div class="home-presence__composition">
-    <article class="home-presence__feature" data-motion-item="presence-caderno">
+    <article
+      class="home-presence__feature"
+      data-motion-item="presence-caderno"
+      data-home-presence-feature
+    >
       <div class="home-presence__feature-copy">
-        <h3>{caderno.title}</h3>
-        <p>{caderno.placeholder}</p>
-        <dl class="home-presence__state type-meta">
+        <div class="home-presence__title-clip">
+          <h3 data-home-presence-feature-title>{caderno.title}</h3>
+        </div>
+        <p data-home-presence-feature-copy>{caderno.placeholder}</p>
+        <dl
+          class="home-presence__state type-meta"
+          data-home-presence-feature-state
+        >
           <div>
             <dt>{homepageEditorialCopy.presenceState.label}</dt>
             <dd>{homepageEditorialCopy.presenceState.value}</dd>
           </div>
         </dl>
-        <a class="type-nav" href={caderno.href}>
+        <a
+          class="home-presence__cta type-nav"
+          href={caderno.href}
+          data-home-presence-feature-cta
+        >
           {caderno.action}
           <span aria-hidden="true">⟶</span>
         </a>
       </div>
     </article>
 
-    <div class="home-presence__secondary" data-motion-item="presence-grid">
+    <span
+      class="home-presence__rule home-presence__rule--main"
+      data-home-presence-rule="main"
+      aria-hidden="true"></span>
+
+    <div
+      class="home-presence__secondary"
+      data-motion-item="presence-grid"
+      data-home-presence-grid
+    >
+      <span
+        class="home-presence__rule home-presence__rule--grid-vertical"
+        data-home-presence-rule="grid-vertical"
+        aria-hidden="true"></span>
+      <span
+        class="home-presence__rule home-presence__rule--grid-horizontal"
+        data-home-presence-rule="grid-horizontal"
+        aria-hidden="true"></span>
       {
         secondary.map((item) => (
           <article
@@ -50,10 +82,15 @@ const secondary = homepageEditorialCopy.presence.filter(
               `home-presence__item--${item.key}`,
             ]}
             data-motion-item={`presence-${item.key}`}
+            data-home-presence-item={item.key}
           >
-            <h3>{item.title}</h3>
-            <p>{item.placeholder}</p>
-            <a class="type-nav" href={item.href}>
+            <h3 data-home-presence-item-title>{item.title}</h3>
+            <p data-home-presence-item-copy>{item.placeholder}</p>
+            <a
+              class="home-presence__cta type-nav"
+              href={item.href}
+              data-home-presence-item-cta
+            >
               {item.action} <span aria-hidden="true">⟶</span>
             </a>
           </article>

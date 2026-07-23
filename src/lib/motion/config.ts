@@ -153,6 +153,76 @@ export const HOME_WORKS_TIMELINES = {
   dividerDuration: 0.68,
 } as const;
 
+export const HOME_PRESENCE_TIMELINES = {
+  trigger: {
+    heading: "top 84%",
+    feature: "top 80%",
+    grid: "top 82%",
+    mobileRule: "top 90%",
+    mobileItem: "top 88%",
+  },
+  heading: {
+    at: {
+      copy: 0,
+      rule: 0.1,
+      note: 0.33,
+    },
+    duration: {
+      copy: 0.5,
+      rule: 0.68,
+      note: 0.42,
+    },
+    stagger: 0.055,
+    totalDuration: 0.78,
+  },
+  feature: {
+    at: {
+      title: 0,
+      support: 0.2,
+      cta: 0.46,
+    },
+    duration: {
+      title: 0.68,
+      support: 0.52,
+      cta: 0.48,
+    },
+    supportStagger: 0.07,
+    totalDuration: 0.94,
+  },
+  grid: {
+    at: {
+      mainRule: 0,
+      verticalRule: 0.08,
+      horizontalRule: 0.18,
+      firstItem: 0.22,
+    },
+    duration: {
+      mainRule: 0.72,
+      verticalRule: 0.72,
+      horizontalRule: 0.68,
+      title: 0.58,
+      support: 0.52,
+    },
+    areaStagger: 0.11,
+    supportOffset: 0.14,
+    supportStagger: 0.055,
+    totalDuration: 1.24,
+  },
+  mobileItem: {
+    at: {
+      title: 0,
+      support: 0.14,
+    },
+    duration: {
+      title: 0.5,
+      support: 0.46,
+    },
+    supportStagger: 0.05,
+    totalDuration: 0.65,
+  },
+  initialOpacity: 0.68,
+} as const;
+
 export function responsiveMotionTokens(viewportWidth: number) {
   const compact = viewportWidth < MOTION_TOKENS.breakpoint.compact;
   return {
