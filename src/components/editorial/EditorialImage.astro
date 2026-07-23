@@ -4,6 +4,7 @@ import {
   type EditorialMediaInput,
   type MediaLayout,
 } from "../../lib/media/index.ts";
+import type { WorkCoverViewTransitionName } from "../../lib/view-transitions/work-cover.ts";
 import FigureCaption from "./_FigureCaption.astro";
 import MediaPicture from "./_MediaPicture.astro";
 
@@ -13,6 +14,7 @@ interface Props {
   priority?: boolean;
   showCaption?: boolean;
   class?: string;
+  viewTransitionName?: WorkCoverViewTransitionName;
 }
 
 const {
@@ -21,12 +23,24 @@ const {
   priority = false,
   showCaption = true,
   class: className,
+  viewTransitionName,
 } = Astro.props;
 const resolver = await getContentMediaResolver();
 const media = resolver.resolve(asset, { layout, priority });
 ---
 
 <figure class:list={["editorial-image", className]} data-media-id={media.id}>
-  <MediaPicture media={media} />
+  {
+    viewTransitionName ? (
+      <div
+        class="work-cover-transition-frame"
+        style={`view-transition-name: ${viewTransitionName};`}
+      >
+        <MediaPicture media={media} />
+      </div>
+    ) : (
+      <MediaPicture media={media} />
+    )
+  }
   {showCaption && <FigureCaption media={media} />}
 </figure>

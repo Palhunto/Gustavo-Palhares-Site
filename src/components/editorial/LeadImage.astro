@@ -4,6 +4,7 @@ import {
   type EditorialMediaInput,
 } from "../../lib/media/index.ts";
 import { resolveEditorialNumber } from "../../lib/mdx/editorial-numbers.ts";
+import type { WorkCoverViewTransitionName } from "../../lib/view-transitions/work-cover.ts";
 import FigureCaption from "./_FigureCaption.astro";
 import MediaPicture from "./_MediaPicture.astro";
 
@@ -13,6 +14,7 @@ interface Props {
   priority?: boolean;
   creditMode?: "auto" | "document";
   number?: string;
+  viewTransitionName?: WorkCoverViewTransitionName;
 }
 
 const {
@@ -21,6 +23,7 @@ const {
   priority = true,
   creditMode = "auto",
   number,
+  viewTransitionName,
 } = Astro.props;
 const resolver = await getContentMediaResolver();
 const media = resolver.resolve(asset, { layout: "lead", priority });
@@ -35,7 +38,18 @@ const editorialNumber = resolveEditorialNumber(number, "LeadImage");
       </p>
     )
   }
-  <MediaPicture media={media} />
+  {
+    viewTransitionName ? (
+      <div
+        class="work-cover-transition-frame"
+        style={`view-transition-name: ${viewTransitionName};`}
+      >
+        <MediaPicture media={media} />
+      </div>
+    ) : (
+      <MediaPicture media={media} />
+    )
+  }
   <FigureCaption
     media={media}
     number={editorialNumber}

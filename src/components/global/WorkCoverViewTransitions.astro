@@ -1,0 +1,101 @@
+---
+import { WORK_COVER_VIEW_TRANSITION_NAMES } from "../../lib/view-transitions/work-cover.ts";
+import type { WorkCoverViewTransitionName } from "../../lib/view-transitions/work-cover.ts";
+
+interface Props {
+  activeName?: WorkCoverViewTransitionName;
+}
+
+const { activeName } = Astro.props;
+
+const selectors = (pseudo: string) =>
+  WORK_COVER_VIEW_TRANSITION_NAMES.map(
+    (name) => `::view-transition-${pseudo}(${name})`,
+  ).join(",\n");
+
+const groupSelectors = selectors("group");
+const oldImageSelectors = selectors("old");
+const newImageSelectors = selectors("new");
+const imagePairSelectors = selectors("image-pair");
+const imageSelectors = [
+  oldImageSelectors,
+  newImageSelectors,
+  imagePairSelectors,
+].join(",\n");
+const inactiveOldImageSelectors = activeName
+  ? WORK_COVER_VIEW_TRANSITION_NAMES.filter((name) => name !== activeName)
+      .map((name) => `::view-transition-old(${name})`)
+      .join(",\n")
+  : "";
+const inactiveOldImageRule = inactiveOldImageSelectors
+  ? `${inactiveOldImageSelectors} {
+  animation: none;
+  opacity: 0;
+}`
+  : "";
+
+const styles = `
+@view-transition {
+  navigation: auto;
+}
+
+html {
+  overflow-x: clip;
+}
+
+.work-cover-transition-frame {
+  min-inline-size: 0;
+}
+
+::view-transition-old(root) {
+  animation: none;
+  opacity: 0;
+}
+
+::view-transition-new(root) {
+  animation: work-transition-root-in 120ms ease-out both;
+}
+
+${groupSelectors} {
+  animation-duration: 760ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+${inactiveOldImageRule}
+
+${newImageSelectors} {
+  animation-duration: 180ms;
+  animation-timing-function: ease-out;
+}
+
+${imagePairSelectors} {
+  isolation: isolate;
+  overflow: clip;
+}
+
+@keyframes work-transition-root-in {
+  from {
+    opacity: 0.94;
+  }
+}
+
+@media (max-width: 47.9375rem) {
+  ${groupSelectors} {
+    animation-duration: 680ms;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root),
+  ${groupSelectors},
+  ${imageSelectors} {
+    animation-delay: 0s !important;
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+`;
+---
+
+<style is:inline set:html={styles}></style>

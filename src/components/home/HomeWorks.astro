@@ -7,6 +7,7 @@ import {
 } from "../../lib/content/publication.ts";
 import type { HomepageModel } from "../../lib/homepage/model.ts";
 import { publicRoutes } from "../../lib/routes/public.ts";
+import { workCoverViewTransitionName } from "../../lib/view-transitions/work-cover.ts";
 import EditorialImage from "../editorial/EditorialImage.astro";
 import HomeSectionHeading from "./HomeSectionHeading.astro";
 
@@ -36,6 +37,7 @@ const { model } = Astro.props;
       model.works.map((work, index) => {
         const presentation = workPresentation(work.id, work.data);
         const location = formatLocation(work.data.location);
+        const viewTransitionName = workCoverViewTransitionName(work.data.slug);
         return (
           <>
             {index > 0 && (
@@ -63,6 +65,7 @@ const { model } = Astro.props;
                   asset={work.data.cover}
                   layout="sequence"
                   showCaption={false}
+                  viewTransitionName={viewTransitionName}
                 />
               </a>
               <div class="home-work__copy">

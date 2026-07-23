@@ -14,6 +14,7 @@ import {
 import { publicRoutes } from "../../lib/routes/public.ts";
 import { configuredSiteUrl } from "../../lib/seo/site-url.ts";
 import { worksIndexStructuredData } from "../../lib/seo/structured-data.ts";
+import { workCoverViewTransitionName } from "../../lib/view-transitions/work-cover.ts";
 
 const at = buildInstant();
 const introduction =
@@ -37,12 +38,14 @@ const structuredData = worksIndexStructuredData(
   count={works.length}
   family="trabalhos"
   structuredData={structuredData}
+  viewTransitions
 >
   <ol class="works-index" role="list">
     {
       works.map((work, index) => {
         const presentation = workPresentation(work.id, work.data);
         const href = publicRoutes.trabalho(work.data.slug);
+        const viewTransitionName = workCoverViewTransitionName(work.data.slug);
         return (
           <li
             class:list={[
@@ -58,6 +61,7 @@ const structuredData = worksIndexStructuredData(
                     layout={index === 0 ? "lead" : "sequence"}
                     priority={index === 0}
                     showCaption={false}
+                    viewTransitionName={viewTransitionName}
                   />
                 </a>
               </div>

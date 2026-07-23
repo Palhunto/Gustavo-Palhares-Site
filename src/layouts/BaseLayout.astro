@@ -3,6 +3,8 @@ import SiteFooter from "../components/global/SiteFooter.astro";
 import SiteHeader from "../components/global/SiteHeader.astro";
 import SeoHead from "../components/global/SeoHead.astro";
 import HomeFooter from "../components/home/HomeFooter.astro";
+import WorkCoverViewTransitions from "../components/global/WorkCoverViewTransitions.astro";
+import type { WorkCoverViewTransitionName } from "../lib/view-transitions/work-cover.ts";
 import type {
   RobotsDirective,
   SocialImageMetadata,
@@ -32,6 +34,8 @@ interface Props {
     | "contact-page"
     | "homepage";
   showHeader?: boolean;
+  viewTransitions?: boolean;
+  viewTransitionName?: WorkCoverViewTransitionName;
 }
 
 const {
@@ -47,6 +51,8 @@ const {
   structuredData,
   variant = "standard",
   showHeader = true,
+  viewTransitions = false,
+  viewTransitionName,
 } = Astro.props;
 ---
 
@@ -68,6 +74,11 @@ const {
       modifiedTime={modifiedTime}
       structuredData={structuredData}
     />
+    {
+      viewTransitions && (
+        <WorkCoverViewTransitions activeName={viewTransitionName} />
+      )
+    }
   </head>
   <body class:list={["public-page", `public-page--${variant}`]}>
     <a class="skip-link" href="#conteudo-principal">Ir para o conteúdo</a>

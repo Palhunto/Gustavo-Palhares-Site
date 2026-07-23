@@ -17,6 +17,7 @@ import { publicRoutes } from "../../lib/routes/public.ts";
 import { resolveSocialImage } from "../../lib/seo/social-image.ts";
 import { configuredSiteUrl } from "../../lib/seo/site-url.ts";
 import { creativeWorkStructuredData } from "../../lib/seo/structured-data.ts";
+import { workCoverViewTransitionName } from "../../lib/view-transitions/work-cover.ts";
 
 export async function getStaticPaths() {
   const at = buildInstant();
@@ -73,6 +74,7 @@ const linkFor = (work: CollectionEntry<"trabalhos"> | undefined) =>
   work
     ? { href: publicRoutes.trabalho(work.data.slug), title: work.data.title }
     : undefined;
+const viewTransitionName = workCoverViewTransitionName(entry.data.slug);
 ---
 
 <WorkLayout
@@ -93,6 +95,7 @@ const linkFor = (work: CollectionEntry<"trabalhos"> | undefined) =>
   publishedTime={entry.data.publishAt}
   modifiedTime={entry.data.updatedAt}
   structuredData={structuredData}
+  viewTransitionName={viewTransitionName}
 >
   <Content components={MDX_COMPONENT_REGISTRY} />
 </WorkLayout>

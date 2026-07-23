@@ -9,10 +9,18 @@ interface Props {
   emptyMessage?: string;
   family: "trabalhos" | "caderno" | "colecoes" | "edicoes";
   structuredData?: StructuredData;
+  viewTransitions?: boolean;
 }
 
-const { title, introduction, count, emptyMessage, family, structuredData } =
-  Astro.props;
+const {
+  title,
+  introduction,
+  count,
+  emptyMessage,
+  family,
+  structuredData,
+  viewTransitions = false,
+} = Astro.props;
 const hasCustomEmptyState = Astro.slots.has("empty-state");
 ---
 
@@ -20,6 +28,7 @@ const hasCustomEmptyState = Astro.slots.has("empty-state");
   title={title}
   description={introduction}
   structuredData={structuredData}
+  viewTransitions={viewTransitions}
   variant={family === "trabalhos"
     ? "works-index"
     : family === "caderno"
