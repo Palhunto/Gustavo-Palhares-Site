@@ -21,10 +21,15 @@ const [givenName, ...familyName] = siteConfig.name.split(" ");
   class="home-moment home-cover"
   aria-labelledby="home-title"
   data-motion-section="capa"
+  data-home-cover-motion
 >
-  <div class="home-cover__status type-meta">
+  <div class="home-cover__status type-meta" data-home-cover-status>
     <p>{homepageEditorialCopy.coverLabel}</p>
     <p>{homepageEditorialCopy.coverStatus}</p>
+    <span
+      class="home-cover__status-rule"
+      data-home-cover-status-rule
+      aria-hidden="true"></span>
   </div>
 
   <div class="home-cover__copy">
@@ -32,21 +37,30 @@ const [givenName, ...familyName] = siteConfig.name.split(" ");
       {
         [givenName, familyName.join(" ")].map((line, index) => (
           <span class="home-cover__title-line" data-motion-title-line>
-            <span class="home-cover__title-word">
-              {line}
-              {index === 0 && " "}
+            <span class="home-cover__title-clip">
+              <span class="home-cover__title-word" data-home-cover-title-word>
+                {line}
+                {index === 0 && " "}
+              </span>
             </span>
             <span
               class="home-cover__title-rule"
               data-motion-rule
+              data-home-cover-title-rule
               aria-hidden="true"
             />
           </span>
         ))
       }
     </h1>
-    <p class="home-cover__intro">{homepageEditorialCopy.coverPlaceholder}</p>
-    <a class="home-cover__enter type-nav" href="#trabalhos">
+    <p class="home-cover__intro" data-home-cover-support>
+      {homepageEditorialCopy.coverPlaceholder}
+    </p>
+    <a
+      class="home-cover__enter type-nav"
+      href="#trabalhos"
+      data-home-cover-support
+    >
       {homepageEditorialCopy.enterLabel}
       <span aria-hidden="true">↓</span>
     </a>
@@ -56,6 +70,7 @@ const [givenName, ...familyName] = siteConfig.name.split(" ");
     class="home-cover__media"
     href={publicRoutes.trabalho(model.cover.work.data.slug)}
     aria-label={`Ver ${model.cover.work.data.title}`}
+    data-home-cover-image
   >
     <EditorialImage
       asset={model.cover.media}
@@ -75,6 +90,7 @@ const [givenName, ...familyName] = siteConfig.name.split(" ");
               { "is-current": index === 0 },
             ]}
             data-motion-section-indicator={section.id}
+            data-home-cover-rail-item
           >
             <a href={`#${section.id}`}>
               <span class="home-cover__rail-number number-stable">
@@ -86,7 +102,11 @@ const [givenName, ...familyName] = siteConfig.name.split(" ");
         ))
       }
     </ol>
-    <a class="home-cover__scroll type-nav" href="#trabalhos">
+    <a
+      class="home-cover__scroll type-nav"
+      href="#trabalhos"
+      data-home-cover-scroll
+    >
       Rolar <span aria-hidden="true">↓</span>
     </a>
   </nav>

@@ -1,4 +1,4 @@
-import { readFile, readdir } from "node:fs/promises";
+import { readFile } from "node:fs/promises";
 import path from "node:path";
 
 import { transform } from "@astrojs/compiler";
@@ -36,24 +36,16 @@ describe("Fase 7A — fundação e laboratório de movimento", () => {
     expect(packageJson.dependencies).not.toHaveProperty("motion");
   });
 
-  it("mantém homepage e layout global fora do grafo de movimento", async () => {
-    const homeFiles = await readdir(
-      path.join(root, "src", "components", "home"),
-    );
+  it("mantém layout global fora do grafo de movimento", async () => {
     const sources = await Promise.all([
-      source("src/pages/index.astro"),
       source("src/layouts/BaseLayout.astro"),
       source("src/styles/global.css"),
-      ...homeFiles.map((file) =>
-        source(path.join("src/components/home", file)),
-      ),
     ]);
     const globalGraph = sources.join("\n");
 
     expect(globalGraph).not.toMatch(/gsap|ScrollTrigger|lib\/motion/i);
     expect(globalGraph).not.toContain("data-motion-lab");
     expect(sources[0]).not.toContain("<script");
-    expect(sources[1]).not.toContain("<script");
   });
 
   it("emite o laboratório completo, técnico e visível por padrão", async () => {
@@ -92,8 +84,7 @@ describe("Fase 7A — fundação e laboratório de movimento", () => {
     expect(MOTION_TOKENS.headline.stagger.regular).toBe(0.15);
     expect(MOTION_TOKENS.headline.stagger.compact).toBe(0.14);
     expect(
-      MOTION_TOKENS.headline.duration +
-        MOTION_TOKENS.headline.stagger.regular,
+      MOTION_TOKENS.headline.duration + MOTION_TOKENS.headline.stagger.regular,
     ).toBeCloseTo(0.99);
     expect(MOTION_TOKENS.headline.yPercent.compact).toBeLessThan(
       MOTION_TOKENS.headline.yPercent.regular,

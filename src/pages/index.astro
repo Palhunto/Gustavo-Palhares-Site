@@ -27,3 +27,16 @@ const structuredData = websiteStructuredData(configuredSiteUrl());
 >
   <HomePage model={model} />
 </BaseLayout>
+
+<script>
+  import { MOTION_LIFECYCLE_EVENTS } from "../lib/motion/config.ts";
+  import { initializeHomeCoverMotion } from "../lib/motion/home-cover.ts";
+
+  const cover = document.querySelector<HTMLElement>("[data-home-cover-motion]");
+  if (cover) {
+    const cleanup = initializeHomeCoverMotion(cover);
+    window.addEventListener(MOTION_LIFECYCLE_EVENTS.pageHide, cleanup, {
+      once: true,
+    });
+  }
+</script>

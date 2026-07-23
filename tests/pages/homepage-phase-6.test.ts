@@ -177,7 +177,7 @@ describe("Fases 6A e 6B — homepage editorial", () => {
       /home-presence__grid|home-index__grid|home-index__column/,
     );
     expect(homepageStyles).not.toMatch(
-      /(?:^|\n)\s*(?:opacity|transform|animation|transition)\s*:/,
+      /(?:^|\n)\s*(?:opacity|visibility|animation)\s*:/,
     );
     expect(homepageStyles).toContain(".home-cover__title-rule");
     expect(homepageStyles).toContain("aspect-ratio: 3 / 2");
