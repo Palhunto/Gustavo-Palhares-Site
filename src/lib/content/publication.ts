@@ -150,29 +150,36 @@ const dateFormatter = new Intl.DateTimeFormat("pt-BR", {
   timeZone: "UTC",
 });
 
+const monthAndYearFormatter = new Intl.DateTimeFormat("pt-BR", {
+  month: "long",
+  year: "numeric",
+  timeZone: "UTC",
+});
+
+function editorialDate(value: string): Date {
+  return new Date(`${value}T00:00:00Z`);
+}
+
 export function formatEditorialDate(start: string, end?: string): string {
-  const format = (value: string) =>
-    dateFormatter.format(new Date(`${value}T00:00:00Z`));
-  return end ? `${format(start)} a ${format(end)}` : format(start);
+  if (!end) return dateFormatter.format(editorialDate(start));
+
+  if (start.slice(0, 7) === end.slice(0, 7)) {
+    const startDay = Number.parseInt(start.slice(8, 10), 10);
+    const endDay = Number.parseInt(end.slice(8, 10), 10);
+    const monthAndYear = monthAndYearFormatter.format(editorialDate(start));
+    return `${startDay}–${endDay} de ${monthAndYear}`;
+  }
+
+  return `${dateFormatter.format(editorialDate(start))} a ${dateFormatter.format(
+    editorialDate(end),
+  )}`;
 }
 
 export function formatCompactEditorialDate(
   start: string,
   end?: string,
 ): string {
-  if (!end || start.slice(0, 7) !== end.slice(0, 7)) {
-    return formatEditorialDate(start, end);
-  }
-
-  const monthAndYear = new Intl.DateTimeFormat("pt-BR", {
-    month: "long",
-    year: "numeric",
-    timeZone: "UTC",
-  }).format(new Date(`${start}T00:00:00Z`));
-  const startDay = Number.parseInt(start.slice(8, 10), 10);
-  const endDay = Number.parseInt(end.slice(8, 10), 10);
-
-  return `${startDay}–${endDay} de ${monthAndYear}`;
+  return formatEditorialDate(start, end);
 }
 
 export function formatLocation(location?: {

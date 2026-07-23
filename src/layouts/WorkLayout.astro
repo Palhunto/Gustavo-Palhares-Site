@@ -73,8 +73,8 @@ const titleContinuation = titleRemainder.join(" — ");
   viewTransitions={Boolean(viewTransitionName)}
   viewTransitionName={viewTransitionName}
 >
-  <article class="work-document">
-    <header class="work-header">
+  <article class="work-document" data-work-page>
+    <header class="work-header" data-work-intro>
       <div class="work-header__marker">
         <p class="type-label">Trabalho fotográfico</p>
         <p class="type-meta number-stable">{archiveNumber}</p>
@@ -82,7 +82,7 @@ const titleContinuation = titleRemainder.join(" — ");
       </div>
       <div class="work-header__main">
         <div class="work-header__copy">
-          <h1 class="type-display">
+          <h1 class="type-display" data-work-title>
             {titleLead}{
               titleContinuation && (
                 <>
@@ -96,9 +96,9 @@ const titleContinuation = titleRemainder.join(" — ");
               )
             }
           </h1>
-          <p class="type-intro">{summary}</p>
+          <p class="type-intro" data-work-summary>{summary}</p>
         </div>
-        <dl class="work-header__metadata type-meta">
+        <dl class="work-header__metadata type-meta" data-work-metadata>
           <div><dt>Data</dt><dd>{dateLabel}</dd></div>
           {
             location && (
@@ -116,7 +116,7 @@ const titleContinuation = titleRemainder.join(" — ");
       </div>
     </header>
 
-    <div class="work-opening">
+    <div class="work-opening" data-work-lead>
       <LeadImage
         asset={cover as never}
         number="01"
@@ -125,11 +125,11 @@ const titleContinuation = titleRemainder.join(" — ");
       />
     </div>
 
-    <div class="work-body">
+    <div class="work-body" data-work-gallery>
       <slot />
     </div>
 
-    <div class="work-credits">
+    <div class="work-credits" data-work-credit>
       <Credits items={credits} variant="colophon" />
     </div>
 
@@ -140,6 +140,7 @@ const titleContinuation = titleRemainder.join(" — ");
         <nav
           class="work-continuity"
           aria-label="Continuidade cronológica entre trabalhos"
+          data-work-continuity
         >
           {previous ? (
             <a

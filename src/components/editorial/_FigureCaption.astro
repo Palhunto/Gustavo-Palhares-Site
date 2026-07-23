@@ -21,7 +21,10 @@ const { media, number, showCredit = true } = Astro.props;
       ]}
     >
       {number !== undefined && (
-        <span class="editorial-caption__index editorial-photo-number number-stable">
+        <span
+          class="editorial-caption__index editorial-photo-number number-stable"
+          data-work-number
+        >
           {number}
         </span>
       )}

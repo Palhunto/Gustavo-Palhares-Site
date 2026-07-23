@@ -231,7 +231,7 @@ describe("integridade dos links internos gerados", () => {
         route: feiraRoute,
         title: "Feira do Rolo",
         metadata: [
-          "20 de julho de 2025 a 21 de julho de 2025",
+          "20–21 de julho de 2025",
           "Bauru, SP",
           "Documental",
           "Feira do Rolo",
@@ -250,7 +250,7 @@ describe("integridade dos links internos gerados", () => {
       for (const value of contract.metadata) expect(html).toContain(value);
 
       const credits = html
-        .split('<div class="work-credits">', 2)[1]
+        .split('<div class="work-credits"', 2)[1]
         .split('<nav class="work-continuity"', 1)[0];
       expect(count(credits, />Fotografia</g)).toBe(1);
       expect(count(credits, />Gustavo Palhares</g)).toBe(1);

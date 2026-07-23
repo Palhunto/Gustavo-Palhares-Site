@@ -27,16 +27,23 @@ const editorialNumbers = resolveEditorialNumbers(
 );
 ---
 
-<figure class="contact-sheet">
+<figure class="contact-sheet" data-work-contact-sheet>
   <figcaption class="contact-sheet__heading type-label">
     <span>{label}</span>
   </figcaption>
   <ol class="contact-sheet__grid">
     {
       media.map((item, index) => (
-        <li class="contact-sheet__item" data-media-id={item.id}>
+        <li
+          class="contact-sheet__item"
+          data-media-id={item.id}
+          data-work-figure
+        >
           <MediaPicture media={item} />
-          <p class="contact-sheet__index editorial-photo-number type-meta number-stable">
+          <p
+            class="contact-sheet__index editorial-photo-number type-meta number-stable"
+            data-work-number
+          >
             {editorialNumbers[index]}
           </p>
         </li>

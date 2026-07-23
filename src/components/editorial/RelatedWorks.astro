@@ -57,7 +57,7 @@ const resolvedItems: Array<
 
 {
   resolvedItems.length > 0 && (
-    <section class="related-works" aria-label={heading}>
+    <nav class="related-works" aria-label={heading} data-work-related>
       <div class="related-works__heading">
         <h2 class="type-project">{heading}</h2>
         <p class="type-meta number-stable">
@@ -79,6 +79,6 @@ const resolvedItems: Array<
           </li>
         ))}
       </ul>
-    </section>
+    </nav>
   )
 }

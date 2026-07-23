@@ -46,7 +46,7 @@ const sharedCredit = commonMediaCredit(media);
 >
   {
     media.map((item, index) => (
-      <figure class="diptych__item" data-media-id={item.id}>
+      <figure class="diptych__item" data-media-id={item.id} data-work-figure>
         <MediaPicture media={item} />
         <FigureCaption
           media={item}
