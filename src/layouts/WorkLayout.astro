@@ -1,10 +1,10 @@
 ---
 import Credits from "../components/editorial/Credits.astro";
 import LeadImage from "../components/editorial/LeadImage.astro";
-import NephillinWorkMotion from "../components/editorial/NephillinWorkMotion.astro";
 import RelatedWorks, {
   type RelatedWorkItem,
 } from "../components/editorial/RelatedWorks.astro";
+import WorkMotion from "../components/editorial/WorkMotion.astro";
 import type {
   SocialImageMetadata,
   StructuredData,
@@ -36,7 +36,7 @@ interface Props {
   modifiedTime?: string;
   structuredData?: StructuredData;
   viewTransitionName?: WorkCoverViewTransitionName;
-  motion?: "nephillin";
+  motion?: "nephillin" | "feira";
 }
 
 const {
@@ -86,15 +86,24 @@ const titleContinuation = titleRemainder.join(" — ");
       <div class="work-header__main">
         <div class="work-header__copy">
           <h1 class="type-display" data-work-title>
-            {titleLead}{
-              titleContinuation && (
+            {
+              motion === "feira" ? (
+                <span data-work-title-clip>
+                  <span data-work-title-line>{title}</span>
+                </span>
+              ) : (
                 <>
-                  {" "}
-                  —
-                  <span class="work-title__continuation">
-                    {" "}
-                    {titleContinuation}
-                  </span>
+                  {titleLead}
+                  {titleContinuation && (
+                    <>
+                      {" "}
+                      —
+                      <span class="work-title__continuation">
+                        {" "}
+                        {titleContinuation}
+                      </span>
+                    </>
+                  )}
                 </>
               )
             }
@@ -169,5 +178,5 @@ const titleContinuation = titleRemainder.join(" — ");
       )
     }
   </article>
-  {motion === "nephillin" && <NephillinWorkMotion />}
+  {motion && <WorkMotion />}
 </BaseLayout>

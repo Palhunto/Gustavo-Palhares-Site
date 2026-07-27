@@ -17,26 +17,23 @@ async function source(relativePath: string): Promise<string> {
 }
 
 describe("Fase 8B1 — movimento editorial de Nephillin", () => {
-  it("carrega a entrada somente para Nephillin e mantém Feira estática", async () => {
+  it("preserva a inicialização de Nephillin no orquestrador compartilhado", async () => {
     const route = await source("src/pages/trabalhos/[slug].astro");
     const layout = await source("src/layouts/WorkLayout.astro");
-    const entry = await source(
-      "src/components/editorial/NephillinWorkMotion.astro",
-    );
+    const entry = await source("src/components/editorial/WorkMotion.astro");
 
     expect(route).toContain(
       'entry.id === "nephillin-uma-cobertura-sem-credencial"',
     );
     expect(route).toContain('? "nephillin"');
     expect(route).toContain("motion={motion}");
-    expect(layout).toContain('motion?: "nephillin"');
-    expect(layout).toContain(
-      'motion === "nephillin" && <NephillinWorkMotion />',
-    );
+    expect(layout).toContain('motion?: "nephillin" | "feira"');
+    expect(layout).toContain("motion && <WorkMotion />");
     expect(layout).toContain("data-work-motion={motion}");
-    expect(entry).toContain("initializeNephillinWorkMotion(root)");
+    expect(entry).toContain("? initializeNephillinWorkMotion");
+    expect(entry).toContain("const cleanup = initialize(root)");
     expect(entry).toContain("MOTION_LIFECYCLE_EVENTS.pageHide, cleanup");
-    expect(route).not.toMatch(/feira-do-rolo.*(?:gsap|motion)/i);
+    expect(entry.match(/addEventListener\(/g)).toHaveLength(1);
   });
 
   it("distingue chegada compartilhada, acesso direto e restauração", () => {
@@ -190,7 +187,7 @@ describe("Fase 8B1 — movimento editorial de Nephillin", () => {
 
   it("mantém entrada e layout Astro compiláveis", async () => {
     for (const file of [
-      "src/components/editorial/NephillinWorkMotion.astro",
+      "src/components/editorial/WorkMotion.astro",
       "src/layouts/WorkLayout.astro",
       "src/pages/trabalhos/[slug].astro",
     ]) {

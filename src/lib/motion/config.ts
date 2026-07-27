@@ -352,6 +352,67 @@ export const NEPHILLIN_WORK_TIMELINES = {
   },
 } as const;
 
+export const FEIRA_WORK_TIMELINES = {
+  intro: {
+    at: {
+      marker: 0,
+      title: 0.06,
+      lead: 0.14,
+      summary: 0.26,
+      rule: 0.32,
+      metadata: 0.38,
+    },
+    duration: {
+      marker: 0.46,
+      title: 0.84,
+      lead: 0.98,
+      summary: 0.62,
+      rule: 0.56,
+      metadata: 0.55,
+    },
+    opacity: {
+      marker: 0.82,
+      summary: 0.84,
+      metadata: 0.86,
+    },
+  },
+  trigger: {
+    diptych: "top 82%",
+    sheet: "top 82%",
+    sheetRow: "top 88%",
+  },
+  diptych: {
+    at: {
+      first: 0,
+      second: 0.12,
+      numbers: 0.22,
+    },
+    duration: {
+      first: 0.94,
+      second: 0.9,
+      numbers: 0.48,
+    },
+    totalDuration: 1.12,
+  },
+  sheet: {
+    at: {
+      identification: 0,
+      frame: 0.05,
+      figures: 0.18,
+      numbers: 0.58,
+    },
+    duration: {
+      identification: 0.46,
+      frame: 0.58,
+      figure: 0.62,
+      number: 0.42,
+      rowFigure: 0.64,
+    },
+    stagger: 0.08,
+    totalDuration: 1.2,
+  },
+} as const;
+
 export function responsiveMotionTokens(viewportWidth: number) {
   const compact = viewportWidth < MOTION_TOKENS.breakpoint.compact;
   return {

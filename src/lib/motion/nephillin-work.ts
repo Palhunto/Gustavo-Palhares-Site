@@ -25,6 +25,9 @@ const NEPHILLIN_TARGET_SELECTOR = [
   "[data-work-gallery] [data-work-figure]",
   "[data-work-credit] .credits",
   "[data-work-credit] .credits__item",
+  "[data-work-related]",
+  "[data-work-related] .related-works__heading",
+  "[data-work-related] .related-works__item",
   "[data-work-continuity]",
   "[data-work-continuity] .work-continuity__link",
 ].join(",");
@@ -56,18 +59,38 @@ function hasActiveViewTransition(documentRoot: Document): boolean {
   );
 }
 
+export function resolveCurrentWorkEntryMode(
+  documentRoot: Document,
+): NephillinEntryMode {
+  return resolveNephillinEntryMode({
+    activeViewTransition: hasActiveViewTransition(documentRoot),
+    navigationType: currentNavigationType(),
+    scrollY: window.scrollY,
+  });
+}
+
+export function beginWorkRefreshGeneration(root: HTMLElement): number {
+  const generation = (refreshGenerations.get(root) ?? 0) + 1;
+  refreshGenerations.set(root, generation);
+  return generation;
+}
+
+export function currentWorkRefreshGeneration(root: HTMLElement): number {
+  return refreshGenerations.get(root) ?? 0;
+}
+
 function restoreNephillinState(root: HTMLElement) {
-  refreshGenerations.set(root, (refreshGenerations.get(root) ?? 0) + 1);
+  beginWorkRefreshGeneration(root);
   root
     .querySelectorAll<HTMLElement>(NEPHILLIN_TARGET_SELECTOR)
     .forEach((element) => element.removeAttribute("style"));
 }
 
-function isPastViewport(element: HTMLElement): boolean {
+export function isPastViewport(element: HTMLElement): boolean {
   return element.getBoundingClientRect().bottom <= 0;
 }
 
-function scheduleStableRefresh(
+export function scheduleStableRefresh(
   root: HTMLElement,
   refresh: () => void,
   generation: number,
@@ -336,7 +359,7 @@ function animateDesktopGallery(
   );
 }
 
-function animateEnding(
+export function animateWorkEnding(
   root: HTMLElement,
   gsap: GsapInstance,
   ScrollTrigger: ScrollTriggerInstance,
@@ -413,17 +436,65 @@ function animateEnding(
       },
     });
   }
+
+  const related = root.querySelector<HTMLElement>("[data-work-related]");
+  const relatedHeading = related?.querySelector<HTMLElement>(
+    ".related-works__heading",
+  );
+  const relatedItems =
+    related?.querySelectorAll<HTMLElement>(".related-works__item") ?? [];
+  if (related && !isPastViewport(related)) {
+    ScrollTrigger.create({
+      trigger: related,
+      start: NEPHILLIN_WORK_TIMELINES.trigger.continuity,
+      once: true,
+      onEnter: () => {
+        const timeline = gsap.timeline({ defaults: { overwrite: "auto" } });
+        timeline.fromTo(
+          related,
+          { "--work-related-rule-scale": 0 },
+          {
+            "--work-related-rule-scale": 1,
+            duration: NEPHILLIN_WORK_TIMELINES.ending.continuityDuration,
+            ease: MOTION_TOKENS.easing.line,
+            clearProps: "--work-related-rule-scale",
+          },
+        );
+        if (relatedHeading) {
+          timeline.from(
+            relatedHeading,
+            {
+              y: distance * 0.2,
+              opacity: 0.84,
+              duration: 0.44,
+              ease: MOTION_TOKENS.easing.editorial,
+              clearProps: "transform,opacity",
+            },
+            0.08,
+          );
+        }
+        timeline.from(
+          relatedItems,
+          {
+            y: distance * 0.24,
+            opacity: 0.82,
+            duration: 0.46,
+            ease: MOTION_TOKENS.easing.editorial,
+            stagger: 0.06,
+            clearProps: "transform,opacity",
+          },
+          0.12,
+        );
+      },
+    });
+  }
 }
 
 export function initializeNephillinWorkMotion(
   root: HTMLElement,
   documentRoot: Document = document,
 ) {
-  const entryMode = resolveNephillinEntryMode({
-    activeViewTransition: hasActiveViewTransition(documentRoot),
-    navigationType: currentNavigationType(),
-    scrollY: window.scrollY,
-  });
+  const entryMode = resolveCurrentWorkEntryMode(documentRoot);
 
   if (entryMode === "restored" || prefersReducedMotion()) {
     root.dataset.workMotionPresented = "true";
@@ -436,7 +507,7 @@ export function initializeNephillinWorkMotion(
       if (root.dataset.workMotionPresented === "true") return;
 
       const { gsap, ScrollTrigger } = engine;
-      const generation = refreshGenerations.get(root) ?? 0;
+      const generation = currentWorkRefreshGeneration(root);
       const figures = Array.from(
         root.querySelectorAll<HTMLElement>(
           "[data-work-gallery] [data-work-figure]",
@@ -452,7 +523,7 @@ export function initializeNephillinWorkMotion(
       } else {
         animateDesktopGallery(root, gsap, ScrollTrigger, distance);
       }
-      animateEnding(root, gsap, ScrollTrigger, distance);
+      animateWorkEnding(root, gsap, ScrollTrigger, distance);
       scheduleStableRefresh(root, () => ScrollTrigger.refresh(), generation);
     },
   });
