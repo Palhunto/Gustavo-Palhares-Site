@@ -449,6 +449,12 @@ export async function auditPublicIntegrity({
       const internal = internalPathFromUrl(href, base);
       if (!internal) continue;
       const [destination, fragment] = internal.split("#", 2);
+      if (
+        path.posix.extname(destination) &&
+        (await exists(fileForPublicPath(dist, destination)))
+      ) {
+        continue;
+      }
       if (destination !== "/" && !destination.endsWith("/")) {
         errors.push(`${route}: link interno sem barra final ${href}.`);
       }

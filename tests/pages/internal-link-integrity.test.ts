@@ -1,5 +1,5 @@
 import { execFile } from "node:child_process";
-import { readdir, readFile } from "node:fs/promises";
+import { access, readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 import { promisify } from "node:util";
 
@@ -57,6 +57,20 @@ function count(html: string, pattern: RegExp): number {
   return [...html.matchAll(pattern)].length;
 }
 
+async function emittedAssetExists(href: string): Promise<boolean> {
+  const pathname = decodeURIComponent(href.split(/[?#]/, 1)[0]).replace(
+    /^\/+/,
+    "",
+  );
+  if (!path.posix.extname(pathname)) return false;
+  try {
+    await access(path.join(dist, pathname));
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 beforeAll(async () => {
   await execFileAsync(process.execPath, [astroCli, "build"], {
     cwd: root,
@@ -85,7 +99,7 @@ describe("integridade dos links internos gerados", () => {
     });
   });
 
-  it("faz todo link interno apontar para uma rota HTML emitida", async () => {
+  it("faz todo link interno apontar para uma rota HTML ou asset emitido", async () => {
     const pages = await emittedHtml();
     const routes = new Set(pages.map((page) => page.route));
 
@@ -106,6 +120,7 @@ describe("integridade dos links internos gerados", () => {
 
         expect(href, `${page.route}: caminho relativo`).toMatch(/^\/(?!\/)/);
         const destination = href.split("#", 1)[0];
+        if (await emittedAssetExists(destination)) continue;
         expect(
           destination === "/" || destination.endsWith("/"),
           `${page.route}: falta barra final em ${href}`,
@@ -226,6 +241,7 @@ describe("integridade dos links internos gerados", () => {
         metadata: ["19 de julho de 2026", "Bauru, SP", "Cobertura", "Autoral"],
         rel: "prev",
         destination: feiraRoute,
+        lightboxLinks: 8,
       },
       {
         route: feiraRoute,
@@ -238,6 +254,7 @@ describe("integridade dos links internos gerados", () => {
         ],
         rel: "next",
         destination: nephillinRoute,
+        lightboxLinks: 9,
       },
     ];
 
@@ -261,7 +278,10 @@ describe("integridade dos links internos gerados", () => {
           `<a[^>]*rel="${contract.rel}"[^>]*href="${contract.destination}"`,
         ),
       );
-      expect(html).not.toMatch(/lightbox|data-modal|dialog|ampliar imagem/i);
+      expect(count(html, /\bdata-work-lightbox-link\b/g)).toBe(
+        contract.lightboxLinks,
+      );
+      expect(count(html, /\bdata-work-lightbox-dialog\b/g)).toBe(1);
     }
 
     expect(

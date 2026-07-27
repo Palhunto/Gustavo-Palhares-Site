@@ -124,7 +124,9 @@ describe("Fase 8B2 — movimento editorial da Feira do Rolo", () => {
     expect(FEIRA_WORK_TIMELINES.diptych.totalDuration).toBeGreaterThanOrEqual(
       1.05,
     );
-    expect(FEIRA_WORK_TIMELINES.diptych.totalDuration).toBeLessThanOrEqual(1.15);
+    expect(FEIRA_WORK_TIMELINES.diptych.totalDuration).toBeLessThanOrEqual(
+      1.15,
+    );
     expect(FEIRA_WORK_TIMELINES.sheet.totalDuration).toBeGreaterThanOrEqual(
       1.15,
     );
@@ -161,9 +163,7 @@ describe("Fase 8B2 — movimento editorial da Feira do Rolo", () => {
     );
     expect(scopedStyles).toContain("[data-work-contact-sheet]::before");
     expect(scopedStyles).toContain("[data-work-contact-sheet]::after");
-    expect(scopedStyles).not.toMatch(
-      /opacity\s*:\s*0|visibility\s*:\s*hidden/,
-    );
+    expect(scopedStyles).not.toMatch(/opacity\s*:\s*0|visibility\s*:\s*hidden/);
     expect(scopedStyles).not.toMatch(
       /\[data-work-figure\][^{]*\{[^}]*transform/s,
     );

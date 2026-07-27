@@ -72,6 +72,9 @@ describe("Fase 8C — lightbox editorial das páginas de trabalhos", () => {
     expect(component).toContain('aria-label="Navegação de imagens"');
     expect(component).toContain("data-work-lightbox-current");
     expect(component).toContain("data-work-lightbox-total");
+    expect(component).toContain('aria-live="polite"');
+    expect(component).toContain('aria-atomic="true"');
+    expect(component).toContain("data-work-lightbox-status");
   });
 
   it("preserva modificadores, menu de contexto e abertura em nova aba", () => {
@@ -122,6 +125,8 @@ describe("Fase 8C — lightbox editorial das páginas de trabalhos", () => {
     }
     expect(lightbox).toContain("previous.disabled = !state.canGoPrevious");
     expect(lightbox).toContain("next.disabled = !state.canGoNext");
+    expect(lightbox).toContain("status.textContent =");
+    expect(lightbox).toContain("de ${links.length}: ${image.alt}");
     expect(lightbox).not.toMatch(/currentIndex\s*%\s*links\.length/);
   });
 

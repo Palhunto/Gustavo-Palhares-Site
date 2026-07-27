@@ -274,6 +274,10 @@ Busca remota, ranking personalizado, mapa e linha do tempo avançada.
 
 ## 10. Fase 8 — Polimento progressivo
 
+### Estado
+
+Implementada e testada. Aguardando aprovação explícita.
+
 ### Objetivo
 
 Adicionar continuidade e refinamento sem enfraquecer a MPA.

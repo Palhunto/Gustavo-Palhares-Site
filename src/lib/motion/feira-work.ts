@@ -1,7 +1,4 @@
-import {
-  FEIRA_WORK_TIMELINES,
-  MOTION_TOKENS,
-} from "./config.ts";
+import { FEIRA_WORK_TIMELINES, MOTION_TOKENS } from "./config.ts";
 import type { MotionEngine } from "./gsap.ts";
 import { initializeMotion } from "./lifecycle.ts";
 import {
@@ -263,8 +260,7 @@ function animateSheetStructure(
       "--feira-sheet-block-scale": 1,
       duration: FEIRA_WORK_TIMELINES.sheet.duration.frame,
       ease: MOTION_TOKENS.easing.line,
-      clearProps:
-        "--feira-sheet-inline-scale,--feira-sheet-block-scale",
+      clearProps: "--feira-sheet-inline-scale,--feira-sheet-block-scale",
     },
     FEIRA_WORK_TIMELINES.sheet.at.frame,
   );
@@ -339,11 +335,7 @@ function animateSheetRows(
     });
   }
 
-  const rows = [
-    figures.slice(0, 2),
-    figures.slice(2, 4),
-    figures.slice(4, 6),
-  ];
+  const rows = [figures.slice(0, 2), figures.slice(2, 4), figures.slice(4, 6)];
   for (const row of rows) {
     const trigger = row[0];
     if (!trigger || isPastViewport(trigger)) continue;
@@ -360,14 +352,10 @@ function animateSheetRows(
       once: true,
       onEnter: () => {
         const timeline = gsap.timeline({ defaults: { overwrite: "auto" } });
-        timeline.fromTo(
-          pictures,
-          imageFromVars(distance * 0.46),
-          {
-            ...imageToVars(FEIRA_WORK_TIMELINES.sheet.duration.rowFigure),
-            stagger: FEIRA_WORK_TIMELINES.sheet.stagger,
-          },
-        );
+        timeline.fromTo(pictures, imageFromVars(distance * 0.46), {
+          ...imageToVars(FEIRA_WORK_TIMELINES.sheet.duration.rowFigure),
+          stagger: FEIRA_WORK_TIMELINES.sheet.stagger,
+        });
         timeline.from(
           numbers,
           {

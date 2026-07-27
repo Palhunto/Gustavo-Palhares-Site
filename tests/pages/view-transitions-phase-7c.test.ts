@@ -156,15 +156,15 @@ describe("Fase 7C — View Transitions nativas dos trabalhos", () => {
     const indexLayout = await source("src/layouts/IndexLayout.astro");
     const workPage = await source("src/pages/trabalhos/[slug].astro");
     const workLayout = await source("src/layouts/WorkLayout.astro");
-    const nephillinEntry = await source(
-      "src/components/editorial/NephillinWorkMotion.astro",
+    const workMotion = await source(
+      "src/components/editorial/WorkMotion.astro",
     );
 
     expect(homeWorks).toContain("href={publicRoutes.trabalho(work.data.slug)}");
     expect(homeWorks).not.toMatch(/on:click|onclick|role="button"/i);
     expect(worksIndex).toContain("<a href={href}");
     expect(
-      `${worksIndex}\n${indexLayout}\n${workPage}\n${workLayout}\n${nephillinEntry}`,
+      `${worksIndex}\n${indexLayout}\n${workPage}\n${workLayout}\n${workMotion}`,
     ).not.toMatch(
       /ClientRouter|preventDefault|startViewTransition|addEventListener\(\s*["']click/i,
     );

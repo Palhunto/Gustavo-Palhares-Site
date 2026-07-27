@@ -74,6 +74,9 @@ export function initializeWorkLightbox(
   const credit = dialog.querySelector<HTMLElement>(
     "[data-work-lightbox-credit]",
   );
+  const status = dialog.querySelector<HTMLElement>(
+    "[data-work-lightbox-status]",
+  );
   const previous = dialog.querySelector<HTMLButtonElement>(
     "[data-work-lightbox-previous]",
   );
@@ -95,6 +98,7 @@ export function initializeWorkLightbox(
     !total ||
     !caption ||
     !credit ||
+    !status ||
     !previous ||
     !next ||
     !close ||
@@ -184,6 +188,9 @@ export function initializeWorkLightbox(
     caption.hidden = nextCaption.length === 0;
     credit.textContent = nextCredit;
     credit.hidden = nextCredit.length === 0;
+    status.textContent =
+      `Fotografia ${link.dataset.lightboxNumber ?? currentIndex + 1} ` +
+      `de ${links.length}: ${image.alt}`;
   };
 
   const animateSwapIn = async (generation: number) => {
@@ -261,6 +268,7 @@ export function initializeWorkLightbox(
     clearPreloads();
     image.removeAttribute("src");
     image.removeAttribute("style");
+    status.textContent = "";
     unlockBackground();
     if (restoreFocus && opener?.isConnected) opener.focus();
     opener = undefined;

@@ -34,7 +34,7 @@ describe("Rolagem das âncoras internas da homepage", () => {
     expect(styles).toMatch(
       /\.home-moment\s*\{[^}]*scroll-margin-block-start:\s*var\(--space-4\);/s,
     );
-    expect(cover).toContain('href={`#${section.id}`}');
+    expect(cover).toContain("href={`#${section.id}`}");
     expect(cover).not.toMatch(/preventDefault|onclick|on:click/);
   });
 
