@@ -1,0 +1,102 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<dialog
+  class="work-lightbox"
+  aria-labelledby="work-lightbox-title"
+  aria-describedby="work-lightbox-caption work-lightbox-credit"
+  data-work-lightbox-dialog
+>
+  <div class="work-lightbox__panel">
+    <header class="work-lightbox__header" data-work-lightbox-chrome>
+      <div class="work-lightbox__identification">
+        <p class="work-lightbox__eyebrow type-label">Visualização ampliada</p>
+        <h2 id="work-lightbox-title" class="work-lightbox__title">{title}</h2>
+      </div>
+      <button
+        class="work-lightbox__control work-lightbox__close type-label"
+        type="button"
+        aria-label="Fechar visualização ampliada"
+        autofocus
+        data-work-lightbox-close
+      >
+        Fechar
+      </button>
+    </header>
+
+    <div class="work-lightbox__stage">
+      <img
+        class="work-lightbox__image"
+        alt=""
+        decoding="async"
+        data-work-lightbox-image
+      />
+    </div>
+
+    <footer class="work-lightbox__footer" data-work-lightbox-chrome>
+      <div class="work-lightbox__details">
+        <p class="work-lightbox__counter type-meta number-stable">
+          <span data-work-lightbox-current>01</span>
+          <span aria-hidden="true"> / </span>
+          <span class="u-visually-hidden">de</span>
+          <span data-work-lightbox-total>00</span>
+        </p>
+        <p
+          id="work-lightbox-caption"
+          class="work-lightbox__caption type-caption"
+          data-work-lightbox-caption
+          hidden
+        >
+        </p>
+        <p
+          id="work-lightbox-credit"
+          class="work-lightbox__credit type-caption"
+          data-work-lightbox-credit
+        >
+        </p>
+      </div>
+      <nav class="work-lightbox__navigation" aria-label="Navegação de imagens">
+        <button
+          class="work-lightbox__control type-label"
+          type="button"
+          aria-label="Fotografia anterior"
+          data-work-lightbox-previous
+        >
+          <span aria-hidden="true">←</span>
+          Anterior
+        </button>
+        <button
+          class="work-lightbox__control type-label"
+          type="button"
+          aria-label="Próxima fotografia"
+          data-work-lightbox-next
+        >
+          Próxima
+          <span aria-hidden="true">→</span>
+        </button>
+      </nav>
+    </footer>
+  </div>
+</dialog>
+
+<script>
+  import { MOTION_LIFECYCLE_EVENTS } from "../../lib/motion/config.ts";
+  import { initializeWorkLightbox } from "../../lib/lightbox/work-lightbox.ts";
+
+  const root = document.querySelector<HTMLElement>("[data-work-motion]");
+  const dialog = document.querySelector<HTMLDialogElement>(
+    "[data-work-lightbox-dialog]",
+  );
+
+  if (root && dialog) {
+    const cleanup = initializeWorkLightbox(root, dialog);
+    window.addEventListener(MOTION_LIFECYCLE_EVENTS.pageHide, cleanup, {
+      once: true,
+    });
+  }
+</script>

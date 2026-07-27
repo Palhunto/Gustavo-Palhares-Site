@@ -24,6 +24,154 @@
   object-position: var(--media-position);
 }
 
+.editorial-picture__lightbox-link {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  color: inherit;
+  cursor: zoom-in;
+  text-decoration: none;
+}
+
+.work-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: var(--layer-overlay);
+  inline-size: 100%;
+  max-inline-size: none;
+  block-size: 100dvh;
+  max-block-size: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  background: rgb(15 15 14 / 96%);
+  color: #f3f0e8;
+}
+
+.work-lightbox:not([open]) {
+  display: none;
+}
+
+.work-lightbox::backdrop {
+  background: rgb(15 15 14 / 96%);
+}
+
+.work-lightbox__panel {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  inline-size: 100%;
+  block-size: 100%;
+  padding: max(var(--space-4), env(safe-area-inset-top))
+    max(var(--space-4), env(safe-area-inset-right))
+    max(var(--space-4), env(safe-area-inset-bottom))
+    max(var(--space-4), env(safe-area-inset-left));
+}
+
+.work-lightbox__header,
+.work-lightbox__footer {
+  display: flex;
+  gap: var(--space-4);
+  align-items: center;
+  justify-content: space-between;
+  min-inline-size: 0;
+}
+
+.work-lightbox__header {
+  padding-block-end: var(--space-3);
+  border-block-end: var(--line-hairline) solid rgb(243 240 232 / 26%);
+}
+
+.work-lightbox__identification,
+.work-lightbox__details {
+  min-inline-size: 0;
+}
+
+.work-lightbox__eyebrow,
+.work-lightbox__counter,
+.work-lightbox__caption,
+.work-lightbox__credit {
+  color: rgb(243 240 232 / 72%);
+}
+
+.work-lightbox__title {
+  overflow: hidden;
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  font-weight: 500;
+  line-height: var(--leading-tight);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.work-lightbox__stage {
+  display: grid;
+  min-block-size: 0;
+  padding-block: var(--space-3);
+  place-items: center;
+}
+
+.work-lightbox__image {
+  display: block;
+  max-inline-size: 100%;
+  max-block-size: calc(100dvh - 10rem);
+  inline-size: auto;
+  block-size: auto;
+  object-fit: contain;
+}
+
+.work-lightbox__footer {
+  padding-block-start: var(--space-3);
+  border-block-start: var(--line-hairline) solid rgb(243 240 232 / 26%);
+}
+
+.work-lightbox__details {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.work-lightbox__caption,
+.work-lightbox__credit {
+  max-inline-size: 68ch;
+}
+
+.work-lightbox__navigation {
+  display: flex;
+  flex: none;
+  gap: var(--space-2);
+}
+
+.work-lightbox__control {
+  display: inline-flex;
+  gap: var(--space-2);
+  align-items: center;
+  justify-content: center;
+  min-inline-size: 2.75rem;
+  min-block-size: 2.75rem;
+  padding: var(--space-2) var(--space-3);
+  border: var(--line-hairline) solid rgb(243 240 232 / 48%);
+  border-radius: var(--radius-functional);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.work-lightbox__control:disabled {
+  border-color: rgb(243 240 232 / 16%);
+  color: rgb(243 240 232 / 34%);
+  cursor: default;
+}
+
+.work-lightbox__control:not(:disabled):hover {
+  border-color: rgb(243 240 232 / 88%);
+  background: rgb(243 240 232 / 8%);
+}
+
+html.work-lightbox-open,
+html.work-lightbox-open body {
+  overflow: hidden;
+}
+
 .editorial-caption {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -317,6 +465,59 @@
 
   .related-works__list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 47.9375rem) {
+  .work-lightbox__panel {
+    padding: max(var(--space-3), env(safe-area-inset-top))
+      max(var(--space-3), env(safe-area-inset-right))
+      max(var(--space-3), env(safe-area-inset-bottom))
+      max(var(--space-3), env(safe-area-inset-left));
+  }
+
+  .work-lightbox__header {
+    align-items: start;
+  }
+
+  .work-lightbox__title {
+    overflow: visible;
+    text-overflow: clip;
+    text-wrap: balance;
+    white-space: normal;
+  }
+
+  .work-lightbox__stage {
+    padding-block: var(--space-2);
+  }
+
+  .work-lightbox__image {
+    max-block-size: calc(100dvh - 13rem);
+  }
+
+  .work-lightbox__footer {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .work-lightbox__navigation {
+    inline-size: 100%;
+  }
+
+  .work-lightbox__navigation .work-lightbox__control {
+    flex: 1 1 0;
+  }
+
+  .work-lightbox__caption {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .work-lightbox *,
+  .editorial-picture__lightbox-link {
+    scroll-behavior: auto !important;
+    transition-duration: 0s !important;
   }
 }
 

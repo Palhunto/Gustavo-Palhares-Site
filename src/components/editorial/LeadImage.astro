@@ -13,6 +13,7 @@ interface Props {
   archiveNumber?: string;
   priority?: boolean;
   creditMode?: "auto" | "document";
+  lightbox?: boolean;
   number?: string;
   viewTransitionName?: WorkCoverViewTransitionName;
 }
@@ -22,6 +23,7 @@ const {
   archiveNumber,
   priority = true,
   creditMode = "auto",
+  lightbox = false,
   number,
   viewTransitionName,
 } = Astro.props;
@@ -44,10 +46,16 @@ const editorialNumber = resolveEditorialNumber(number, "LeadImage");
         class="work-cover-transition-frame"
         style={`view-transition-name: ${viewTransitionName};`}
       >
-        <MediaPicture media={media} />
+        <MediaPicture
+          media={media}
+          lightboxNumber={lightbox ? editorialNumber : undefined}
+        />
       </div>
     ) : (
-      <MediaPicture media={media} />
+      <MediaPicture
+        media={media}
+        lightboxNumber={lightbox ? editorialNumber : undefined}
+      />
     )
   }
   <FigureCaption

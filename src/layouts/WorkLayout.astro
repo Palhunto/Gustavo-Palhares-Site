@@ -4,6 +4,7 @@ import LeadImage from "../components/editorial/LeadImage.astro";
 import RelatedWorks, {
   type RelatedWorkItem,
 } from "../components/editorial/RelatedWorks.astro";
+import WorkLightbox from "../components/editorial/WorkLightbox.astro";
 import WorkMotion from "../components/editorial/WorkMotion.astro";
 import type {
   SocialImageMetadata,
@@ -133,6 +134,7 @@ const titleContinuation = titleRemainder.join(" — ");
         asset={cover as never}
         number="01"
         creditMode="document"
+        lightbox={Boolean(motion)}
         viewTransitionName={viewTransitionName}
       />
     </div>
@@ -178,5 +180,6 @@ const titleContinuation = titleRemainder.join(" — ");
       )
     }
   </article>
+  {motion && <WorkLightbox title={title} />}
   {motion && <WorkMotion />}
 </BaseLayout>

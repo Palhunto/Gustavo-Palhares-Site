@@ -15,6 +15,7 @@ interface Props {
   alignment?: "start" | "center" | "end";
   balance?: "equal" | "end-emphasis";
   creditMode?: "auto" | "document";
+  lightbox?: boolean;
   numbers?: string | readonly string[];
 }
 
@@ -23,6 +24,7 @@ const {
   alignment = "end",
   balance = "equal",
   creditMode = "auto",
+  lightbox = false,
   numbers,
 } = Astro.props;
 const inputs = parseMediaList(assets);
@@ -47,7 +49,10 @@ const sharedCredit = commonMediaCredit(media);
   {
     media.map((item, index) => (
       <figure class="diptych__item" data-media-id={item.id} data-work-figure>
-        <MediaPicture media={item} />
+        <MediaPicture
+          media={item}
+          lightboxNumber={lightbox ? editorialNumbers[index] : undefined}
+        />
         <FigureCaption
           media={item}
           number={editorialNumbers[index]}

@@ -1,32 +1,75 @@
 ---
-import { Picture } from "astro:assets";
+import { getImage, Picture } from "astro:assets";
 
 import type { ResolvedEditorialMedia } from "../../lib/media/index.ts";
 
 interface Props {
   media: ResolvedEditorialMedia;
   class?: string;
+  lightboxNumber?: string;
 }
 
-const { media, class: className } = Astro.props;
+const { media, class: className, lightboxNumber } = Astro.props;
 const ratio =
   media.aspectRatio?.replace(":", " / ") ??
   `${media.src.width} / ${media.src.height}`;
+const lightboxImage = lightboxNumber
+  ? await getImage({
+      src: media.src,
+      width: Math.min(media.src.width, 1920),
+      format: "webp",
+    })
+  : undefined;
+const lightboxWidth = lightboxImage
+  ? Number(lightboxImage.attributes.width)
+  : undefined;
+const lightboxHeight = lightboxImage
+  ? Number(lightboxImage.attributes.height)
+  : undefined;
 ---
 
 <div
   class:list={["editorial-picture", className]}
   style={`--media-ratio: ${ratio}; --media-position: ${media.objectPosition};`}
 >
-  <Picture
-    src={media.src}
-    formats={["avif", "webp"]}
-    fallbackFormat="jpeg"
-    widths={[...media.widths]}
-    sizes={media.sizes}
-    alt={media.alt}
-    loading={media.loading}
-    decoding="async"
-    priority={media.priority}
-  />
+  {
+    lightboxImage && lightboxNumber ? (
+      <a
+        class="editorial-picture__lightbox-link"
+        href={lightboxImage.src}
+        aria-label={`Abrir fotografia ${lightboxNumber} em tamanho ampliado`}
+        data-work-lightbox-link
+        data-lightbox-number={lightboxNumber}
+        data-lightbox-alt={media.alt}
+        data-lightbox-caption={media.caption}
+        data-lightbox-credit={`${media.credit.role}: ${media.credit.name}`}
+        data-lightbox-width={lightboxWidth}
+        data-lightbox-height={lightboxHeight}
+      >
+        <Picture
+          src={media.src}
+          formats={["avif", "webp"]}
+          fallbackFormat="jpeg"
+          widths={[...media.widths]}
+          sizes={media.sizes}
+          alt={media.alt}
+          loading={media.loading}
+          decoding="async"
+          priority={media.priority}
+        />
+      </a>
+    ) : (
+      <Picture
+        src={media.src}
+        formats={["avif", "webp"]}
+        fallbackFormat="jpeg"
+        widths={[...media.widths]}
+        sizes={media.sizes}
+        alt={media.alt}
+        loading={media.loading}
+        decoding="async"
+        priority={media.priority}
+      />
+    )
+  }
 </div>

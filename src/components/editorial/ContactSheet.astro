@@ -10,10 +10,16 @@ import MediaPicture from "./_MediaPicture.astro";
 interface Props {
   assets: string | readonly EditorialMediaInput[];
   label?: string;
+  lightbox?: boolean;
   numbers?: string | readonly string[];
 }
 
-const { assets, label = "Folha de contato", numbers } = Astro.props;
+const {
+  assets,
+  label = "Folha de contato",
+  lightbox = false,
+  numbers,
+} = Astro.props;
 const inputs = parseMediaList(assets);
 if (inputs.length < 4 || inputs.length > 12) {
   throw new Error("ContactSheet exige entre 4 e 12 mídias.");
@@ -39,7 +45,10 @@ const editorialNumbers = resolveEditorialNumbers(
           data-media-id={item.id}
           data-work-figure
         >
-          <MediaPicture media={item} />
+          <MediaPicture
+            media={item}
+            lightboxNumber={lightbox ? editorialNumbers[index] : undefined}
+          />
           <p
             class="contact-sheet__index editorial-photo-number type-meta number-stable"
             data-work-number

@@ -13,6 +13,7 @@ import SharedCredit from "./_SharedCredit.astro";
 interface Props {
   assets: string | readonly EditorialMediaInput[];
   creditMode?: "auto" | "document";
+  lightbox?: boolean;
   layout?: "columns" | "mosaic";
   numbers?: string | readonly string[];
 }
@@ -20,6 +21,7 @@ interface Props {
 const {
   assets,
   creditMode = "auto",
+  lightbox = false,
   layout = "columns",
   numbers,
 } = Astro.props;
@@ -39,7 +41,10 @@ const sharedCredit = commonMediaCredit(media);
   {
     media.map((item, index) => (
       <figure class="triptych__item" data-media-id={item.id} data-work-figure>
-        <MediaPicture media={item} />
+        <MediaPicture
+          media={item}
+          lightboxNumber={lightbox ? editorialNumbers[index] : undefined}
+        />
         <FigureCaption
           media={item}
           number={editorialNumbers[index]}

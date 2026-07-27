@@ -58,6 +58,21 @@ export const MOTION_TOKENS = {
   },
 } as const;
 
+export const WORK_LIGHTBOX_TIMELINE = {
+  duration: {
+    backdropIn: 0.2,
+    imageIn: 0.32,
+    controlsIn: 0.2,
+    swapOut: 0.08,
+    swapIn: 0.18,
+    exit: 0.16,
+  },
+  scale: {
+    imageIn: 0.985,
+    swap: 0.995,
+  },
+} as const;
+
 export const HOME_COVER_TIMELINE = {
   at: {
     identification: 0,
