@@ -150,19 +150,24 @@ describe("Fase 7C — View Transitions nativas dos trabalhos", () => {
     expect(styles).not.toMatch(/<script|import\s+.*gsap|ScrollTrigger/i);
   });
 
-  it("preserva links nativos e páginas de trabalho sem JavaScript", async () => {
+  it("preserva links nativos e não intercepta a navegação dos trabalhos", async () => {
     const homeWorks = await source("src/components/home/HomeWorks.astro");
     const worksIndex = await source("src/pages/trabalhos/index.astro");
     const indexLayout = await source("src/layouts/IndexLayout.astro");
     const workPage = await source("src/pages/trabalhos/[slug].astro");
     const workLayout = await source("src/layouts/WorkLayout.astro");
+    const nephillinEntry = await source(
+      "src/components/editorial/NephillinWorkMotion.astro",
+    );
 
     expect(homeWorks).toContain("href={publicRoutes.trabalho(work.data.slug)}");
     expect(homeWorks).not.toMatch(/on:click|onclick|role="button"/i);
     expect(worksIndex).toContain("<a href={href}");
     expect(
-      `${worksIndex}\n${indexLayout}\n${workPage}\n${workLayout}`,
-    ).not.toMatch(/<script|gsap|ScrollTrigger|ClientRouter/i);
+      `${worksIndex}\n${indexLayout}\n${workPage}\n${workLayout}\n${nephillinEntry}`,
+    ).not.toMatch(
+      /ClientRouter|preventDefault|startViewTransition|addEventListener\(\s*["']click/i,
+    );
   });
 
   it("mantém os componentes Astro compiláveis e o conteúdo estático", async () => {

@@ -154,7 +154,7 @@ describe("Fase 8A — estrutura estável das páginas de trabalhos", () => {
     expect(related).toContain('<h2 class="type-project">');
   });
 
-  it("mantém a transição apenas na abertura e zero JavaScript interno", async () => {
+  it("mantém a transição apenas na abertura e JavaScript isolado da galeria", async () => {
     const files = await Promise.all(
       [
         "src/layouts/WorkLayout.astro",
@@ -179,7 +179,7 @@ describe("Fase 8A — estrutura estável das páginas de trabalhos", () => {
     expect(lead).toContain("viewTransitionName");
     expect(lead).toContain("view-transition-name:");
     expect(internal).not.toMatch(/viewTransitionName|view-transition-name/);
-    expect(combined).not.toMatch(/<script|gsap|ScrollTrigger|ClientRouter/i);
+    expect(combined).not.toMatch(/gsap|ScrollTrigger|ClientRouter/i);
   });
 
   it("mantém todos os componentes Astro alterados compiláveis", async () => {

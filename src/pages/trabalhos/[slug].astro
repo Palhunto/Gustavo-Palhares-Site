@@ -75,6 +75,10 @@ const linkFor = (work: CollectionEntry<"trabalhos"> | undefined) =>
     ? { href: publicRoutes.trabalho(work.data.slug), title: work.data.title }
     : undefined;
 const viewTransitionName = workCoverViewTransitionName(entry.data.slug);
+const motion =
+  entry.id === "nephillin-uma-cobertura-sem-credencial"
+    ? "nephillin"
+    : undefined;
 ---
 
 <WorkLayout
@@ -96,6 +100,7 @@ const viewTransitionName = workCoverViewTransitionName(entry.data.slug);
   modifiedTime={entry.data.updatedAt}
   structuredData={structuredData}
   viewTransitionName={viewTransitionName}
+  motion={motion}
 >
   <Content components={MDX_COMPONENT_REGISTRY} />
 </WorkLayout>

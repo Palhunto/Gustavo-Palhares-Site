@@ -1,6 +1,7 @@
 ---
 import Credits from "../components/editorial/Credits.astro";
 import LeadImage from "../components/editorial/LeadImage.astro";
+import NephillinWorkMotion from "../components/editorial/NephillinWorkMotion.astro";
 import RelatedWorks, {
   type RelatedWorkItem,
 } from "../components/editorial/RelatedWorks.astro";
@@ -35,6 +36,7 @@ interface Props {
   modifiedTime?: string;
   structuredData?: StructuredData;
   viewTransitionName?: WorkCoverViewTransitionName;
+  motion?: "nephillin";
 }
 
 const {
@@ -56,6 +58,7 @@ const {
   modifiedTime,
   structuredData,
   viewTransitionName,
+  motion,
 } = Astro.props;
 const [titleLead, ...titleRemainder] = title.split(" — ");
 const titleContinuation = titleRemainder.join(" — ");
@@ -73,7 +76,7 @@ const titleContinuation = titleRemainder.join(" — ");
   viewTransitions={Boolean(viewTransitionName)}
   viewTransitionName={viewTransitionName}
 >
-  <article class="work-document" data-work-page>
+  <article class="work-document" data-work-page data-work-motion={motion}>
     <header class="work-header" data-work-intro>
       <div class="work-header__marker">
         <p class="type-label">Trabalho fotográfico</p>
@@ -166,4 +169,5 @@ const titleContinuation = titleRemainder.join(" — ");
       )
     }
   </article>
+  {motion === "nephillin" && <NephillinWorkMotion />}
 </BaseLayout>

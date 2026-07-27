@@ -289,6 +289,69 @@ export const HOME_INDEX_TIMELINES = {
   initialOpacity: 0.7,
 } as const;
 
+export const NEPHILLIN_WORK_TIMELINES = {
+  intro: {
+    at: {
+      marker: 0,
+      title: 0.08,
+      lead: 0.12,
+      summary: 0.28,
+      rule: 0.34,
+      metadata: 0.42,
+    },
+    duration: {
+      marker: 0.52,
+      title: 0.96,
+      lead: 1.05,
+      summary: 0.68,
+      rule: 0.62,
+      metadata: 0.6,
+    },
+    opacity: {
+      marker: 0.76,
+      lead: 0.72,
+      summary: 0.78,
+      metadata: 0.82,
+    },
+  },
+  trigger: {
+    group: "top 82%",
+    mobileFigure: "top 88%",
+    mosaicSecondary: "top 84%",
+    credit: "top 88%",
+    continuity: "top 90%",
+  },
+  pair: {
+    duration: {
+      compact: 0.72,
+      regular: 1.04,
+    },
+    stagger: 0.11,
+  },
+  mosaic: {
+    at: {
+      first: 0,
+      dominant: 0.06,
+    },
+    duration: {
+      first: 0.98,
+      dominant: 1.12,
+      secondary: 0.88,
+    },
+  },
+  closing: {
+    duration: {
+      compact: 0.7,
+      regular: 0.92,
+    },
+    stagger: 0.1,
+  },
+  ending: {
+    creditDuration: 0.56,
+    continuityDuration: 0.52,
+  },
+} as const;
+
 export function responsiveMotionTokens(viewportWidth: number) {
   const compact = viewportWidth < MOTION_TOKENS.breakpoint.compact;
   return {
