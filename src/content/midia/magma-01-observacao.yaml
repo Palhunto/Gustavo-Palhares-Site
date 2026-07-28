@@ -1,0 +1,12 @@
+src: ../../assets/media/magma-01-observacao.jpg
+description: Pessoa de costas observando o ambiente sob iluminação vermelha.
+defaultAlt: Pessoa de costas observando o ambiente sob iluminação vermelha.
+credit: { role: fotografia, name: Gustavo Palhares }
+capturedAt: "2025-07-20"
+rights:
+  status: cleared
+  holder: Gustavo Palhares
+  basis: written-authorization
+  scope: publicação editorial no site; cobertura autorizada pela organização do evento Magma, que publicou ou republicou fotografias do trabalho
+  notes: Autorização do evento registrada; releases individuais das pessoas fotografadas não documentados.
+checksum: sha256:6f5eade3ba968ff6a8a83184dbe945b9fc669ad328bf1afbcf0f9df61b092fea

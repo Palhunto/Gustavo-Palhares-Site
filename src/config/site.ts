@@ -17,14 +17,10 @@ export const siteConfig = {
   description: "Publicação digital pessoal de Gustavo Palhares.",
   navigation: [
     { href: publicRoutes.trabalhosIndex, label: "Trabalhos" },
-    { href: publicRoutes.cadernoIndex, label: "Caderno" },
-    { href: publicRoutes.colecoesIndex, label: "Coleções" },
     { href: publicRoutes.sobre, label: "Sobre" },
     { href: publicRoutes.contato, label: "Contato" },
   ] as const satisfies readonly NavigationItem[],
-  footerNavigation: [
-    { href: publicRoutes.edicoesIndex, label: "Edições" },
-  ] as const satisfies readonly NavigationItem[],
+  footerNavigation: [] as const satisfies readonly NavigationItem[],
   contacts: [] as readonly PublicContact[],
   homepageStatus: "provisional" as const,
 };

@@ -22,10 +22,7 @@ describe("Fase 7B1 — coreografia de abertura da capa", () => {
     const globalLayout = await source("src/layouts/BaseLayout.astro");
     const otherPublicPages = await Promise.all(
       [
-        "src/pages/caderno/index.astro",
-        "src/pages/colecoes/index.astro",
         "src/pages/contato.astro",
-        "src/pages/edicoes/index.astro",
         "src/pages/sobre.astro",
         "src/pages/trabalhos/index.astro",
         "src/pages/trabalhos/[slug].astro",

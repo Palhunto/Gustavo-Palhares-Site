@@ -38,11 +38,13 @@ describe("Fase 7B4 — Índice final e encerramento da homepage", () => {
 
     expect(index).toContain("data-home-index-motion");
     expect(index).toContain("data-home-index-list");
-    expect(index.match(/data-home-index-item="/g)).toHaveLength(5);
+    expect(index).toContain('data-home-index-item="trabalhos"');
+    expect(index).toContain("data-home-index-item={item.key}");
+    expect(index).toContain("indexGroups.map");
     expect(index).toContain("data-home-index-work");
-    expect(index).toContain("data-home-index-item-state");
-    expect(index).toContain("data-home-index-item-sublink");
-    expect(index).toContain("data-home-index-item-action");
+    expect(index).toContain("data-home-index-support");
+    expect(index).toContain('class="home-index__details"');
+    expect(index).not.toMatch(/data-home-index-item-(?:state|sublink|action)/);
     expect(footer).toContain("data-home-footer-motion");
     expect(footer).toContain("data-home-footer-rule");
     expect(footer.match(/data-home-footer-group/g)).toHaveLength(4);
@@ -139,16 +141,14 @@ describe("Fase 7B4 — Índice final e encerramento da homepage", () => {
     const styles = await source("src/styles/site.css");
 
     expect(index).toContain('class="home-index__text-link"');
-    expect(index).toContain('class="home-index__action type-nav"');
     expect(index).not.toMatch(/on:click|onclick=|role="button"/i);
     expect(styles).toContain("--home-index-interaction-duration: 180ms");
-    expect(styles).toContain(".home-index__action:hover::after");
     expect(styles).toContain(".home-index__text-link:hover::after");
-    expect(styles).toContain(".home-index__action:focus-visible::after");
     expect(styles).toContain(".home-index__text-link:focus-visible::after");
-    expect(styles).toContain("translateX(0.22rem)");
+    expect(styles).toContain(".home-index__action:hover::after");
+    expect(styles).toContain(".home-index__action:focus-visible::after");
     expect(styles).toMatch(
-      /\.home-index__action\s*\{[^}]*min-block-size:\s*2\.75rem/s,
+      /\.home-index__text-link\s*\{[^}]*text-decoration:\s*none/s,
     );
   });
 

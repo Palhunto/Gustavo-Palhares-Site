@@ -1,11 +1,9 @@
 ---
 import Credits from "../components/editorial/Credits.astro";
 import LeadImage from "../components/editorial/LeadImage.astro";
-import RelatedWorks, {
-  type RelatedWorkItem,
-} from "../components/editorial/RelatedWorks.astro";
 import WorkLightbox from "../components/editorial/WorkLightbox.astro";
 import WorkMotion from "../components/editorial/WorkMotion.astro";
+import { publicRoutes } from "../lib/routes/public.ts";
 import type {
   SocialImageMetadata,
   StructuredData,
@@ -13,14 +11,10 @@ import type {
 import type { WorkCoverViewTransitionName } from "../lib/view-transitions/work-cover.ts";
 import BaseLayout from "./BaseLayout.astro";
 
-interface ContinuityItem {
-  href: string;
-  title: string;
-}
-
 interface Props {
   title: string;
   summary: string;
+  metaDescription?: string;
   archiveNumber: string;
   dateLabel: string;
   location?: string;
@@ -28,21 +22,19 @@ interface Props {
   contextLabel: string;
   cover: unknown;
   credits: readonly { role: string; name: string }[];
-  related?: readonly RelatedWorkItem[];
   archived?: boolean;
-  previous?: ContinuityItem;
-  next?: ContinuityItem;
   socialImage?: SocialImageMetadata;
   publishedTime?: string;
   modifiedTime?: string;
   structuredData?: StructuredData;
   viewTransitionName?: WorkCoverViewTransitionName;
-  motion?: "nephillin" | "feira";
+  motion?: "standard" | "nephillin" | "feira" | "kauan";
 }
 
 const {
   title,
   summary,
+  metaDescription,
   archiveNumber,
   dateLabel,
   location,
@@ -50,10 +42,7 @@ const {
   contextLabel,
   cover,
   credits,
-  related = [],
   archived = false,
-  previous,
-  next,
   socialImage,
   publishedTime,
   modifiedTime,
@@ -67,7 +56,7 @@ const titleContinuation = titleRemainder.join(" — ");
 
 <BaseLayout
   title={title}
-  description={summary}
+  description={metaDescription ?? summary}
   type="article"
   socialImage={socialImage}
   author="Gustavo Palhares"
@@ -147,38 +136,19 @@ const titleContinuation = titleRemainder.join(" — ");
       <Credits items={credits} variant="colophon" />
     </div>
 
-    <RelatedWorks items={related} />
-
-    {
-      (previous || next) && (
-        <nav
-          class="work-continuity"
-          aria-label="Continuidade cronológica entre trabalhos"
-          data-work-continuity
-        >
-          {previous ? (
-            <a
-              class="work-continuity__link work-continuity__link--previous"
-              rel="prev"
-              href={previous.href}
-            >
-              <span class="type-label">Trabalho anterior</span>
-              <span class="type-article">{previous.title}</span>
-            </a>
-          ) : null}
-          {next && (
-            <a
-              class="work-continuity__link work-continuity__link--next"
-              rel="next"
-              href={next.href}
-            >
-              <span class="type-label">Próximo trabalho</span>
-              <span class="type-article">{next.title}</span>
-            </a>
-          )}
-        </nav>
-      )
-    }
+    <nav
+      class="work-continuity"
+      aria-label="Continuidade dos trabalhos"
+      data-work-continuity
+    >
+      <a
+        class="work-continuity__link link-editorial"
+        href={publicRoutes.trabalhosIndex}
+      >
+        <span>VER TODOS OS TRABALHOS</span>
+        <span class="link-editorial__mark" aria-hidden="true">→</span>
+      </a>
+    </nav>
   </article>
   {motion && <WorkLightbox title={title} />}
   {motion && <WorkMotion />}

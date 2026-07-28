@@ -9,7 +9,6 @@ import {
   LeadImage,
   MetadataBlock,
   PullQuote,
-  RelatedWorks,
   TextColumn,
   Triptych,
 } from "../../components/editorial/index.ts";
@@ -69,7 +68,6 @@ const contextualLead = {
             <li><a href="#midia">Mídia</a></li>
             <li><a href="#sequencias">Sequências</a></li>
             <li><a href="#texto">Texto</a></li>
-            <li><a href="#relacoes">Relações</a></li>
           </ul>
         </nav>
       </header>
@@ -189,48 +187,6 @@ const contextualLead = {
               ]}
             />
           </div>
-        </section>
-
-        <section
-          class="component-section"
-          id="relacoes"
-          aria-labelledby="relations-title"
-        >
-          <header class="component-section__heading">
-            <p class="type-label">04 · Encadeamento</p>
-            <h2 class="type-section" id="relations-title">
-              Trabalhos relacionados
-            </h2>
-          </header>
-          <RelatedWorks
-            heading="Amostras sem rota pública"
-            items={[
-              {
-                archiveNumber: "GP—F4—0017",
-                kind: "Sequência",
-                title: "Ritmo entre dois quadros",
-                summary:
-                  "Entrada técnica sem link até a construção das páginas públicas.",
-                media: "fase-4-mercado-02",
-              },
-              {
-                archiveNumber: "GP—F4—0023",
-                kind: "Retrato",
-                title: "Escala e aproximação",
-                summary:
-                  "Exemplo de relação editorial, não um trabalho publicado.",
-                media: "fase-4-retrato-amplo",
-              },
-              {
-                archiveNumber: "GP—F4—0031",
-                kind: "Luz",
-                title: "Contraste no espaço",
-                summary:
-                  "A ausência de href impede apontar para uma rota inexistente.",
-                media: "fase-4-textura-escura",
-              },
-            ]}
-          />
         </section>
       </main>
 

@@ -9,9 +9,8 @@ export const PUBLIC_METADATA_ROUTES = [
   publicRoutes.trabalhosIndex,
   publicRoutes.trabalho("nephillin-uma-cobertura-sem-credencial"),
   publicRoutes.trabalho("feira-do-rolo"),
-  publicRoutes.cadernoIndex,
-  publicRoutes.colecoesIndex,
-  publicRoutes.edicoesIndex,
+  publicRoutes.trabalho("kauan-felix-uma-noite-de-k-1"),
+  publicRoutes.trabalho("magma"),
   publicRoutes.sobre,
   publicRoutes.contato,
 ] as const satisfies readonly PublicPath[];
@@ -19,6 +18,8 @@ export const PUBLIC_METADATA_ROUTES = [
 const WORK_ROUTES = [
   publicRoutes.trabalho("nephillin-uma-cobertura-sem-credencial"),
   publicRoutes.trabalho("feira-do-rolo"),
+  publicRoutes.trabalho("kauan-felix-uma-noite-de-k-1"),
+  publicRoutes.trabalho("magma"),
 ] as const;
 
 const TECHNICAL_ROUTES = [
@@ -35,6 +36,11 @@ const PRIVATE_MARKERS = [
   "trabalho-show-pendente",
   "trabalho-rua-pendente",
 ] as const;
+
+const ALLOWED_EXTERNAL_METADATA_ORIGINS = new Set([
+  "https://schema.org",
+  "https://www.instagram.com",
+]);
 
 interface EmittedPage {
   file: string;
@@ -217,6 +223,19 @@ function schemaTypes(value: unknown): string[] {
   ];
 }
 
+function absoluteUrls(value: unknown): URL[] {
+  if (typeof value === "string" && /^https?:\/\//i.test(value)) {
+    try {
+      return [new URL(value)];
+    } catch {
+      return [];
+    }
+  }
+  if (!value || typeof value !== "object") return [];
+  if (Array.isArray(value)) return value.flatMap(absoluteUrls);
+  return Object.values(value as Record<string, unknown>).flatMap(absoluteUrls);
+}
+
 export async function auditPublicIntegrity({
   root,
   base,
@@ -379,6 +398,14 @@ export async function auditPublicIntegrity({
 
     const blocks = jsonLdValues(page.html);
     structuredDataBlocks += blocks.length;
+    for (const url of blocks.flatMap(absoluteUrls)) {
+      if (ALLOWED_EXTERNAL_METADATA_ORIGINS.has(url.origin)) continue;
+      if (internalPathFromUrl(url.href, base) === undefined) {
+        errors.push(
+          `${route}: JSON-LD contém URL fora do domínio canônico: ${url.href}.`,
+        );
+      }
+    }
     const types = blocks.flatMap(schemaTypes);
     const expectedTypes =
       route === publicRoutes.home
@@ -389,25 +416,13 @@ export async function auditPublicIntegrity({
             ? ["CollectionPage", "ItemList"]
             : isWork
               ? ["CreativeWork"]
-              : route === publicRoutes.contato
-                ? []
-                : ["CollectionPage"];
+              : [];
     for (const type of expectedTypes) {
       if (!types.includes(type))
         errors.push(`${route}: JSON-LD ${type} ausente.`);
     }
     if (route === publicRoutes.contato && blocks.length > 0) {
       errors.push(`${route}: contato não deve declarar entidade comercial.`);
-    }
-    if (
-      [
-        publicRoutes.cadernoIndex,
-        publicRoutes.colecoesIndex,
-        publicRoutes.edicoesIndex,
-      ].includes(route as never) &&
-      types.includes("ItemList")
-    ) {
-      errors.push(`${route}: família vazia não deve declarar ItemList vazio.`);
     }
   }
 
@@ -445,6 +460,24 @@ export async function auditPublicIntegrity({
         if (!pageIds.has(href.slice(1)))
           errors.push(`${route}: fragmento sem destino ${href}.`);
         continue;
+      }
+      if (href.startsWith("//")) {
+        errors.push(
+          `${route}: link protocol-relative não é permitido ${href}.`,
+        );
+        continue;
+      }
+      if (/^https?:\/\//i.test(href)) {
+        try {
+          if (new URL(href).origin === base.origin) {
+            errors.push(
+              `${route}: link interno deve permanecer relativo ${href}.`,
+            );
+          }
+        } catch {
+          errors.push(`${route}: link absoluto inválido ${href}.`);
+          continue;
+        }
       }
       const internal = internalPathFromUrl(href, base);
       if (!internal) continue;
@@ -492,7 +525,7 @@ export async function auditPublicIntegrity({
     expectedUrls.some((url) => !sitemapUrls.includes(url))
   ) {
     errors.push(
-      "sitemap.xml: conjunto diverge das nove rotas públicas indexáveis.",
+      `sitemap.xml: conjunto diverge das ${expectedUrls.length} rotas públicas indexáveis.`,
     );
   }
 
@@ -504,10 +537,12 @@ export async function auditPublicIntegrity({
     absoluteCanonicalUrl(route, base),
   );
   if (
-    rssLinks.length !== 2 ||
+    rssLinks.length !== expectedRss.length ||
     expectedRss.some((url) => !rssLinks.includes(url))
   ) {
-    errors.push("rss.xml: deve conter exatamente os dois trabalhos públicos.");
+    errors.push(
+      `rss.xml: deve conter exatamente os ${expectedRss.length} trabalhos públicos.`,
+    );
   }
 
   const robots = await readFile(path.join(dist, "robots.txt"), "utf8");

@@ -369,45 +369,13 @@ html.work-lightbox-open body {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-2);
+  align-items: baseline;
   padding-block: 0;
   border-block-end: 0;
 }
 
 .credits--colophon .credits__item dt::after {
   content: " —";
-}
-
-.related-works {
-  border-block-start: var(--line-hairline) solid var(--color-line-strong);
-}
-
-.related-works__heading {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-3);
-  align-items: baseline;
-  justify-content: space-between;
-  padding-block: var(--space-5);
-}
-
-.related-works__list {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: var(--space-6) var(--grid-gap);
-}
-
-.related-works__item {
-  display: grid;
-  gap: var(--space-4);
-  min-inline-size: 0;
-  padding-block-end: var(--space-5);
-  border-block-end: var(--line-hairline) solid var(--color-line);
-}
-
-.related-works__copy {
-  display: grid;
-  gap: var(--space-2);
-  align-content: start;
 }
 
 @media (min-width: 48rem) {
@@ -429,6 +397,25 @@ html.work-lightbox-open body {
 
   .triptych {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  [data-work-motion="kauan"] .work-body > .diptych:first-child {
+    grid-template-columns: minmax(0, 40fr) minmax(0, 60fr);
+    column-gap: clamp(2rem, 4vw, 4.5rem);
+    isolation: isolate;
+  }
+
+  [data-work-motion="kauan"]
+    .work-body
+    > .diptych:first-child
+    .diptych__item:first-child {
+    z-index: 1;
+    inline-size: 86%;
+    justify-self: end;
+  }
+
+  [data-work-motion="kauan"] .work-body > .triptych {
+    grid-template-columns: minmax(0, 1.18fr) repeat(2, minmax(0, 0.9fr));
   }
 
   .triptych--mosaic {
@@ -460,10 +447,6 @@ html.work-lightbox-open body {
   }
 
   .film-strip__list {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .related-works__list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
@@ -528,9 +511,5 @@ html.work-lightbox-open body {
 
   .film-strip__list {
     grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  .related-works__list {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }

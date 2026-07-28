@@ -1,6 +1,7 @@
 import { isIP } from "node:net";
 
 const RESERVED_PUBLIC_SUFFIXES = [".test", ".invalid", ".example"];
+const HOSTING_PREVIEW_SUFFIXES = [".pages.dev"];
 
 function configuredValue(): string | undefined {
   return import.meta.env?.SITE_URL ?? process.env.SITE_URL;
@@ -69,6 +70,13 @@ function publicHostnameError(hostname: string): string | undefined {
     )
   ) {
     return "use um domínio público, não reservado para testes";
+  }
+  if (
+    HOSTING_PREVIEW_SUFFIXES.some(
+      (suffix) => normalized === suffix.slice(1) || normalized.endsWith(suffix),
+    )
+  ) {
+    return "não use o domínio técnico de hospedagem como canonical";
   }
 
   const ipHostname = normalized.replace(/^\[|\]$/g, "");

@@ -44,7 +44,6 @@ describe("contratos dos componentes editoriais", () => {
     await expect(component("Credits")).resolves.toContain("<dl");
     await expect(component("ContactSheet")).resolves.toContain("<ol");
     await expect(component("FilmStrip")).resolves.toContain("<ol");
-    await expect(component("RelatedWorks")).resolves.toContain("<ul");
     await expect(component("ContactSheet")).resolves.not.toContain(
       'role="list"',
     );
@@ -139,13 +138,15 @@ describe("contratos dos componentes editoriais", () => {
       path.join(process.cwd(), "src", "layouts", "WorkLayout.astro"),
       "utf8",
     );
+    const styles = await readFile(
+      path.join(process.cwd(), "src", "styles", "components.css"),
+      "utf8",
+    );
     expect(layout).toContain('creditMode="document"');
     expect(layout).toContain("<Credits items={credits}");
-  });
-
-  it("não renderiza o bloco de relacionados quando a lista está vazia", async () => {
-    const related = await component("RelatedWorks");
-    expect(related).toContain("resolvedItems.length > 0");
+    expect(styles).toMatch(
+      /\.credits--colophon \.credits__item\s*\{[^}]*align-items:\s*baseline/s,
+    );
   });
 
   it("aceita dados estruturados serializados sem abrir expressões MDX", async () => {
@@ -162,7 +163,7 @@ describe("contratos dos componentes editoriais", () => {
     );
     expect(fixture).toContain("<MetadataBlock items='");
     expect(fixture).toContain("<Credits items='");
-    expect(fixture).toContain("<RelatedWorks items='");
+    expect(fixture).not.toContain("<RelatedWorks");
     expect(fixture).not.toMatch(/items=\{/);
   });
 

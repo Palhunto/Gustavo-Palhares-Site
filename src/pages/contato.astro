@@ -1,72 +1,125 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { publicRoutes } from "../lib/routes/public.ts";
+
+const contactChannels = [
+  {
+    label: "WhatsApp",
+    value: "(14) 99717-3521",
+    href: "https://wa.me/5514997173521",
+    accessibleName: "Conversar pelo WhatsApp no número (14) 99717-3521",
+  },
+  {
+    label: "Instagram",
+    value: "@gustavopalharess",
+    href: "https://www.instagram.com/gustavopalharess/",
+    accessibleName: "Abrir o Instagram @gustavopalharess",
+  },
+  {
+    label: "E-mail",
+    value: "gustavo.palhares49@gmail.com",
+    href: "mailto:gustavo.palhares49@gmail.com",
+    accessibleName: "Enviar e-mail para gustavo.palhares49@gmail.com",
+  },
+] as const;
 ---
 
 <BaseLayout
   title="Contato"
-  description="Página de contato de Gustavo Palhares."
+  description="Canais públicos para projetos fotográficos, parcerias, imprensa e colaborações com Gustavo Palhares."
   robots="index, follow"
   variant="contact-page"
+  showHeader={false}
 >
-  <section class="contact-page" aria-labelledby="titulo-contato">
-    <header class="contact-page__intro">
-      <p class="contact-page__marker type-label">Contato</p>
-      <h1 id="titulo-contato" class="type-section">Contato</h1>
+  <article class="contact-page" aria-labelledby="titulo-contato">
+    <header class="contact-page__section-heading">
+      <span class="contact-page__number number-stable" aria-hidden="true"
+        >03</span
+      >
+      <p id="titulo-secao-contato">Contato</p>
+      <span class="contact-page__heading-rule" aria-hidden="true"></span>
+      <p class="contact-page__heading-note type-label">
+        Canais públicos e projetos
+      </p>
     </header>
 
-    <address class="contact-page__list">
-      <a
-        class="contact-page__item"
-        href="https://wa.me/5514997173521"
-        aria-label="Conversar pelo WhatsApp no número (14) 99717-3521"
-      >
-        <span class="contact-page__icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" focusable="false">
-            <path d="M20 11.6a8 8 0 0 1-11.8 7l-4.2 1 1.1-4A8 8 0 1 1 20 11.6Z"
-            ></path>
-            <path
-              d="M9.2 7.8c.2-.4.4-.4.7-.4h.5c.2 0 .4 0 .5.4l.8 2c.1.3.1.5-.1.7l-.7.8c-.2.2-.1.5 0 .7.7 1.2 1.7 2.1 2.9 2.7.3.1.5.2.7 0l.9-1c.2-.2.4-.3.7-.2l1.9.9c.3.1.4.3.4.6 0 .5-.2 1.4-1 2-.7.6-1.7.9-2.7.7-1.6-.3-3.6-1.2-5.3-2.8-1.4-1.3-2.5-3-2.8-4.5-.2-1 .1-1.9.7-2.6Z"
-            ></path>
-          </svg>
-        </span>
-        <span class="contact-page__label type-label">WhatsApp</span>
-        <span class="contact-page__value">(14) 99717-3521</span>
-        <span class="contact-page__arrow" aria-hidden="true">→</span>
-      </a>
+    <section
+      class="contact-page__main"
+      aria-labelledby="titulo-contato"
+      aria-describedby="descricao-contato"
+    >
+      <div class="contact-page__introduction">
+        <h1 id="titulo-contato">Contato</h1>
+        <p id="descricao-contato">
+          Para projetos fotográficos, coberturas, retratos, editoriais,
+          fotografia de produtos, parcerias e colaborações, entre em contato por
+          um dos canais abaixo.
+        </p>
+      </div>
 
-      <a
-        class="contact-page__item"
-        href="https://www.instagram.com/gustavopalharess/"
-        aria-label="Abrir o Instagram @gustavopalharess"
-      >
-        <span class="contact-page__icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" focusable="false">
-            <rect x="4" y="4" width="16" height="16" rx="4"></rect>
-            <circle cx="12" cy="12" r="3.5"></circle>
-            <circle cx="17.3" cy="6.8" r="0.8" class="contact-page__icon-dot"
-            ></circle>
-          </svg>
-        </span>
-        <span class="contact-page__label type-label">Instagram</span>
-        <span class="contact-page__value">@gustavopalharess</span>
-        <span class="contact-page__arrow" aria-hidden="true">→</span>
-      </a>
+      <address class="contact-page__channels" aria-label="Canais de contato">
+        {
+          contactChannels.map((channel) => (
+            <a
+              class="contact-page__channel"
+              href={channel.href}
+              aria-label={channel.accessibleName}
+            >
+              <span class="contact-page__channel-label type-label">
+                {channel.label}
+              </span>
+              <span class="contact-page__channel-value">{channel.value}</span>
+            </a>
+          ))
+        }
+      </address>
+    </section>
 
-      <a
-        class="contact-page__item"
-        href="mailto:gustavo.palhares49@gmail.com"
-        aria-label="Enviar email para gustavo.palhares49@gmail.com"
+    <aside class="contact-page__prompt" aria-labelledby="titulo-conversa">
+      <h2 id="titulo-conversa">Para agilizar a conversa</h2>
+      <p>
+        Inclua, quando possível, o tipo de trabalho, a data prevista, a cidade,
+        o prazo e uma breve descrição do projeto.
+      </p>
+    </aside>
+
+    <section class="contact-page__index" aria-labelledby="titulo-indice">
+      <header
+        class="contact-page__section-heading contact-page__section-heading--index"
       >
-        <span class="contact-page__icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" focusable="false">
-            <rect x="3" y="5" width="18" height="14"></rect>
-            <path d="m4 6 8 7 8-7"></path>
-          </svg>
-        </span>
-        <span class="contact-page__label type-label">Email</span>
-        <span class="contact-page__value">gustavo.palhares49@gmail.com</span>
-        <span class="contact-page__arrow" aria-hidden="true">→</span>
-      </a>
-    </address>
-  </section>
+        <span class="contact-page__number number-stable" aria-hidden="true"
+          >04</span
+        >
+        <h2 id="titulo-indice">Índice</h2>
+        <span class="contact-page__heading-rule" aria-hidden="true"></span>
+        <p class="contact-page__heading-note type-label">Navegue por tudo</p>
+      </header>
+
+      <div class="contact-page__index-grid">
+        <article class="contact-page__index-item">
+          <h3>Projetos fotográficos</h3>
+          <p>Eventos, shows, esporte, retratos, editoriais e produtos.</p>
+          <a
+            class="contact-page__index-action type-nav"
+            href={publicRoutes.trabalhosIndex}
+          >
+            Ver trabalhos <span aria-hidden="true">⟶</span>
+          </a>
+        </article>
+
+        <article class="contact-page__index-item">
+          <h3>Parcerias e imprensa</h3>
+          <p>
+            Pautas, publicações, artistas, bandas, espaços culturais e projetos
+            independentes.
+          </p>
+        </article>
+
+        <article class="contact-page__index-item">
+          <h3>Outros contatos</h3>
+          <p>Convites, propostas, licenciamento de imagens e colaborações.</p>
+        </article>
+      </div>
+    </section>
+  </article>
 </BaseLayout>

@@ -7,12 +7,9 @@ const HOME_PRESENCE_TARGET_SELECTOR = [
   "[data-home-presence-heading-note]",
   "[data-home-presence-feature-title]",
   "[data-home-presence-feature-copy]",
-  "[data-home-presence-feature-state]",
-  "[data-home-presence-feature-cta]",
   "[data-home-presence-rule]",
   "[data-home-presence-item-title]",
   "[data-home-presence-item-copy]",
-  "[data-home-presence-item-cta]",
 ].join(",");
 
 const refreshGenerations = new WeakMap<HTMLElement, number>();
@@ -56,7 +53,7 @@ function itemTargets(item: HTMLElement) {
   return {
     title: item.querySelector<HTMLElement>("[data-home-presence-item-title]"),
     support: item.querySelectorAll<HTMLElement>(
-      "[data-home-presence-item-copy], [data-home-presence-item-cta]",
+      "[data-home-presence-item-copy]",
     ),
   };
 }
@@ -86,12 +83,6 @@ export function initializeHomePresenceMotion(root: HTMLElement) {
       const grid = root.querySelector<HTMLElement>("[data-home-presence-grid]");
       const mainRule = root.querySelector<HTMLElement>(
         '[data-home-presence-rule="main"]',
-      );
-      const gridVerticalRule = root.querySelector<HTMLElement>(
-        '[data-home-presence-rule="grid-vertical"]',
-      );
-      const gridHorizontalRule = root.querySelector<HTMLElement>(
-        '[data-home-presence-rule="grid-horizontal"]',
       );
       const items = Array.from(
         root.querySelectorAll<HTMLElement>("[data-home-presence-item]"),
@@ -151,10 +142,7 @@ export function initializeHomePresenceMotion(root: HTMLElement) {
           "[data-home-presence-feature-title]",
         );
         const support = feature.querySelectorAll<HTMLElement>(
-          "[data-home-presence-feature-copy], [data-home-presence-feature-state]",
-        );
-        const cta = feature.querySelector<HTMLElement>(
-          "[data-home-presence-feature-cta]",
+          "[data-home-presence-feature-copy]",
         );
         const timeline = gsap.timeline({
           defaults: { overwrite: "auto" },
@@ -189,19 +177,6 @@ export function initializeHomePresenceMotion(root: HTMLElement) {
           },
           HOME_PRESENCE_TIMELINES.feature.at.support,
         );
-        if (cta) {
-          timeline.from(
-            cta,
-            {
-              y: distance * 0.24,
-              opacity: HOME_PRESENCE_TIMELINES.initialOpacity,
-              duration: HOME_PRESENCE_TIMELINES.feature.duration.cta,
-              ease: MOTION_TOKENS.easing.editorial,
-              clearProps: "transform,opacity",
-            },
-            HOME_PRESENCE_TIMELINES.feature.at.cta,
-          );
-        }
       }
 
       if (compact) {
@@ -279,31 +254,6 @@ export function initializeHomePresenceMotion(root: HTMLElement) {
             HOME_PRESENCE_TIMELINES.grid.at.mainRule,
           );
         }
-        if (gridVerticalRule) {
-          timeline.from(
-            gridVerticalRule,
-            {
-              scaleY: 0,
-              duration: HOME_PRESENCE_TIMELINES.grid.duration.verticalRule,
-              ease: MOTION_TOKENS.easing.line,
-              clearProps: "transform",
-            },
-            HOME_PRESENCE_TIMELINES.grid.at.verticalRule,
-          );
-        }
-        if (gridHorizontalRule) {
-          timeline.from(
-            gridHorizontalRule,
-            {
-              scaleX: 0,
-              duration: HOME_PRESENCE_TIMELINES.grid.duration.horizontalRule,
-              ease: MOTION_TOKENS.easing.line,
-              clearProps: "transform",
-            },
-            HOME_PRESENCE_TIMELINES.grid.at.horizontalRule,
-          );
-        }
-
         items.forEach((item, index) => {
           const targets = itemTargets(item);
           const itemStart =

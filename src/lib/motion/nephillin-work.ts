@@ -25,9 +25,6 @@ const NEPHILLIN_TARGET_SELECTOR = [
   "[data-work-gallery] [data-work-figure]",
   "[data-work-credit] .credits",
   "[data-work-credit] .credits__item",
-  "[data-work-related]",
-  "[data-work-related] .related-works__heading",
-  "[data-work-related] .related-works__item",
   "[data-work-continuity]",
   "[data-work-continuity] .work-continuity__link",
 ].join(",");
@@ -357,6 +354,17 @@ function animateDesktopGallery(
     NEPHILLIN_WORK_TIMELINES.closing.duration.regular,
     NEPHILLIN_WORK_TIMELINES.closing.stagger,
   );
+
+  for (const group of groups.slice(3)) {
+    pairTimeline(
+      gsap,
+      ScrollTrigger,
+      Array.from(group.querySelectorAll<HTMLElement>("[data-work-figure]")),
+      distance * 0.68,
+      NEPHILLIN_WORK_TIMELINES.closing.duration.regular,
+      NEPHILLIN_WORK_TIMELINES.closing.stagger,
+    );
+  }
 }
 
 export function animateWorkEnding(
@@ -368,6 +376,10 @@ export function animateWorkEnding(
   const credit = root.querySelector<HTMLElement>("[data-work-credit]");
   const credits = credit?.querySelector<HTMLElement>(".credits");
   const creditCopy = credit?.querySelector<HTMLElement>(".credits__item");
+  const continuity = root.querySelector<HTMLElement>("[data-work-continuity]");
+  const continuityLink = continuity?.querySelector<HTMLElement>(
+    ".work-continuity__link",
+  );
   if (credit && credits && !isPastViewport(credit)) {
     ScrollTrigger.create({
       trigger: credit,
@@ -398,93 +410,32 @@ export function animateWorkEnding(
             0.12,
           );
         }
-      },
-    });
-  }
-
-  const continuity = root.querySelector<HTMLElement>("[data-work-continuity]");
-  const continuityLinks =
-    continuity?.querySelectorAll<HTMLElement>(".work-continuity__link") ?? [];
-  if (continuity && !isPastViewport(continuity)) {
-    ScrollTrigger.create({
-      trigger: continuity,
-      start: NEPHILLIN_WORK_TIMELINES.trigger.continuity,
-      once: true,
-      onEnter: () => {
-        const timeline = gsap.timeline({ defaults: { overwrite: "auto" } });
-        timeline.fromTo(
-          continuity,
-          { "--work-continuity-rule-scale": 0 },
-          {
-            "--work-continuity-rule-scale": 1,
-            duration: NEPHILLIN_WORK_TIMELINES.ending.continuityDuration,
-            ease: MOTION_TOKENS.easing.line,
-            clearProps: "--work-continuity-rule-scale",
-          },
-        );
-        timeline.from(
-          continuityLinks,
-          {
-            y: distance * 0.24,
-            opacity: 0.82,
-            duration: 0.46,
-            ease: MOTION_TOKENS.easing.editorial,
-            clearProps: "transform,opacity",
-          },
-          0.1,
-        );
-      },
-    });
-  }
-
-  const related = root.querySelector<HTMLElement>("[data-work-related]");
-  const relatedHeading = related?.querySelector<HTMLElement>(
-    ".related-works__heading",
-  );
-  const relatedItems =
-    related?.querySelectorAll<HTMLElement>(".related-works__item") ?? [];
-  if (related && !isPastViewport(related)) {
-    ScrollTrigger.create({
-      trigger: related,
-      start: NEPHILLIN_WORK_TIMELINES.trigger.continuity,
-      once: true,
-      onEnter: () => {
-        const timeline = gsap.timeline({ defaults: { overwrite: "auto" } });
-        timeline.fromTo(
-          related,
-          { "--work-related-rule-scale": 0 },
-          {
-            "--work-related-rule-scale": 1,
-            duration: NEPHILLIN_WORK_TIMELINES.ending.continuityDuration,
-            ease: MOTION_TOKENS.easing.line,
-            clearProps: "--work-related-rule-scale",
-          },
-        );
-        if (relatedHeading) {
-          timeline.from(
-            relatedHeading,
+        if (continuity) {
+          timeline.fromTo(
+            continuity,
+            { "--work-continuity-rule-scale": 0 },
             {
-              y: distance * 0.2,
-              opacity: 0.84,
-              duration: 0.44,
-              ease: MOTION_TOKENS.easing.editorial,
-              clearProps: "transform,opacity",
+              "--work-continuity-rule-scale": 1,
+              duration: NEPHILLIN_WORK_TIMELINES.ending.continuityDuration,
+              ease: MOTION_TOKENS.easing.line,
+              clearProps: "--work-continuity-rule-scale",
             },
             0.08,
           );
         }
-        timeline.from(
-          relatedItems,
-          {
-            y: distance * 0.24,
-            opacity: 0.82,
-            duration: 0.46,
-            ease: MOTION_TOKENS.easing.editorial,
-            stagger: 0.06,
-            clearProps: "transform,opacity",
-          },
-          0.12,
-        );
+        if (continuityLink) {
+          timeline.from(
+            continuityLink,
+            {
+              y: distance * 0.18,
+              opacity: 0.86,
+              duration: 0.4,
+              ease: MOTION_TOKENS.easing.editorial,
+              clearProps: "transform,opacity",
+            },
+            0.14,
+          );
+        }
       },
     });
   }

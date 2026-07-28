@@ -1,0 +1,13 @@
+src: ../../assets/media/kauan-k1-12.jpg
+description: Kauan Felix deitado no ringue enquanto duas pessoas com luvas se aproximam.
+defaultAlt: Kauan Felix deitado no ringue enquanto duas pessoas com luvas se aproximam.
+credit: { role: fotografia, name: Gustavo Palhares }
+capturedAt: "2026-07-25"
+location: { city: Bauru, subdivision: SP, country: Brasil }
+rights:
+  status: cleared
+  holder: Gustavo Palhares
+  basis: authorship
+  scope: publicação editorial no site; cobertura realizada para Kauan Felix; autorização de Kauan Felix e do evento confirmadas
+  notes: Uso editorial do ensaio liberado; release individual separado de Caio Martins não documentado.
+checksum: sha256:e6fae2e5c4663c40ed7e048bb6776f3d203cdf7c8f24d407cdc09e5421a43136

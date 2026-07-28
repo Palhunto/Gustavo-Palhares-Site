@@ -1,0 +1,13 @@
+src: ../../assets/media/kauan-k1-11.jpg
+description: Kauan Felix deitado no piso do ringue, com as luvas junto ao corpo.
+defaultAlt: Kauan Felix deitado no piso do ringue, com as luvas junto ao corpo.
+credit: { role: fotografia, name: Gustavo Palhares }
+capturedAt: "2026-07-25"
+location: { city: Bauru, subdivision: SP, country: Brasil }
+rights:
+  status: cleared
+  holder: Gustavo Palhares
+  basis: authorship
+  scope: publicação editorial no site; cobertura realizada para Kauan Felix; autorização de Kauan Felix e do evento confirmadas
+  notes: Uso editorial do ensaio liberado; release individual separado de Caio Martins não documentado.
+checksum: sha256:085d9ee1c1d662deb841a42f5f325f6cf77f25e13c8480554d0b8ed56e0ced74

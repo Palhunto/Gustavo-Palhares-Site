@@ -8,6 +8,7 @@ import {
   normalizeSiteUrl,
   requirePublicSiteUrl,
 } from "../../src/lib/seo/site-url.ts";
+import { PRODUCTION_SITE_URL } from "../fixtures/production-site.ts";
 
 describe("configuração pública global", () => {
   it("centraliza somente identidade e rotas confirmadas", () => {
@@ -19,14 +20,10 @@ describe("configuração pública global", () => {
     });
     expect(siteConfig.navigation.map((item) => item.href)).toEqual([
       "/trabalhos/",
-      "/caderno/",
-      "/colecoes/",
       "/sobre/",
       "/contato/",
     ]);
-    expect(siteConfig.footerNavigation.map((item) => item.href)).toEqual([
-      "/edicoes/",
-    ]);
+    expect(siteConfig.footerNavigation).toEqual([]);
     expect(siteConfig.contacts).toEqual([]);
   });
 
@@ -44,7 +41,7 @@ describe("configuração pública global", () => {
 
     const withBase = createSeoMetadata({
       pathname: publicRoutes.sobre,
-      siteUrl: "https://example.test",
+      siteUrl: PRODUCTION_SITE_URL,
       socialImage: {
         url: "/social.jpg",
         alt: "Retrato factual",
@@ -52,9 +49,9 @@ describe("configuração pública global", () => {
         height: 630,
       },
     });
-    expect(withBase.canonical).toBe("https://example.test/sobre/");
+    expect(withBase.canonical).toBe("https://gustavopalhares.com.br/sobre/");
     expect(withBase.socialImage).toEqual({
-      url: "https://example.test/social.jpg",
+      url: "https://gustavopalhares.com.br/social.jpg",
       alt: "Retrato factual",
       width: 1200,
       height: 630,
@@ -62,11 +59,11 @@ describe("configuração pública global", () => {
   });
 
   it("normaliza somente bases HTTP(S) e protege o gate público", () => {
-    expect(normalizeSiteUrl("http://publicacao.dev///")?.href).toBe(
-      "http://publicacao.dev/",
+    expect(normalizeSiteUrl(`${PRODUCTION_SITE_URL}///`)?.href).toBe(
+      "https://gustavopalhares.com.br/",
     );
-    expect(normalizeSiteUrl("https://publicacao.dev/base//")?.href).toBe(
-      "https://publicacao.dev/base/",
+    expect(normalizeSiteUrl(`${PRODUCTION_SITE_URL}/base//`)?.href).toBe(
+      "https://gustavopalhares.com.br/base/",
     );
     expect(() => normalizeSiteUrl("ftp://publicacao.dev")).toThrow(/HTTP/);
     expect(() => normalizeSiteUrl("não é URL")).toThrow(/SITE_URL inválida/);
@@ -81,13 +78,14 @@ describe("configuração pública global", () => {
       "http://192.168.1.10",
       "http://100.64.0.1",
       "http://[::1]",
+      "https://portfolio.pages.dev",
     ]) {
       expect(() => requirePublicSiteUrl(value), value).toThrow(
         /inválida para build público/,
       );
     }
-    expect(requirePublicSiteUrl("https://publicacao.dev").href).toBe(
-      "https://publicacao.dev/",
+    expect(requirePublicSiteUrl(PRODUCTION_SITE_URL).href).toBe(
+      "https://gustavopalhares.com.br/",
     );
   });
 

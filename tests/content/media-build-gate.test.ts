@@ -35,6 +35,21 @@ async function fakeRoot() {
     "fase-5-rua-07-espaco",
     "fase-5-rua-08-sequencia",
     "fase-4-retrato-amplo",
+    ...Array.from(
+      { length: 12 },
+      (_, index) => `kauan-k1-${String(index + 1).padStart(2, "0")}`,
+    ),
+    "magma-01-observacao",
+    "magma-02-corredor-vermelho",
+    "magma-03-retrato",
+    "magma-04-tatuagem-aberta",
+    "magma-05-tatuagem-aproximada",
+    "magma-06-retrato-aproximado",
+    "magma-07-gesto",
+    "magma-08-espaco",
+    "magma-09-tatuagem",
+    "magma-10-ambiente",
+    "magma-11-saida",
   ];
   await writeFile(
     path.join(root, "dist", "index.html"),
@@ -52,7 +67,7 @@ describe("gate semântico de mídia do build", () => {
         "fixture",
       );
       const result = await inspectMediaBuild(root, at);
-      expect(result.publicMediaIds).toHaveLength(17);
+      expect(result.publicMediaIds).toHaveLength(40);
       expect(result.emittedMediaIds).toContain("fase-5-show-01-abertura");
       expect(result.privateOnlyIds).toEqual([]);
     } finally {

@@ -15,11 +15,12 @@ import {
   worksIndexStructuredData,
 } from "../../src/lib/seo/structured-data.ts";
 import { validDataset } from "../fixtures/content/scenarios.ts";
+import { PRODUCTION_SITE_URL } from "../fixtures/production-site.ts";
 
-const base = normalizeSiteUrl("https://publicacao.test")!;
-const at = new Date("2026-07-21T12:00:00-03:00");
+const base = normalizeSiteUrl(PRODUCTION_SITE_URL)!;
+const at = new Date("2026-07-27T12:00:00-03:00");
 const socialImage: SocialImageMetadata = {
-  url: "https://publicacao.test/_astro/capa.jpg",
+  url: "https://gustavopalhares.com.br/_astro/capa.jpg",
   alt: "Apresentação factual do trabalho",
   width: 1200,
   height: 800,
@@ -65,14 +66,14 @@ describe("metadata social e dados estruturados da Fase 5C-B", () => {
     expect(websiteStructuredData(base)).toMatchObject({
       "@type": "WebSite",
       name: "Gustavo Palhares",
-      url: "https://publicacao.test/",
+      url: "https://gustavopalhares.com.br/",
       inLanguage: "pt-BR",
     });
     const person = personStructuredData(base) as Record<string, unknown>;
     expect(person).toMatchObject({
       "@type": "Person",
       name: "Gustavo Palhares",
-      url: "https://publicacao.test/sobre/",
+      url: "https://gustavopalhares.com.br/sobre/",
       sameAs: ["https://www.instagram.com/gustavopalharess/"],
     });
     for (const inferred of ["email", "telephone", "address", "birthDate"]) {
@@ -80,29 +81,39 @@ describe("metadata social e dados estruturados da Fase 5C-B", () => {
     }
   });
 
-  it("gera CreativeWork somente para os dois trabalhos públicos elegíveis", async () => {
+  it("gera CreativeWork somente para os quatro trabalhos públicos elegíveis", async () => {
     const dataset = await validDataset();
     const publicWorks = dataset.trabalhos.filter((entry) =>
-      ["nephillin-uma-cobertura-sem-credencial", "feira-do-rolo"].includes(
-        entry.id,
-      ),
+      [
+        "kauan-felix-uma-noite-de-k-1",
+        "nephillin-uma-cobertura-sem-credencial",
+        "magma",
+        "feira-do-rolo",
+      ].includes(entry.id),
     );
     const documents = publicWorks.map((entry) =>
       creativeWorkStructuredData(entry, at, base, socialImage),
     ) as Record<string, unknown>[];
-    expect(documents).toHaveLength(2);
+    expect(documents).toHaveLength(4);
     expect(documents.map((document) => document["@type"])).toEqual([
+      "CreativeWork",
+      "CreativeWork",
       "CreativeWork",
       "CreativeWork",
     ]);
     expect(documents.map((document) => document.identifier)).toEqual(
-      expect.arrayContaining(["GP-2026-0002", "GP-2025-0001"]),
+      expect.arrayContaining([
+        "GP-2026-0003",
+        "GP-2026-0002",
+        "GP-2025-0002",
+        "GP-2025-0001",
+      ]),
     );
     expect(
       documents.every(
         (document) =>
           typeof document.url === "string" &&
-          document.url.startsWith("https://publicacao.test/trabalhos/"),
+          document.url.startsWith("https://gustavopalhares.com.br/trabalhos/"),
       ),
     ).toBe(true);
 
@@ -128,8 +139,8 @@ describe("metadata social e dados estruturados da Fase 5C-B", () => {
     const graph = index["@graph"] as Record<string, unknown>[];
     const list = graph.find((node) => node["@type"] === "ItemList")!;
     const items = list.itemListElement as Array<Record<string, unknown>>;
-    expect(list.numberOfItems).toBe(2);
-    expect(items.map((item) => item.position)).toEqual([1, 2]);
+    expect(list.numberOfItems).toBe(4);
+    expect(items.map((item) => item.position)).toEqual([1, 2, 3, 4]);
 
     const emptyFamily = collectionPageStructuredData(
       base,

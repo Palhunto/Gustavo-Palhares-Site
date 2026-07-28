@@ -1,0 +1,13 @@
+src: ../../assets/media/kauan-k1-03.jpg
+description: Os dois lutadores estendem as luvas um na direção do outro no centro do ringue cercado por grade.
+defaultAlt: Os dois lutadores estendem as luvas no centro do ringue cercado por grade.
+credit: { role: fotografia, name: Gustavo Palhares }
+capturedAt: "2026-07-25"
+location: { city: Bauru, subdivision: SP, country: Brasil }
+rights:
+  status: cleared
+  holder: Gustavo Palhares
+  basis: authorship
+  scope: publicação editorial no site; cobertura realizada para Kauan Felix; autorização de Kauan Felix e do evento confirmadas
+  notes: Uso editorial do ensaio liberado; release individual separado de Caio Martins não documentado.
+checksum: sha256:3b81acbcea49405365f71463b707d8fa2e03f89bb68270119b3508a5447589b8

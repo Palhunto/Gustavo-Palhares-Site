@@ -1,5 +1,3 @@
-import type { CollectionEntry } from "astro:content";
-
 import {
   isEffectivelyPublic,
   isRssEligible,
@@ -7,7 +5,6 @@ import {
   isStandardCirculation,
   type EligibilityInput,
 } from "./eligibility.ts";
-import { referenceId } from "./schemas/shared.ts";
 
 export type PublicEditorialCollection =
   "trabalhos" | "caderno" | "colecoes" | "edicoes" | "paginas";
@@ -33,6 +30,17 @@ export const APPROVED_WORK_PRESENTATION = {
     formatLabel: "Documental",
     contextLabel: "Feira do Rolo",
     subject: "Feira do Rolo",
+    peopleRelease: "not-confirmed",
+  },
+  "kauan-felix-uma-noite-de-k-1": {
+    formatLabel: "Cobertura",
+    contextLabel: "Demolidor Fight",
+    subject: "Esporte",
+  },
+  magma: {
+    formatLabel: "Documental",
+    contextLabel: "Evento cultural",
+    subject: "Evento cultural",
     peopleRelease: "not-confirmed",
   },
 } as const;
@@ -115,24 +123,6 @@ export function workPresentation(
   );
 }
 
-interface RelatedWorkEntryLike {
-  collection: "trabalhos";
-  id: string;
-  data: EligibilityInput & { relatedWorks: readonly unknown[] };
-}
-
-export function publicRelatedWorks<TEntry extends RelatedWorkEntryLike>(
-  entry: TEntry,
-  candidates: readonly TEntry[],
-  at: Date,
-): TEntry[] {
-  const relatedIds = new Set(entry.data.relatedWorks.map(referenceId));
-  return candidates.filter(
-    (candidate) =>
-      relatedIds.has(candidate.id) && isInPublicCirculation(candidate, at),
-  );
-}
-
 export function sortWorksByDate<
   T extends { data: { date: string; archiveNumber: string } },
 >(works: readonly T[]): T[] {
@@ -189,16 +179,4 @@ export function formatLocation(location?: {
 }): string | undefined {
   if (!location) return undefined;
   return [location.city, location.subdivision].filter(Boolean).join(", ");
-}
-
-export function publicWorkContinuity(
-  works: readonly CollectionEntry<"trabalhos">[],
-  currentId: string,
-) {
-  const ordered = sortWorksByDate(works);
-  const index = ordered.findIndex((entry) => entry.id === currentId);
-  return {
-    previous: index >= 0 ? ordered[index + 1] : undefined,
-    next: index > 0 ? ordered[index - 1] : undefined,
-  };
 }

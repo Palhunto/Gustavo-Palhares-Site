@@ -20,13 +20,21 @@ const year = new Date().getUTCFullYear();
     {`© ${year} ${siteConfig.name}. Todos os direitos reservados.`}
   </p>
 
-  <a
-    class="home-footer__email"
-    href="mailto:gustavo.palhares49@gmail.com"
+  <nav
+    class="home-footer__navigation"
+    aria-label="Navegação do rodapé"
     data-home-footer-group
   >
-    gustavo.palhares49@gmail.com
-  </a>
+    <ul role="list">
+      {
+        siteConfig.navigation.map((item) => (
+          <li>
+            <a href={item.href}>{item.label}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
 
   <nav
     class="home-footer__channels"

@@ -1,0 +1,13 @@
+src: ../../assets/media/kauan-k1-07.jpg
+description: Kauan Felix se apoia em integrantes do corner junto à grade do ringue.
+defaultAlt: Kauan Felix se apoia em integrantes do corner junto à grade.
+credit: { role: fotografia, name: Gustavo Palhares }
+capturedAt: "2026-07-25"
+location: { city: Bauru, subdivision: SP, country: Brasil }
+rights:
+  status: cleared
+  holder: Gustavo Palhares
+  basis: authorship
+  scope: publicação editorial no site; cobertura realizada para Kauan Felix; autorização de Kauan Felix e do evento confirmadas
+  notes: Uso editorial do ensaio liberado; release individual separado de Caio Martins não documentado.
+checksum: sha256:1223c21faab8a03b10f86dcbbb7cae6884a54c0c6dc27f896b54c4cc3fc7a6ad

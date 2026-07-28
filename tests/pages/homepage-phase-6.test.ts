@@ -34,6 +34,12 @@ describe("Fases 6A e 6B — homepage editorial", () => {
     });
 
     expect(model.works.map((entry) => entry.id)).toEqual([
+      "kauan-felix-uma-noite-de-k-1",
+      "nephillin-uma-cobertura-sem-credencial",
+      "magma",
+      "feira-do-rolo",
+    ]);
+    expect(model.featuredWorks.map((entry) => entry.id)).toEqual([
       "nephillin-uma-cobertura-sem-credencial",
       "feira-do-rolo",
     ]);
@@ -41,11 +47,11 @@ describe("Fases 6A e 6B — homepage editorial", () => {
     expect(referenceId(model.cover.media.asset)).toBe(
       "fase-5-show-03-silhueta",
     );
-    expect(referenceId(model.works[0].data.cover.asset)).toBe(
+    expect(referenceId(model.featuredWorks[0].data.cover.asset)).toBe(
       "fase-5-show-01-abertura",
     );
     expect(referenceId(model.cover.media.asset)).not.toBe(
-      referenceId(model.works[0].data.cover.asset),
+      referenceId(model.featuredWorks[0].data.cover.asset),
     );
 
     const coverMedia = dataset.midia.find(
@@ -101,18 +107,15 @@ describe("Fases 6A e 6B — homepage editorial", () => {
       /Edição 001|EDIÇÃO 001|julho de 2026|compositionRevision|corrigendaDecision|ADR-025|HomeEdition|getCollection\("edicoes"\)/i,
     );
     expect(combined).toContain("Publicação pessoal");
-    expect(combined).toContain("Conteúdo editorial em preparação");
+    expect(combined).toContain("Fotografia documental / produção dirigida");
+    expect(combined).toContain("Fotografia documental e produção dirigida.");
+    expect(combined).toContain('enterLabel: "Ver trabalhos"');
   });
 
-  it("centraliza os placeholders aprovados e mantém o índice conciso", async () => {
-    expect(
-      homepageEditorialCopy.presence.map((item) => item.placeholder),
-    ).toEqual([
-      "Novos textos serão reunidos aqui.",
-      "Coleções em desenvolvimento.",
-      "Edições futuras serão apresentadas nesta área.",
-      "Informações de apresentação em revisão.",
-      "Canais para projetos, parcerias e conversas.",
+  it("centraliza a presença factual e mantém o índice conciso", async () => {
+    expect(homepageEditorialCopy.presence.map((item) => item.action)).toEqual([
+      "Conhecer",
+      "Entrar em contato",
     ]);
     expect(homepageEditorialSelection).toMatchObject({
       featuredWorkId: "nephillin-uma-cobertura-sem-credencial",
@@ -123,28 +126,18 @@ describe("Fases 6A e 6B — homepage editorial", () => {
     const presence = await source("src/components/home/HomePresence.astro");
     const works = await source("src/components/home/HomeWorks.astro");
     expect(index).toContain("Trabalhos");
-    expect(index).toContain('work.data.title.split(" — ")[0]');
+    expect(index).toContain("{work.data.title}");
     expect(index).toContain('class="home-index__list"');
-    expect(index).toContain("Sobre &amp; Contato");
+    expect(index).toContain("indexGroups.map");
+    expect(index).toContain('class="home-index__details"');
     expect(index).toContain('class="home-index__action type-nav"');
+    expect(index).not.toContain("data-home-index-item-state");
     expect(presence).toContain('class="home-presence__feature"');
     expect(presence).toContain('class="home-presence__secondary"');
-    expect(presence).toContain("homepageEditorialCopy.presenceState");
+    expect(presence).toContain('class="home-presence__contacts"');
     expect(works).toContain("home-work--lead");
     expect(works).toContain("home-work--reverse");
-    expect(homepageEditorialCopy.presenceState).toEqual({
-      label: "Estado editorial",
-      value: "Em preparação",
-    });
-    expect(homepageEditorialCopy.indexStates).toEqual({
-      caderno: "Em preparação",
-      colecoes: "Em desenvolvimento",
-      edicoes: "Em desenvolvimento",
-    });
     expect(homepageEditorialCopy.presence.map((item) => item.title)).toEqual([
-      "Caderno",
-      "Coleções",
-      "Edições",
       "Sobre",
       "Contato",
     ]);

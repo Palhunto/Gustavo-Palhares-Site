@@ -29,12 +29,14 @@ const { model } = Astro.props;
     id="home-works-title"
     number="02"
     title="Trabalhos"
-    note={homepageEditorialCopy.worksCountLabel(model.works.length)}
+    note={homepageEditorialCopy.featuredWorksCountLabel(
+      model.featuredWorks.length,
+    )}
     motion="works"
   />
   <div class="home-works__list">
     {
-      model.works.map((work, index) => {
+      model.featuredWorks.map((work, index) => {
         const presentation = workPresentation(work.id, work.data);
         const location = formatLocation(work.data.location);
         const viewTransitionName = workCoverViewTransitionName(work.data.slug);

@@ -194,34 +194,28 @@ export const HOME_PRESENCE_TIMELINES = {
     at: {
       title: 0,
       support: 0.2,
-      cta: 0.46,
     },
     duration: {
       title: 0.68,
       support: 0.52,
-      cta: 0.48,
     },
     supportStagger: 0.07,
-    totalDuration: 0.94,
+    totalDuration: 0.72,
   },
   grid: {
     at: {
       mainRule: 0,
-      verticalRule: 0.08,
-      horizontalRule: 0.18,
       firstItem: 0.22,
     },
     duration: {
       mainRule: 0.72,
-      verticalRule: 0.72,
-      horizontalRule: 0.68,
       title: 0.58,
       support: 0.52,
     },
     areaStagger: 0.11,
     supportOffset: 0.14,
     supportStagger: 0.055,
-    totalDuration: 1.24,
+    totalDuration: 0.88,
   },
   mobileItem: {
     at: {
@@ -334,7 +328,6 @@ export const NEPHILLIN_WORK_TIMELINES = {
     mobileFigure: "top 88%",
     mosaicSecondary: "top 84%",
     credit: "top 88%",
-    continuity: "top 90%",
   },
   pair: {
     duration: {
@@ -425,6 +418,38 @@ export const FEIRA_WORK_TIMELINES = {
     },
     stagger: 0.08,
     totalDuration: 1.2,
+  },
+} as const;
+
+export const KAUAN_WORK_TIMELINES = {
+  intro: {
+    at: {
+      marker: 0,
+      title: 0.07,
+      lead: 0.14,
+      summary: 0.28,
+      rule: 0.34,
+      metadata: 0.4,
+    },
+    duration: {
+      marker: 0.48,
+      title: 0.9,
+      lead: 1.02,
+      summary: 0.66,
+      rule: 0.58,
+      metadata: 0.57,
+    },
+  },
+  trigger: {
+    group: "top 82%",
+    mobileFigure: "top 88%",
+  },
+  group: {
+    durations: [1.02, 0.82, 0.94, 0.78, 1.08],
+    staggers: [0.14, 0.09, 0.12, 0.08, 0.15],
+  },
+  mobile: {
+    duration: 0.72,
   },
 } as const;
 

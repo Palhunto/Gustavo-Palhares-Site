@@ -1,0 +1,12 @@
+src: ../../assets/media/magma-09-tatuagem.jpg
+description: Pessoa tatuando o braço de outra pessoa sob uma luminária circular.
+defaultAlt: Pessoa tatuando o braço de outra pessoa sob uma luminária circular.
+credit: { role: fotografia, name: Gustavo Palhares }
+capturedAt: "2025-07-20"
+rights:
+  status: cleared
+  holder: Gustavo Palhares
+  basis: written-authorization
+  scope: publicação editorial no site; cobertura autorizada pela organização do evento Magma, que publicou ou republicou fotografias do trabalho
+  notes: Autorização do evento registrada; releases individuais das pessoas fotografadas não documentados.
+checksum: sha256:6e6c75d725e7c789be7f9fb0e57220edfeb84f49e627833695eb6552ae9ded75

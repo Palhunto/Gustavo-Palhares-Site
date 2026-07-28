@@ -1,0 +1,12 @@
+src: ../../assets/media/magma-08-espaco.jpg
+description: Estruturas internas vistas sob faixas de luz vermelha, azul e amarela.
+defaultAlt: Estruturas internas vistas sob faixas de luz vermelha, azul e amarela.
+credit: { role: fotografia, name: Gustavo Palhares }
+capturedAt: "2025-07-20"
+rights:
+  status: cleared
+  holder: Gustavo Palhares
+  basis: written-authorization
+  scope: publicação editorial no site; cobertura autorizada pela organização do evento Magma, que publicou ou republicou fotografias do trabalho
+  notes: Autorização do evento registrada; releases individuais das pessoas fotografadas não documentados.
+checksum: sha256:3f00efce3248a761528762377b09ade2ebf934fcb2b2320a13648b1967b3bcf9

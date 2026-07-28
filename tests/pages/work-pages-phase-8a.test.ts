@@ -1,4 +1,4 @@
-import { readFile } from "node:fs/promises";
+import { access, readFile } from "node:fs/promises";
 import path from "node:path";
 
 import { transform } from "@astrojs/compiler";
@@ -108,15 +108,9 @@ describe("Fase 8A — estrutura estável das páginas de trabalhos", () => {
     const caption = await source(
       "src/components/editorial/_FigureCaption.astro",
     );
-    const related = await source("src/components/editorial/RelatedWorks.astro");
-    const combined = [
-      layout,
-      diptych,
-      triptych,
-      contactSheet,
-      caption,
-      related,
-    ].join("\n");
+    const combined = [layout, diptych, triptych, contactSheet, caption].join(
+      "\n",
+    );
 
     for (const hook of [
       "data-work-page",
@@ -130,7 +124,7 @@ describe("Fase 8A — estrutura estável das páginas de trabalhos", () => {
       "data-work-number",
       "data-work-contact-sheet",
       "data-work-credit",
-      "data-work-related",
+      "data-work-continuity",
     ]) {
       expect(combined).toContain(hook);
     }
@@ -141,17 +135,47 @@ describe("Fase 8A — estrutura estável das páginas de trabalhos", () => {
 
   it("preserva semântica, navegação nativa e apenas um h1", async () => {
     const layout = await source("src/layouts/WorkLayout.astro");
-    const related = await source("src/components/editorial/RelatedWorks.astro");
+    const continuity = layout
+      .split('<nav\n      class="work-continuity"', 2)[1]
+      .split("</nav>", 1)[0];
 
     expect(layout.match(/<h1\b/g)).toHaveLength(1);
     expect(layout).toContain('<article class="work-document"');
     expect(layout).toContain('<div class="work-body" data-work-gallery>');
     expect(layout).toContain("<Credits items={credits}");
-    expect(layout).toContain('<nav\n          class="work-continuity"');
-    expect(layout).toContain("href={previous.href}");
-    expect(layout).toContain("href={next.href}");
-    expect(related).toContain('<nav class="related-works"');
-    expect(related).toContain('<h2 class="type-project">');
+    expect(continuity).toContain('aria-label="Continuidade dos trabalhos"');
+    expect(continuity.match(/<a\b/g)).toHaveLength(1);
+    expect(continuity).toContain("href={publicRoutes.trabalhosIndex}");
+    expect(continuity).toContain("VER TODOS OS TRABALHOS");
+    expect(continuity).toContain('aria-hidden="true">→</span>');
+    expect(continuity).not.toMatch(/picture|summary|metadata|article/i);
+  });
+
+  it("remove relacionados da superfície pública e do vocabulário editorial", async () => {
+    const files = await Promise.all(
+      [
+        "src/layouts/WorkLayout.astro",
+        "src/pages/trabalhos/[slug].astro",
+        "src/styles/site.css",
+        "src/styles/components.css",
+        "src/lib/motion/nephillin-work.ts",
+        "src/lib/motion/feira-work.ts",
+        "src/lib/motion/kauan-work.ts",
+        "src/lib/mdx/registry.ts",
+        "src/lib/mdx/component-names.ts",
+        "src/components/editorial/index.ts",
+      ].map(source),
+    );
+    const combined = files.join("\n");
+
+    expect(combined).not.toMatch(
+      /RelatedWorks|publicRelatedWorks|data-work-related|\.related-works|--work-related/,
+    );
+    await expect(
+      access(
+        path.join(root, "src", "components", "editorial", "RelatedWorks.astro"),
+      ),
+    ).rejects.toThrow();
   });
 
   it("mantém a transição apenas na abertura e JavaScript isolado da galeria", async () => {
@@ -189,7 +213,6 @@ describe("Fase 8A — estrutura estável das páginas de trabalhos", () => {
       "src/components/editorial/Triptych.astro",
       "src/components/editorial/ContactSheet.astro",
       "src/components/editorial/_FigureCaption.astro",
-      "src/components/editorial/RelatedWorks.astro",
     ]) {
       await expect(
         source(file).then((value) =>

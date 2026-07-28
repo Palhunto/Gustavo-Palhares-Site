@@ -2,12 +2,36 @@
 import { homepageEditorialCopy } from "../../config/homepage.ts";
 import HomeSectionHeading from "./HomeSectionHeading.astro";
 
-const caderno = homepageEditorialCopy.presence.find(
-  (item) => item.key === "caderno",
+const sobre = homepageEditorialCopy.presence.find(
+  (item) => item.key === "sobre",
 )!;
-const secondary = homepageEditorialCopy.presence.filter(
-  (item) => item.key !== "caderno",
-);
+const contato = homepageEditorialCopy.presence.find(
+  (item) => item.key === "contato",
+)!;
+
+const contactChannels = [
+  {
+    key: "instagram",
+    label: "Instagram",
+    value: "@gustavopalharess",
+    href: "https://www.instagram.com/gustavopalharess/",
+    ariaLabel: "Abrir o Instagram @gustavopalharess",
+  },
+  {
+    key: "email",
+    label: "E-mail",
+    value: "gustavo.palhares49@gmail.com",
+    href: "mailto:gustavo.palhares49@gmail.com",
+    ariaLabel: "Enviar email para gustavo.palhares49@gmail.com",
+  },
+  {
+    key: "whatsapp",
+    label: "WhatsApp",
+    value: "(14) 99717-3521",
+    href: "https://wa.me/5514997173521",
+    ariaLabel: "Conversar pelo WhatsApp no número (14) 99717-3521",
+  },
+] as const;
 ---
 
 <section
@@ -20,7 +44,7 @@ const secondary = homepageEditorialCopy.presence.filter(
   <HomeSectionHeading
     id="home-presence-title"
     number="03"
-    title="Publicação e presença"
+    title="Presença"
     note={homepageEditorialCopy.presenceLabel}
     motion="presence"
   />
@@ -28,29 +52,20 @@ const secondary = homepageEditorialCopy.presence.filter(
   <div class="home-presence__composition">
     <article
       class="home-presence__feature"
-      data-motion-item="presence-caderno"
+      data-motion-item="presence-sobre"
       data-home-presence-feature
     >
       <div class="home-presence__feature-copy">
         <div class="home-presence__title-clip">
-          <h3 data-home-presence-feature-title>{caderno.title}</h3>
+          <h3 data-home-presence-feature-title>{sobre.title}</h3>
         </div>
-        <p data-home-presence-feature-copy>{caderno.placeholder}</p>
-        <dl
-          class="home-presence__state type-meta"
-          data-home-presence-feature-state
-        >
-          <div>
-            <dt>{homepageEditorialCopy.presenceState.label}</dt>
-            <dd>{homepageEditorialCopy.presenceState.value}</dd>
-          </div>
-        </dl>
+        <p data-home-presence-feature-copy>{sobre.description}</p>
         <a
-          class="home-presence__cta type-nav"
-          href={caderno.href}
-          data-home-presence-feature-cta
+          class="home-presence__action type-nav"
+          href={sobre.href}
+          data-home-presence-feature-copy
         >
-          {caderno.action}
+          {sobre.action}
           <span aria-hidden="true">⟶</span>
         </a>
       </div>
@@ -66,36 +81,70 @@ const secondary = homepageEditorialCopy.presence.filter(
       data-motion-item="presence-grid"
       data-home-presence-grid
     >
-      <span
-        class="home-presence__rule home-presence__rule--grid-vertical"
-        data-home-presence-rule="grid-vertical"
-        aria-hidden="true"></span>
-      <span
-        class="home-presence__rule home-presence__rule--grid-horizontal"
-        data-home-presence-rule="grid-horizontal"
-        aria-hidden="true"></span>
-      {
-        secondary.map((item) => (
-          <article
-            class:list={[
-              "home-presence__item",
-              `home-presence__item--${item.key}`,
-            ]}
-            data-motion-item={`presence-${item.key}`}
-            data-home-presence-item={item.key}
-          >
-            <h3 data-home-presence-item-title>{item.title}</h3>
-            <p data-home-presence-item-copy>{item.placeholder}</p>
-            <a
-              class="home-presence__cta type-nav"
-              href={item.href}
-              data-home-presence-item-cta
-            >
-              {item.action} <span aria-hidden="true">⟶</span>
-            </a>
-          </article>
-        ))
-      }
+      <article
+        class="home-presence__item home-presence__item--contato"
+        data-motion-item="presence-contato"
+        data-home-presence-item="contato"
+      >
+        <h3 data-home-presence-item-title>{contato.title}</h3>
+        <p data-home-presence-item-copy>{contato.description}</p>
+        <address class="home-presence__contacts">
+          {
+            contactChannels.map((channel) => (
+              <a
+                class="home-presence__contact"
+                href={channel.href}
+                aria-label={channel.ariaLabel}
+                data-home-presence-item-copy
+              >
+                <span class="home-presence__contact-icon" aria-hidden="true">
+                  {channel.key === "instagram" && (
+                    <svg viewBox="0 0 24 24" focusable="false">
+                      <rect x="4" y="4" width="16" height="16" rx="4" />
+                      <circle cx="12" cy="12" r="3.5" />
+                      <circle
+                        cx="17.3"
+                        cy="6.8"
+                        r="0.8"
+                        class="home-presence__icon-dot"
+                      />
+                    </svg>
+                  )}
+                  {channel.key === "email" && (
+                    <svg viewBox="0 0 24 24" focusable="false">
+                      <rect x="3" y="5" width="18" height="14" />
+                      <path d="m4 6 8 7 8-7" />
+                    </svg>
+                  )}
+                  {channel.key === "whatsapp" && (
+                    <svg viewBox="0 0 24 24" focusable="false">
+                      <path d="M20 11.6a8 8 0 0 1-11.8 7l-4.2 1 1.1-4A8 8 0 1 1 20 11.6Z" />
+                      <path d="M9.2 7.8c.2-.4.4-.4.7-.4h.5c.2 0 .4 0 .5.4l.8 2c.1.3.1.5-.1.7l-.7.8c-.2.2-.1.5 0 .7.7 1.2 1.7 2.1 2.9 2.7.3.1.5.2.7 0l.9-1c.2-.2.4-.3.7-.2l1.9.9c.3.1.4.3.4.6 0 .5-.2 1.4-1 2-.7.6-1.7.9-2.7.7-1.6-.3-3.6-1.2-5.3-2.8-1.4-1.3-2.5-3-2.8-4.5-.2-1 .1-1.9.7-2.6Z" />
+                    </svg>
+                  )}
+                </span>
+                <span class="home-presence__contact-label">
+                  {channel.label}
+                </span>
+                <span class="home-presence__contact-value">
+                  {channel.value}
+                </span>
+                <span class="home-presence__contact-arrow" aria-hidden="true">
+                  ↗
+                </span>
+              </a>
+            ))
+          }
+        </address>
+        <a
+          class="home-presence__action type-nav"
+          href={contato.href}
+          data-home-presence-item-copy
+        >
+          {contato.action}
+          <span aria-hidden="true">⟶</span>
+        </a>
+      </article>
     </div>
   </div>
 </section>

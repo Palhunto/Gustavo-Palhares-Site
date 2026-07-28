@@ -125,6 +125,23 @@ describe("resolver central de mídia", () => {
     ).toBe("eager");
   });
 
+  it("nunca solicita variante maior que a largura da fonte", () => {
+    const smallSource = {
+      ...source,
+      width: 1104,
+      height: 1070,
+    } as ImageMetadata;
+    const media = createMediaResolver([record({ src: smallSource })]).resolve(
+      "fixture-imagem",
+      { layout: "sequence" },
+    );
+
+    expect(Math.max(...media.widths)).toBe(960);
+    expect(media.widths.every((width) => width <= smallSource.width)).toBe(
+      true,
+    );
+  });
+
   it("resolve crédito relacionado e valida listas editoriais", () => {
     const media = record({
       credit: { role: "fotografia", person: { id: "fixture-autoria" } },

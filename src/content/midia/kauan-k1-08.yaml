@@ -1,0 +1,13 @@
+src: ../../assets/media/kauan-k1-08.jpg
+description: Caio Martins em pé no ringue sob refletores, com as luvas abaixadas.
+defaultAlt: Caio Martins em pé no ringue, iluminado por refletores.
+credit: { role: fotografia, name: Gustavo Palhares }
+capturedAt: "2026-07-25"
+location: { city: Bauru, subdivision: SP, country: Brasil }
+rights:
+  status: cleared
+  holder: Gustavo Palhares
+  basis: authorship
+  scope: publicação editorial no site; cobertura realizada para Kauan Felix; autorização de Kauan Felix e do evento confirmadas
+  notes: Uso editorial do ensaio liberado; release individual separado de Caio Martins não documentado.
+checksum: sha256:1c9cf3170958ced50be8f0bd4f64323630a819dafb9382c115b880a241599635

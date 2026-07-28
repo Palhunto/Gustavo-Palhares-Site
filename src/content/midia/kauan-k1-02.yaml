@@ -1,0 +1,13 @@
+src: ../../assets/media/kauan-k1-02.jpg
+description: Um lutador em silhueta segura as luvas diante do rosto sob luz intensa.
+defaultAlt: Um lutador em silhueta segura as luvas diante do rosto.
+credit: { role: fotografia, name: Gustavo Palhares }
+capturedAt: "2026-07-25"
+location: { city: Bauru, subdivision: SP, country: Brasil }
+rights:
+  status: cleared
+  holder: Gustavo Palhares
+  basis: authorship
+  scope: publicação editorial no site; cobertura realizada para Kauan Felix; autorização de Kauan Felix e do evento confirmadas
+  notes: Uso editorial do ensaio liberado; release individual separado de Caio Martins não documentado.
+checksum: sha256:ca55b9b793ef664e65190dd6227027d1d7668ac4b7c4be82aa187aa9cc5e90a6

@@ -1,0 +1,12 @@
+src: ../../assets/media/magma-02-corredor-vermelho.jpg
+description: Corredor interno escuro com uma abertura iluminada em vermelho ao fundo.
+defaultAlt: Corredor interno escuro com uma abertura iluminada em vermelho ao fundo.
+credit: { role: fotografia, name: Gustavo Palhares }
+capturedAt: "2025-07-20"
+rights:
+  status: cleared
+  holder: Gustavo Palhares
+  basis: written-authorization
+  scope: publicação editorial no site; cobertura autorizada pela organização do evento Magma, que publicou ou republicou fotografias do trabalho
+  notes: Autorização do evento registrada; releases individuais das pessoas fotografadas não documentados.
+checksum: sha256:910fdd1fc7fd2e79e0d31a27a60633c06eff2ca0abe51a35ca3bd461c2d52779

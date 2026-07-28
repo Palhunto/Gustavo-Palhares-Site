@@ -179,6 +179,9 @@ export function createMediaResolver(
     }
 
     const layout = options.layout ?? "inline";
+    const widths = MEDIA_LAYOUTS[layout].widths.filter(
+      (width) => width <= entry.data.src.width,
+    );
     const priority = options.priority ?? false;
     if (use.loading === "eager" && !priority) {
       throw new Error(
@@ -199,7 +202,7 @@ export function createMediaResolver(
       loading: priority ? "eager" : "lazy",
       priority,
       sizes: MEDIA_LAYOUTS[layout].sizes,
-      widths: MEDIA_LAYOUTS[layout].widths,
+      widths: widths.length > 0 ? widths : [entry.data.src.width],
     };
   }
 

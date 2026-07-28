@@ -30,9 +30,6 @@ const FEIRA_TARGET_SELECTOR = [
   "[data-work-contact-sheet] .contact-sheet__heading",
   "[data-work-credit] .credits",
   "[data-work-credit] .credits__item",
-  "[data-work-related]",
-  "[data-work-related] .related-works__heading",
-  "[data-work-related] .related-works__item",
   "[data-work-continuity]",
   "[data-work-continuity] .work-continuity__link",
 ].join(",");

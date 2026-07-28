@@ -1,0 +1,12 @@
+src: ../../assets/media/magma-11-saida.jpg
+description: Calçada e estruturas do lado oposto da rua em uma fotografia noturna em preto e branco.
+defaultAlt: Calçada e estruturas do lado oposto da rua em uma fotografia noturna em preto e branco.
+credit: { role: fotografia, name: Gustavo Palhares }
+capturedAt: "2025-07-20"
+rights:
+  status: cleared
+  holder: Gustavo Palhares
+  basis: written-authorization
+  scope: publicação editorial no site; cobertura autorizada pela organização do evento Magma, que publicou ou republicou fotografias do trabalho
+  notes: Autorização do evento registrada; releases individuais das pessoas fotografadas não documentados.
+checksum: sha256:db75578b557957c7f93bcfad824a583ac051e7c5931e3af2b66b4826cf969e66

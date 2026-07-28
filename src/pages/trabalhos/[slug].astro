@@ -6,14 +6,10 @@ import {
   buildInstant,
   formatEditorialDate,
   formatLocation,
-  isInPublicCirculation,
   isIndividuallyPublic,
-  publicRelatedWorks,
-  publicWorkContinuity,
   workPresentation,
 } from "../../lib/content/publication.ts";
 import { MDX_COMPONENT_REGISTRY } from "../../lib/mdx/registry.ts";
-import { publicRoutes } from "../../lib/routes/public.ts";
 import { resolveSocialImage } from "../../lib/seo/social-image.ts";
 import { configuredSiteUrl } from "../../lib/seo/site-url.ts";
 import { creativeWorkStructuredData } from "../../lib/seo/structured-data.ts";
@@ -25,22 +21,17 @@ export async function getStaticPaths() {
   const individual = allWorks.filter((entry) =>
     isIndividuallyPublic(entry, at),
   );
-  const circulating = allWorks.filter((entry) =>
-    isInPublicCirculation(entry, at),
-  );
-
   return individual.map((entry) => ({
     params: { slug: entry.data.slug },
-    props: { entry, continuity: publicWorkContinuity(circulating, entry.id) },
+    props: { entry },
   }));
 }
 
 interface Props {
   entry: CollectionEntry<"trabalhos">;
-  continuity: ReturnType<typeof publicWorkContinuity>;
 }
 
-const { entry, continuity } = Astro.props;
+const { entry } = Astro.props;
 const { Content } = await render(entry);
 const presentation = workPresentation(entry.id, entry.data);
 const at = buildInstant();
@@ -52,40 +43,24 @@ const structuredData = creativeWorkStructuredData(
   siteUrl,
   socialImage,
 );
-const related = publicRelatedWorks(
-  entry,
-  await getCollection("trabalhos"),
-  at,
-).map((work) => {
-  const relatedPresentation = workPresentation(work.id, work.data);
-  return {
-    archiveNumber: work.data.archiveNumber,
-    title: work.data.title,
-    kind: relatedPresentation.formatLabel,
-    summary: work.data.summary,
-    href: publicRoutes.trabalho(work.data.slug),
-    media: work.data.cover,
-  };
-});
 const credits = entry.data.credits.flatMap((credit) =>
   credit.name ? [{ role: credit.role, name: credit.name }] : [],
 );
-const linkFor = (work: CollectionEntry<"trabalhos"> | undefined) =>
-  work
-    ? { href: publicRoutes.trabalho(work.data.slug), title: work.data.title }
-    : undefined;
 const viewTransitionName = workCoverViewTransitionName(entry.data.slug);
 const motion =
   entry.id === "nephillin-uma-cobertura-sem-credencial"
     ? "nephillin"
     : entry.id === "feira-do-rolo"
       ? "feira"
-      : undefined;
+      : entry.id === "kauan-felix-uma-noite-de-k-1"
+        ? "kauan"
+        : "standard";
 ---
 
 <WorkLayout
   title={entry.data.title}
   summary={entry.data.summary}
+  metaDescription={entry.data.seo?.description}
   archiveNumber={entry.data.archiveNumber}
   dateLabel={formatEditorialDate(entry.data.date, entry.data.dateEnd)}
   location={formatLocation(entry.data.location)}
@@ -93,10 +68,7 @@ const motion =
   contextLabel={presentation.contextLabel}
   cover={entry.data.cover}
   credits={credits}
-  related={related}
   archived={entry.data.status === "archived"}
-  previous={linkFor(continuity.previous)}
-  next={linkFor(continuity.next)}
   socialImage={socialImage}
   publishedTime={entry.data.publishAt}
   modifiedTime={entry.data.updatedAt}

@@ -7,7 +7,6 @@ import {
   LeadImage,
   MetadataBlock,
   PullQuote,
-  RelatedWorks,
   TextColumn,
   Triptych,
 } from "../../components/editorial/index.ts";
@@ -27,7 +26,6 @@ export const MDX_COMPONENT_REGISTRY = {
   PullQuote,
   MetadataBlock,
   Credits,
-  RelatedWorks,
 } satisfies Record<EditorialComponentName, unknown>;
 
 const registeredNames = Object.keys(MDX_COMPONENT_REGISTRY);

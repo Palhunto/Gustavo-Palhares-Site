@@ -1,6 +1,7 @@
 <script>
   import { MOTION_LIFECYCLE_EVENTS } from "../../lib/motion/config.ts";
   import { initializeFeiraWorkMotion } from "../../lib/motion/feira-work.ts";
+  import { initializeKauanWorkMotion } from "../../lib/motion/kauan-work.ts";
   import { initializeNephillinWorkMotion } from "../../lib/motion/nephillin-work.ts";
 
   const root = document.querySelector<HTMLElement>("[data-work-motion]");
@@ -8,11 +9,13 @@
   if (root) {
     const variant = root.dataset.workMotion;
     const initialize =
-      variant === "nephillin"
+      variant === "nephillin" || variant === "standard"
         ? initializeNephillinWorkMotion
         : variant === "feira"
           ? initializeFeiraWorkMotion
-          : undefined;
+          : variant === "kauan"
+            ? initializeKauanWorkMotion
+            : undefined;
     if (initialize) {
       const cleanup = initialize(root);
       window.addEventListener(MOTION_LIFECYCLE_EVENTS.pageHide, cleanup, {

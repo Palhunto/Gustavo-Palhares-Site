@@ -1,0 +1,13 @@
+src: ../../assets/media/kauan-k1-10.jpg
+description: Os lutadores trocam socos em pé diante da grade do ringue.
+defaultAlt: Os lutadores trocam socos diante da grade do ringue.
+credit: { role: fotografia, name: Gustavo Palhares }
+capturedAt: "2026-07-25"
+location: { city: Bauru, subdivision: SP, country: Brasil }
+rights:
+  status: cleared
+  holder: Gustavo Palhares
+  basis: authorship
+  scope: publicação editorial no site; cobertura realizada para Kauan Felix; autorização de Kauan Felix e do evento confirmadas
+  notes: Uso editorial do ensaio liberado; release individual separado de Caio Martins não documentado.
+checksum: sha256:a610472582223195fe3984114acf6aa3b2d8424d77084590fc420e0d8ca05a75

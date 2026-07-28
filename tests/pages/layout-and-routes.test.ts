@@ -28,17 +28,18 @@ describe("layout e rotas globais da Fase 5A", () => {
     const header = await source("src/components/global/SiteHeader.astro");
     const footer = await source("src/components/global/SiteFooter.astro");
     const config = await source("src/config/site.ts");
-    const routes = await source("src/lib/routes/public.ts");
-    const combined = `${header}\n${footer}\n${config}\n${routes}`;
+    const combined = `${header}\n${footer}\n${config}`;
     expect(combined).not.toMatch(/href=(?:""|"#")/);
     for (const routeName of [
       "publicRoutes.trabalhosIndex",
-      "publicRoutes.cadernoIndex",
-      "publicRoutes.colecoesIndex",
-      "publicRoutes.edicoesIndex",
+      "publicRoutes.sobre",
+      "publicRoutes.contato",
     ]) {
       expect(combined).toContain(routeName);
     }
+    expect(combined).not.toMatch(
+      /publicRoutes\.(?:cadernoIndex|colecoesIndex|edicoesIndex)/,
+    );
     expect(combined).not.toMatch(/\/(?:arquivo|busca)/);
     expect(combined).not.toMatch(/exploracoes/);
     expect(header).toContain("aria-current={");

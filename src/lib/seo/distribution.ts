@@ -17,9 +17,6 @@ export const DISTRIBUTION_PATHS = {
 export const STATIC_SITEMAP_ROUTES = [
   publicRoutes.home,
   publicRoutes.trabalhosIndex,
-  publicRoutes.cadernoIndex,
-  publicRoutes.colecoesIndex,
-  publicRoutes.edicoesIndex,
   publicRoutes.sobre,
   publicRoutes.contato,
 ] as const;
@@ -48,12 +45,6 @@ function routeForEntry(
   switch (entry.collection) {
     case "trabalhos":
       return publicRoutes.trabalho(entry.data.slug);
-    case "caderno":
-      return publicRoutes.caderno(entry.data.slug);
-    case "colecoes":
-      return publicRoutes.colecao(entry.data.slug);
-    case "edicoes":
-      return publicRoutes.edicao(entry.data.number);
     default:
       return undefined;
   }
@@ -72,11 +63,9 @@ export function sitemapRoutes(
 
 function itemAuthor(
   dataset: ContentDataset,
-  entry: ContentEntry<"trabalhos"> | ContentEntry<"caderno">,
+  entry: ContentEntry<"trabalhos">,
 ): string | undefined {
-  const credits =
-    entry.collection === "trabalhos" ? entry.data.credits : entry.data.authors;
-  const credit = credits[0];
+  const credit = entry.data.credits[0];
   return credit ? resolveCredit(dataset, credit)?.name : undefined;
 }
 
@@ -85,18 +74,16 @@ export function rssItems(
   at = buildInstant(),
 ): RssItem[] {
   return getRssEntries(dataset, at)
+    .filter(
+      (entry): entry is ContentEntry<"trabalhos"> =>
+        entry.collection === "trabalhos",
+    )
     .map((entry) => ({
       title: entry.data.title,
       summary: entry.data.summary,
       date: entry.data.date,
-      path:
-        entry.collection === "trabalhos"
-          ? publicRoutes.trabalho(entry.data.slug)
-          : publicRoutes.caderno(entry.data.slug),
-      stableId:
-        entry.collection === "trabalhos"
-          ? entry.data.archiveNumber
-          : `caderno:${entry.id}`,
+      path: publicRoutes.trabalho(entry.data.slug),
+      stableId: entry.data.archiveNumber,
       author: itemAuthor(dataset, entry),
     }))
     .sort(

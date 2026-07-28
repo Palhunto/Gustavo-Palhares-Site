@@ -1,5 +1,4 @@
 ---
-import { siteConfig } from "../config/site.ts";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { publicRoutes } from "../lib/routes/public.ts";
 import { configuredSiteUrl } from "../lib/seo/site-url.ts";
@@ -10,60 +9,93 @@ const structuredData = personStructuredData(configuredSiteUrl());
 
 <BaseLayout
   title="Sobre"
-  description="Informações sobre Gustavo Palhares e sua publicação digital pessoal."
+  description="Fotógrafo e estudante de Jornalismo, com atuação entre a observação documental e a construção dirigida da imagem."
   variant="about-page"
   structuredData={structuredData}
 >
   <article class="about-page" aria-labelledby="titulo-sobre">
     <header class="about-page__intro">
-      <p class="about-page__marker type-label">Sobre</p>
-      <h1 id="titulo-sobre" class="type-section">{siteConfig.name}</h1>
+      <p class="about-page__marker type-label">Publicação / Sobre</p>
+      <h1 id="titulo-sobre" class="about-page__title">Sobre</h1>
       <p class="about-page__lead">
-        Gustavo Palhares é o autor desta publicação digital pessoal, criada para
-        reunir trabalhos fotográficos, textos e um arquivo permanente.
+        Fotógrafo e estudante de Jornalismo, com atuação entre a observação
+        documental e a construção dirigida da imagem.
       </p>
     </header>
 
-    <section class="about-page__details" aria-label="Perfil profissional">
-      <div class="about-page__detail">
-        <h2 class="type-label">Foco</h2>
+    <section class="about-page__profile" aria-label="Apresentação">
+      <div class="about-page__biography">
         <p>
-          Fotografia documental, ensaios autorais e registros do cotidiano, com
-          atenção à luz, ao tempo e às pessoas.
+          Sou fotógrafo e estudante de Jornalismo. Minha prática se desenvolve
+          entre a observação documental e a construção dirigida da imagem, com
+          interesse por pessoas, ambientes, gestos e pelas relações que surgem
+          diante da câmera.
+        </p>
+        <p>
+          Em trabalhos documentais, fotografo eventos, shows, festas, esporte e
+          situações do cotidiano. Procuro acompanhar cada contexto com
+          proximidade e atenção, construindo sequências que preservem sua
+          atmosfera e não reduzam a cobertura a um conjunto de registros
+          isolados.
+        </p>
+        <p>
+          Também desenvolvo retratos, editoriais e fotografias de produtos.
+          Nessas produções, trabalho com direção, composição e iluminação
+          artificial para controlar forma, textura, volume e presença. A luz não
+          aparece apenas como recurso técnico, mas como parte da linguagem de
+          cada imagem.
+        </p>
+        <p>
+          Independentemente do formato, meu objetivo é produzir fotografias
+          claras em intenção, visualmente consistentes e adequadas ao contexto
+          em que serão utilizadas — seja uma narrativa documental, uma
+          publicação, a identidade de um artista ou a apresentação de um
+          produto.
         </p>
       </div>
 
+      <figure class="about-page__portrait">
+        <img
+          src="/images/about-placeholder.svg"
+          width="1600"
+          height="1067"
+          alt="Espaço reservado para o retrato de Gustavo Palhares."
+          decoding="async"
+        />
+      </figure>
+    </section>
+
+    <section class="about-page__details" aria-label="Perfil profissional">
+      <div class="about-page__detail">
+        <h2 class="type-label">Atuação</h2>
+        <p>
+          Fotografia documental, eventos, shows, esporte, retratos, editoriais e
+          produtos.
+        </p>
+      </div>
       <div class="about-page__detail">
         <h2 class="type-label">Abordagem</h2>
         <p>
-          Interesse por narrativas visuais e escritas que conectam imagem,
-          contexto e experiência vivida.
+          Observação, proximidade, direção de pessoas e construção de imagens
+          com luz natural ou artificial.
         </p>
       </div>
-
       <div class="about-page__detail">
         <h2 class="type-label">Formação</h2>
-        <p>Jornalismo em formação na UNESP Bauru.</p>
-      </div>
-
-      <div class="about-page__detail">
-        <h2 class="type-label">Contato</h2>
         <p>
-          Para colaborações, parcerias e projetos, acesse a página de contato.
+          Estudante de Jornalismo na Universidade Estadual Paulista — UNESP
+          Bauru.
         </p>
-        <a class="about-page__cta" href={publicRoutes.contato}>
-          <span>Ir para Contato</span>
-          <span aria-hidden="true">→</span>
-        </a>
       </div>
     </section>
 
-    <section class="about-page__note" aria-labelledby="nota-sobre">
-      <h2 id="nota-sobre" class="type-label">Nota</h2>
-      <p>
-        Este site é um espaço em construção permanente. Novos trabalhos, textos
-        e coleções serão adicionados ao longo do tempo.
-      </p>
-    </section>
+    <nav class="about-page__actions type-nav" aria-label="Próximos caminhos">
+      <a href={publicRoutes.trabalhosIndex}>
+        Ver trabalhos <span aria-hidden="true">⟶</span>
+      </a>
+      <a href={publicRoutes.contato}>
+        Entrar em contato <span aria-hidden="true">⟶</span>
+      </a>
+    </nav>
   </article>
 </BaseLayout>

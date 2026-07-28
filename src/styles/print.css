@@ -23,6 +23,7 @@
   .site-footer nav,
   .technical-controls,
   .button-editorial,
+  .work-lightbox,
   [data-print="hide"] {
     display: none !important;
   }

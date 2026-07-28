@@ -10,9 +10,7 @@ const HOME_INDEX_TARGET_SELECTOR = [
   "[data-home-index-rule]",
   "[data-home-index-item-title]",
   "[data-home-index-work]",
-  "[data-home-index-item-state]",
-  "[data-home-index-item-sublink]",
-  "[data-home-index-item-action]",
+  "[data-home-index-support]",
 ].join(",");
 
 const HOME_FOOTER_TARGET_SELECTOR = [
@@ -79,12 +77,7 @@ function itemTargets(item: HTMLElement) {
   return {
     title: item.querySelector<HTMLElement>("[data-home-index-item-title]"),
     support: item.querySelectorAll<HTMLElement>(
-      [
-        "[data-home-index-work]",
-        "[data-home-index-item-state]",
-        "[data-home-index-item-sublink]",
-        "[data-home-index-item-action]",
-      ].join(","),
+      "[data-home-index-work], [data-home-index-support]",
     ),
   };
 }
@@ -201,18 +194,20 @@ function initializeIndexMotion(root: HTMLElement): Cleanup {
               HOME_INDEX_TIMELINES.mobileItem.at.title,
             );
           }
-          timeline.from(
-            targets.support,
-            {
-              y: distance * 0.24,
-              opacity: HOME_INDEX_TIMELINES.initialOpacity,
-              duration: HOME_INDEX_TIMELINES.mobileItem.duration.support,
-              ease: MOTION_TOKENS.easing.editorial,
-              stagger: HOME_INDEX_TIMELINES.mobileItem.supportStagger,
-              clearProps: "transform,opacity",
-            },
-            HOME_INDEX_TIMELINES.mobileItem.at.support,
-          );
+          if (targets.support.length > 0) {
+            timeline.from(
+              targets.support,
+              {
+                y: distance * 0.24,
+                opacity: HOME_INDEX_TIMELINES.initialOpacity,
+                duration: HOME_INDEX_TIMELINES.mobileItem.duration.support,
+                ease: MOTION_TOKENS.easing.editorial,
+                stagger: HOME_INDEX_TIMELINES.mobileItem.supportStagger,
+                clearProps: "transform,opacity",
+              },
+              HOME_INDEX_TIMELINES.mobileItem.at.support,
+            );
+          }
         });
       } else if (list && !isPastViewport(list)) {
         const orderedItems = visualOrder(items);
@@ -259,18 +254,20 @@ function initializeIndexMotion(root: HTMLElement): Cleanup {
               itemStart,
             );
           }
-          timeline.from(
-            targets.support,
-            {
-              y: distance * 0.22,
-              opacity: HOME_INDEX_TIMELINES.initialOpacity,
-              duration: HOME_INDEX_TIMELINES.list.duration.support,
-              ease: MOTION_TOKENS.easing.editorial,
-              stagger: HOME_INDEX_TIMELINES.list.supportStagger,
-              clearProps: "transform,opacity",
-            },
-            itemStart + HOME_INDEX_TIMELINES.list.supportOffset,
-          );
+          if (targets.support.length > 0) {
+            timeline.from(
+              targets.support,
+              {
+                y: distance * 0.22,
+                opacity: HOME_INDEX_TIMELINES.initialOpacity,
+                duration: HOME_INDEX_TIMELINES.list.duration.support,
+                ease: MOTION_TOKENS.easing.editorial,
+                stagger: HOME_INDEX_TIMELINES.list.supportStagger,
+                clearProps: "transform,opacity",
+              },
+              itemStart + HOME_INDEX_TIMELINES.list.supportOffset,
+            );
+          }
         });
       }
 

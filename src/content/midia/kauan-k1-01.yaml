@@ -1,0 +1,13 @@
+src: ../../assets/media/kauan-k1-01.jpg
+description: Kauan Felix sentado no corner, sem camisa, enquanto outra pessoa apoia os braços sobre seus ombros.
+defaultAlt: Kauan Felix sentado no corner enquanto outra pessoa apoia os braços sobre seus ombros.
+credit: { role: fotografia, name: Gustavo Palhares }
+capturedAt: "2026-07-25"
+location: { city: Bauru, subdivision: SP, country: Brasil }
+rights:
+  status: cleared
+  holder: Gustavo Palhares
+  basis: authorship
+  scope: publicação editorial no site; cobertura realizada para Kauan Felix; autorização de Kauan Felix e do evento confirmadas
+  notes: Uso editorial do ensaio liberado; release individual separado de Caio Martins não documentado.
+checksum: sha256:75424cf00e21c8fa0e65dd79b66a49ac77f1b0cc1998483e247b291841214e33

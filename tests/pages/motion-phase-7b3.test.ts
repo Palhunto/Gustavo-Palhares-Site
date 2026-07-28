@@ -38,20 +38,19 @@ describe("Fase 7B3 — movimento da seção Publicação e presença", () => {
     expect(presence).toContain("data-home-presence-feature");
     expect(presence).toContain("data-home-presence-grid");
     expect(presence).toContain('data-home-presence-rule="main"');
-    expect(presence).toContain('data-home-presence-rule="grid-vertical"');
-    expect(presence).toContain('data-home-presence-rule="grid-horizontal"');
-    expect(presence).toContain("data-home-presence-item={item.key}");
-    expect(presence).toContain("caderno.placeholder");
-    expect(presence).toContain("item.placeholder");
-    expect(presence).toContain("href={caderno.href}");
-    expect(presence).toContain("href={item.href}");
+    expect(presence).toContain('data-home-presence-item="contato"');
+    expect(presence).toContain("sobre.description");
+    expect(presence).toContain("contato.description");
+    expect(presence).toContain("href={sobre.href}");
+    expect(presence).toContain("href={contato.href}");
+    expect(presence).not.toMatch(/grid-vertical|grid-horizontal|caderno/);
     expect(heading).toContain("data-home-presence-heading-rule");
     await expect(
       transform(presence, { filename: "HomePresence.astro" }),
     ).resolves.toHaveProperty("code");
   });
 
-  it("mantém cabeçalho, Caderno e grade como comportamentos distintos", async () => {
+  it("mantém cabeçalho, Sobre e Contato como comportamentos distintos", async () => {
     const motion = await source("src/lib/motion/home-presence.ts");
 
     expect(motion.match(/scrollTrigger:/g)).toHaveLength(5);
@@ -67,15 +66,15 @@ describe("Fase 7B3 — movimento da seção Publicação e presença", () => {
     );
     expect(
       HOME_PRESENCE_TIMELINES.feature.totalDuration,
-    ).toBeGreaterThanOrEqual(0.85);
+    ).toBeGreaterThanOrEqual(0.7);
     expect(HOME_PRESENCE_TIMELINES.feature.totalDuration).toBeLessThanOrEqual(
-      1.05,
+      0.8,
     );
     expect(HOME_PRESENCE_TIMELINES.grid.totalDuration).toBeGreaterThanOrEqual(
-      1.1,
+      0.85,
     );
     expect(HOME_PRESENCE_TIMELINES.grid.totalDuration).toBeLessThanOrEqual(
-      1.35,
+      0.95,
     );
   });
 
@@ -87,8 +86,9 @@ describe("Fase 7B3 — movimento da seção Publicação e presença", () => {
     expect(motion).toContain("scaleY: 0");
     expect(motion).toContain("scaleX: 0");
     expect(styles).toContain(".home-presence__rule--main");
-    expect(styles).toContain(".home-presence__rule--grid-vertical");
-    expect(styles).toContain(".home-presence__rule--grid-horizontal");
+    expect(styles).not.toMatch(
+      /home-presence__rule--grid-(?:vertical|horizontal)/,
+    );
     expect(motion).not.toMatch(/\bwidth\s*:|\bheight\s*:/);
   });
 
@@ -120,21 +120,20 @@ describe("Fase 7B3 — movimento da seção Publicação e presença", () => {
     expect(styles).toContain("@media (prefers-reduced-motion: reduce)");
   });
 
-  it("mantém cinco CTAs nativos com hover, foco e toque mínimo", async () => {
+  it("mantém ações e canais nativos com hover, foco e toque mínimo", async () => {
     const presence = await source("src/components/home/HomePresence.astro");
     const styles = await source("src/styles/site.css");
 
-    expect(presence.match(/class="home-presence__cta type-nav"/g)).toHaveLength(
-      2,
-    );
-    expect(presence).toContain("data-home-presence-feature-cta");
-    expect(presence).toContain("data-home-presence-item-cta");
+    expect(
+      presence.match(/class="home-presence__action type-nav"/g),
+    ).toHaveLength(2);
+    expect(presence).toContain("contactChannels.map");
+    expect(presence).not.toMatch(/on:click|onclick=|role="button"/i);
     expect(styles).toContain("--home-presence-interaction-duration: 180ms");
-    expect(styles).toContain(".home-presence__cta:hover::after");
-    expect(styles).toContain(".home-presence__cta:focus-visible::after");
-    expect(styles).toContain("translateX(0.22rem)");
+    expect(styles).toContain(".home-presence__action:hover::after");
+    expect(styles).toContain(".home-presence__action:focus-visible::after");
     expect(styles).toMatch(
-      /\.home-presence__cta\s*\{[^}]*min-block-size:\s*2\.75rem/s,
+      /\.home-presence__action,[^{]*\{[^}]*min-block-size:\s*2\.75rem/s,
     );
   });
 

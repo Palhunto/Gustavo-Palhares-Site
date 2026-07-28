@@ -62,6 +62,7 @@ Em pull requests, a workflow informa automaticamente o SHA da base. Quando não 
 - [Modelo de conteúdo](./docs/CONTENT_MODEL.md)
 - [Plano de implementação](./docs/PLAN.md)
 - [Decisões arquiteturais](./docs/DECISIONS.md)
+- [Deploy de produção](./docs/DEPLOY.md)
 
 ## Limites da Fase 2
 

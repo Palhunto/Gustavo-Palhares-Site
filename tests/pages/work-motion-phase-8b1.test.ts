@@ -27,7 +27,9 @@ describe("Fase 8B1 — movimento editorial de Nephillin", () => {
     );
     expect(route).toContain('? "nephillin"');
     expect(route).toContain("motion={motion}");
-    expect(layout).toContain('motion?: "nephillin" | "feira"');
+    expect(layout).toContain(
+      'motion?: "standard" | "nephillin" | "feira" | "kauan"',
+    );
     expect(layout).toContain("motion && <WorkMotion />");
     expect(layout).toContain("data-work-motion={motion}");
     expect(entry).toContain("? initializeNephillinWorkMotion");
@@ -148,6 +150,7 @@ describe("Fase 8B1 — movimento editorial de Nephillin", () => {
     const motion = await source("src/lib/motion/nephillin-work.ts");
     const lifecycle = await source("src/lib/motion/lifecycle.ts");
     const styles = await source("src/styles/site.css");
+    const motionStyles = await source("src/styles/motion.css");
     const scopedStyles = styles.slice(
       styles.indexOf('[data-work-motion="nephillin"]'),
       styles.indexOf(".family-list,"),
@@ -157,7 +160,7 @@ describe("Fase 8B1 — movimento editorial de Nephillin", () => {
     expect(motion).toContain('removeAttribute("style")');
     expect(motion).toContain('root.dataset.workMotionPresented = "true"');
     expect(lifecycle).toContain('root.dataset.motionState = "reduced"');
-    expect(scopedStyles).toContain("@media (prefers-reduced-motion: reduce)");
+    expect(motionStyles).toContain("@media (prefers-reduced-motion: reduce)");
     expect(scopedStyles).not.toMatch(/opacity\s*:\s*0|visibility\s*:\s*hidden/);
     expect(scopedStyles).not.toMatch(
       /\[data-work-figure\][^{]*\{[^}]*transform/s,
@@ -178,8 +181,8 @@ describe("Fase 8B1 — movimento editorial de Nephillin", () => {
     expect(internal.join("\n")).not.toMatch(
       /viewTransitionName|view-transition-name/,
     );
-    expect(layout).toContain("href={previous.href}");
-    expect(layout).toContain("href={next.href}");
+    expect(layout).toContain("href={publicRoutes.trabalhosIndex}");
+    expect(layout.match(/class="work-continuity__link/g)).toHaveLength(1);
     expect(`${layout}\n${motion}`).not.toMatch(
       /preventDefault|ClientRouter|addEventListener\(\s*["']click/i,
     );

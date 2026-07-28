@@ -27,7 +27,9 @@ describe("Fase 8B2 — movimento editorial da Feira do Rolo", () => {
 
     expect(route).toContain('entry.id === "feira-do-rolo"');
     expect(route).toContain('? "feira"');
-    expect(layout).toContain('motion?: "nephillin" | "feira"');
+    expect(layout).toContain(
+      'motion?: "standard" | "nephillin" | "feira" | "kauan"',
+    );
     expect(layout).toContain("motion && <WorkMotion />");
     expect(entry).toContain("? initializeNephillinWorkMotion");
     expect(entry).toContain("? initializeFeiraWorkMotion");
@@ -183,8 +185,8 @@ describe("Fase 8B2 — movimento editorial da Feira do Rolo", () => {
     expect(internal.join("\n")).not.toMatch(
       /viewTransitionName|view-transition-name/,
     );
-    expect(layout).toContain("href={previous.href}");
-    expect(layout).toContain("href={next.href}");
+    expect(layout).toContain("href={publicRoutes.trabalhosIndex}");
+    expect(layout.match(/class="work-continuity__link/g)).toHaveLength(1);
     expect(`${layout}\n${motion}`).not.toMatch(
       /preventDefault|ClientRouter|addEventListener\(\s*["']click/i,
     );

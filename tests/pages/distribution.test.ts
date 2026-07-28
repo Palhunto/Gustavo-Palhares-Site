@@ -17,38 +17,39 @@ import {
   validDataset,
   withAllValidStates,
 } from "../fixtures/content/scenarios.ts";
+import { PRODUCTION_SITE_URL } from "../fixtures/production-site.ts";
 
 const execFileAsync = promisify(execFile);
 const root = process.cwd();
-const base = normalizeSiteUrl("https://publicacao.test")!;
+const base = normalizeSiteUrl(PRODUCTION_SITE_URL)!;
+const publicInstant = new Date("2026-07-27T12:00:00-03:00");
 
 describe("distribuição pública da Fase 5C-A", () => {
-  it("gera as nove rotas atuais no sitemap, absolutas e sem duplicação", async () => {
+  it("gera as oito rotas públicas atuais no sitemap, absolutas e sem duplicação", async () => {
     const dataset = await validDataset();
     const expected = [
       "/",
       "/trabalhos/",
       "/trabalhos/nephillin-uma-cobertura-sem-credencial/",
       "/trabalhos/feira-do-rolo/",
-      "/caderno/",
-      "/colecoes/",
-      "/edicoes/",
+      "/trabalhos/kauan-felix-uma-noite-de-k-1/",
+      "/trabalhos/magma/",
       "/sobre/",
       "/contato/",
     ];
-    expect(sitemapRoutes(dataset, BUILD_INSTANT)).toEqual(
+    expect(sitemapRoutes(dataset, publicInstant)).toEqual(
       expect.arrayContaining(expected),
     );
-    expect(sitemapRoutes(dataset, BUILD_INSTANT)).toHaveLength(9);
+    expect(sitemapRoutes(dataset, publicInstant)).toHaveLength(8);
 
-    const document = renderSitemapXml(dataset, base, BUILD_INSTANT);
+    const document = renderSitemapXml(dataset, base, publicInstant);
     const urls = [...document.matchAll(/<loc>([^<]+)<\/loc>/g)].map(
       (match) => match[1],
     );
-    expect(urls).toHaveLength(9);
+    expect(urls).toHaveLength(8);
     expect(new Set(urls).size).toBe(urls.length);
     expect(
-      urls.every((url) => url.startsWith("https://publicacao.test/")),
+      urls.every((url) => url.startsWith("https://gustavopalhares.com.br/")),
     ).toBe(true);
     for (const route of expected) {
       expect(urls).toContain(new URL(route, base).href);
@@ -56,9 +57,9 @@ describe("distribuição pública da Fase 5C-A", () => {
     expect(document).not.toMatch(/404|exploracoes|fixture|lastmod/);
   });
 
-  it("inclui archived no sitemap, mas não no RSS", async () => {
+  it("mantém famílias futuras fora do sitemap e do RSS", async () => {
     const dataset = withAllValidStates(await validDataset());
-    expect(sitemapRoutes(dataset, BUILD_INSTANT)).toContain(
+    expect(sitemapRoutes(dataset, BUILD_INSTANT)).not.toContain(
       "/caderno/fixture-arquivado/",
     );
     expect(
@@ -69,15 +70,19 @@ describe("distribuição pública da Fase 5C-A", () => {
     );
   });
 
-  it("gera RSS válido e resumido com os dois trabalhos na ordem editorial", async () => {
+  it("gera RSS válido e resumido com os quatro trabalhos na ordem editorial", async () => {
     const dataset = await validDataset();
-    const items = rssItems(dataset, BUILD_INSTANT);
+    const items = rssItems(dataset, publicInstant);
     expect(items.map((item) => item.title)).toEqual([
+      "Kauan Felix — Uma noite de K-1",
       "Nephillin — Uma cobertura sem credencial",
+      "Magma",
       "Feira do Rolo",
     ]);
     expect(items.map((item) => item.stableId)).toEqual([
+      "GP-2026-0003",
       "GP-2026-0002",
+      "GP-2025-0002",
       "GP-2025-0001",
     ]);
     expect(items.every((item) => item.summary.length > 0)).toBe(true);
@@ -85,16 +90,22 @@ describe("distribuição pública da Fase 5C-A", () => {
       true,
     );
 
-    const document = renderRssXml(dataset, base, BUILD_INSTANT);
+    const document = renderRssXml(dataset, base, publicInstant);
     expect(document).toMatch(/^<\?xml version="1\.0" encoding="UTF-8"\?>/);
     expect(document).toContain('<rss version="2.0"');
     expect(document).toMatch(/<\/rss>$/);
-    expect(document.match(/<item>/g)).toHaveLength(2);
+    expect(document.match(/<item>/g)).toHaveLength(4);
     expect(document).toContain(
-      "https://publicacao.test/trabalhos/nephillin-uma-cobertura-sem-credencial/",
+      "https://gustavopalhares.com.br/trabalhos/kauan-felix-uma-noite-de-k-1/",
     );
     expect(document).toContain(
-      "https://publicacao.test/trabalhos/feira-do-rolo/",
+      "https://gustavopalhares.com.br/trabalhos/nephillin-uma-cobertura-sem-credencial/",
+    );
+    expect(document).toContain(
+      "https://gustavopalhares.com.br/trabalhos/magma/",
+    );
+    expect(document).toContain(
+      "https://gustavopalhares.com.br/trabalhos/feira-do-rolo/",
     );
     expect(document).not.toMatch(/fixture|<content:encoded|<img|<html/);
   });
@@ -103,7 +114,9 @@ describe("distribuição pública da Fase 5C-A", () => {
     expect(renderRobotsTxt(undefined)).toBe("User-agent: *\nAllow: /\n");
     const document = renderRobotsTxt(base);
     expect(document).toContain("User-agent: *\nAllow: /");
-    expect(document).toContain("Sitemap: https://publicacao.test/sitemap.xml");
+    expect(document).toContain(
+      "Sitemap: https://gustavopalhares.com.br/sitemap.xml",
+    );
     expect(document).not.toMatch(/Disallow|src\/content|docs\/|phase-5a/i);
   });
 

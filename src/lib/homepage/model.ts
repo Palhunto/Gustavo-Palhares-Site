@@ -15,6 +15,7 @@ export interface HomepageModel {
     work: PublicWork;
   };
   works: PublicWork[];
+  featuredWorks: PublicWork[];
 }
 
 interface HomepageModelInput {
@@ -37,6 +38,13 @@ export function buildHomepageModel({
       `Trabalho de capa não elegível: ${homepageEditorialSelection.featuredWorkId}.`,
     );
   }
+  const featuredById = new Map(publicWorks.map((entry) => [entry.id, entry]));
+  const featuredWorks = homepageEditorialSelection.featuredWorkIds.map((id) =>
+    featuredById.get(id),
+  );
+  if (featuredWorks.some((entry) => entry === undefined)) {
+    throw new Error("Um ou mais trabalhos em destaque não estão elegíveis.");
+  }
 
   const coverMediaId = referenceId(homepageEditorialSelection.coverMedia.asset);
   const featuredCoverId = referenceId(featuredWork.data.cover.asset);
@@ -52,5 +60,6 @@ export function buildHomepageModel({
       work: featuredWork,
     },
     works: publicWorks,
+    featuredWorks: featuredWorks as PublicWork[],
   };
 }

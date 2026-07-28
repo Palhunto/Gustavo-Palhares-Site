@@ -7,6 +7,5 @@ export { default as FullBleed } from "./FullBleed.astro";
 export { default as LeadImage } from "./LeadImage.astro";
 export { default as MetadataBlock } from "./MetadataBlock.astro";
 export { default as PullQuote } from "./PullQuote.astro";
-export { default as RelatedWorks } from "./RelatedWorks.astro";
 export { default as TextColumn } from "./TextColumn.astro";
 export { default as Triptych } from "./Triptych.astro";

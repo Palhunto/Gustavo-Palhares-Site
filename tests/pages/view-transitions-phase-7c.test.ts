@@ -16,18 +16,24 @@ async function source(relativePath: string): Promise<string> {
 }
 
 describe("Fase 7C — View Transitions nativas dos trabalhos", () => {
-  it("mantém dois nomes únicos, estáveis e restritos aos trabalhos elegíveis", () => {
+  it("mantém quatro nomes únicos, estáveis e restritos aos trabalhos elegíveis", () => {
     expect(WORK_COVER_VIEW_TRANSITION_NAMES).toEqual([
       "work-nephillin-cover",
       "work-feira-do-rolo-cover",
+      "work-kauan-felix-uma-noite-de-k-1-cover",
+      "work-magma-cover",
     ]);
-    expect(new Set(WORK_COVER_VIEW_TRANSITION_NAMES).size).toBe(2);
+    expect(new Set(WORK_COVER_VIEW_TRANSITION_NAMES).size).toBe(4);
     expect(
       workCoverViewTransitionName("nephillin-uma-cobertura-sem-credencial"),
     ).toBe("work-nephillin-cover");
     expect(workCoverViewTransitionName("feira-do-rolo")).toBe(
       "work-feira-do-rolo-cover",
     );
+    expect(workCoverViewTransitionName("kauan-felix-uma-noite-de-k-1")).toBe(
+      "work-kauan-felix-uma-noite-de-k-1-cover",
+    );
+    expect(workCoverViewTransitionName("magma")).toBe("work-magma-cover");
     expect(workCoverViewTransitionName("trabalho-inelegivel")).toBeUndefined();
   });
 
@@ -39,12 +45,7 @@ describe("Fase 7C — View Transitions nativas dos trabalhos", () => {
     const indexLayout = await source("src/layouts/IndexLayout.astro");
     const baseLayout = await source("src/layouts/BaseLayout.astro");
     const otherPages = await Promise.all(
-      [
-        "src/pages/caderno/index.astro",
-        "src/pages/colecoes/index.astro",
-        "src/pages/sobre.astro",
-        "src/pages/contato.astro",
-      ].map(source),
+      ["src/pages/sobre.astro", "src/pages/contato.astro"].map(source),
     );
 
     expect(homepage).toContain("viewTransitions");

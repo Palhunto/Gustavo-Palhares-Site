@@ -8,7 +8,6 @@ import {
   APPROVED_WORK_PRESENTATION,
   isInPublicCirculation,
   isIndividuallyPublic,
-  publicRelatedWorks,
   sortWorksByDate,
   workPresentation,
 } from "../../src/lib/content/publication.ts";
@@ -62,17 +61,21 @@ const expected = {
 } as const;
 
 describe("Fase 5B — promoção e superfície pública", () => {
-  it("carrega somente os dois trabalhos aprovados em circulação pública", async () => {
+  it("carrega somente os quatro trabalhos aprovados em circulação pública", async () => {
     const dataset = await loadContentFromDisk(root);
     const publicWorks = sortWorksByDate(
       dataset.trabalhos.filter((entry) => isInPublicCirculation(entry, at)),
     );
     expect(publicWorks.map((entry) => entry.id)).toEqual([
+      "kauan-felix-uma-noite-de-k-1",
       "nephillin-uma-cobertura-sem-credencial",
+      "magma",
       "feira-do-rolo",
     ]);
     expect(publicWorks.map((entry) => entry.data.archiveNumber)).toEqual([
+      "GP-2026-0003",
       "GP-2026-0002",
+      "GP-2025-0002",
       "GP-2025-0001",
     ]);
     expect(publicWorks.some((entry) => entry.id === "fixture-trabalho")).toBe(
@@ -160,7 +163,7 @@ describe("Fase 5B — promoção e superfície pública", () => {
     expect(new Set(phase5Assets).size).toBe(phase5Assets.length);
   });
 
-  it("aplica a mesma elegibilidade a páginas, índices e continuidade", async () => {
+  it("aplica a mesma elegibilidade a páginas e índices", async () => {
     const dataset = await loadContentFromDisk(root);
     const fixture = dataset.trabalhos.find(
       (entry) => entry.id === "fixture-trabalho",
@@ -181,25 +184,9 @@ describe("Fase 5B — promoção e superfície pública", () => {
       formatLabel: "Cobertura",
       contextLabel: "Autoral",
     });
-
-    const source = structuredClone(nephillin!);
-    source.data.relatedWorks = ["feira-do-rolo", archived.id] as never;
-    expect(
-      publicRelatedWorks(
-        source,
-        [
-          nephillin!,
-          archived,
-          dataset.trabalhos.find(
-            (candidate) => candidate.id === "feira-do-rolo",
-          )!,
-        ],
-        at,
-      ).map((entry) => entry.id),
-    ).toEqual(["feira-do-rolo"]);
   });
 
-  it("integra relacionados aprovados sem criar contêiner vazio", async () => {
+  it("encerra todos os trabalhos com retorno único ao índice", async () => {
     const layout = await import("node:fs/promises").then(({ readFile }) =>
       readFile(path.join(root, "src", "layouts", "WorkLayout.astro"), "utf8"),
     );
@@ -209,18 +196,22 @@ describe("Fase 5B — promoção e superfície pública", () => {
         "utf8",
       ),
     );
-    expect(layout).toContain("<RelatedWorks items={related}");
-    expect(route).toContain("publicRelatedWorks(");
-    expect(route).toContain("related={related}");
+    expect(layout).toContain("data-work-continuity");
+    expect(layout).toContain("href={publicRoutes.trabalhosIndex}");
+    expect(layout).toContain("VER TODOS OS TRABALHOS");
+    expect(layout.match(/class="work-continuity__link/g)).toHaveLength(1);
+    expect(`${layout}\n${route}`).not.toMatch(
+      /RelatedWorks|publicRelatedWorks|Trabalhos relacionados/,
+    );
   });
 
-  it("mantém apenas as rotas permitidas e templates vazios sem conteúdo fictício", async () => {
+  it("mantém apenas as rotas públicas permitidas e a arquitetura futura fora de pages", async () => {
     const pageFiles = (
       await readdir(path.join(root, "src", "pages"), { recursive: true })
     ).map((name) => String(name).replaceAll("\\", "/"));
-    for (const route of [
-      "trabalhos/index.astro",
-      "trabalhos/[slug].astro",
+    for (const route of ["trabalhos/index.astro", "trabalhos/[slug].astro"])
+      expect(pageFiles).toContain(route);
+    for (const removed of [
       "caderno/index.astro",
       "caderno/[slug].astro",
       "colecoes/index.astro",
@@ -228,7 +219,7 @@ describe("Fase 5B — promoção e superfície pública", () => {
       "edicoes/index.astro",
       "edicoes/[numero].astro",
     ])
-      expect(pageFiles).toContain(route);
+      expect(pageFiles).not.toContain(removed);
     expect(pageFiles.some((name) => /(?:arquivo|busca)/i.test(name))).toBe(
       false,
     );

@@ -82,23 +82,19 @@ const structuredData = worksIndexStructuredData(
                   {work.data.summary}
                 </p>
                 <dl class="works-index__metadata type-meta">
-                  <div>
-                    <>
+                  {work.data.location && (
+                    <div>
                       <dt>Cidade</dt>
                       <dd>{formatLocation(work.data.location)}</dd>
-                    </>
+                    </div>
+                  )}
+                  <div>
+                    <dt>Formato</dt>
+                    <dd>{presentation.formatLabel}</dd>
                   </div>
                   <div>
-                    <>
-                      <dt>Formato</dt>
-                      <dd>{presentation.formatLabel}</dd>
-                    </>
-                  </div>
-                  <div>
-                    <>
-                      <dt>Contexto</dt>
-                      <dd>{presentation.contextLabel}</dd>
-                    </>
+                    <dt>Contexto</dt>
+                    <dd>{presentation.contextLabel}</dd>
                   </div>
                 </dl>
                 <a class="works-index__cta link-editorial" href={href}>
