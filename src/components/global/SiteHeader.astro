@@ -10,6 +10,7 @@ const { currentPath } = Astro.props;
 const normalizedPath = currentPath.endsWith("/")
   ? currentPath
   : `${currentPath}/`;
+const isHomepage = normalizedPath === publicRoutes.home;
 const isCurrent = (href: string) =>
   normalizedPath === href ||
   (href !== publicRoutes.home && normalizedPath.startsWith(href));
@@ -35,6 +36,11 @@ const isCurrent = (href: string) =>
               aria-current={isCurrent(item.href) ? "page" : undefined}
             >
               {item.label}
+              {isHomepage && item.href === publicRoutes.contato && (
+                <span class="site-header__external-mark" aria-hidden="true">
+                  ↗
+                </span>
+              )}
             </a>
           </li>
         ))

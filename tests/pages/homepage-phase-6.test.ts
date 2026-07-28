@@ -65,6 +65,7 @@ describe("Fases 6A e 6B — homepage editorial", () => {
 
   it("mantém quatro momentos, um único h1 e hooks estáticos para movimento futuro", async () => {
     const composition = await source("src/components/home/HomePage.astro");
+    const route = await source("src/pages/index.astro");
     const components = ["HomeCover", "HomeWorks", "HomePresence", "HomeIndex"];
     let previous = -1;
     for (const component of components) {
@@ -84,6 +85,7 @@ describe("Fases 6A e 6B — homepage editorial", () => {
       expect(combined).toContain(`data-motion-section="${section.id}"`);
     }
     expect(combined.match(/<h1\b/g)).toHaveLength(1);
+    expect(route).not.toContain("showHeader={false}");
     expect(combined).toContain("home-cover__title-line");
     expect(combined).toContain("home-cover__title-rule");
     expect(combined).toContain("data-motion-rule");
@@ -141,6 +143,25 @@ describe("Fases 6A e 6B — homepage editorial", () => {
       "Sobre",
       "Contato",
     ]);
+  });
+
+  it("reproduz o cabeçalho compacto e integra a identificação editorial à capa", async () => {
+    const header = await source("src/components/global/SiteHeader.astro");
+    const cover = await source("src/components/home/HomeCover.astro");
+    const styles = await source("src/styles/site.css");
+
+    expect(header).toContain(
+      "isHomepage && item.href === publicRoutes.contato",
+    );
+    expect(header).toContain('class="site-header__external-mark"');
+    expect(header).toContain('aria-hidden="true"');
+    expect(cover).toMatch(
+      /homepageEditorialCopy\.coverLabel[\s\S]*?<span aria-hidden="true">·<\/span>[\s\S]*?homepageEditorialCopy\.coverStatus/,
+    );
+    expect(styles).toMatch(
+      /\.public-page--homepage \.site-identity__role\s*\{\s*display: none;/,
+    );
+    expect(styles).toMatch(/\.home-cover__status-rule\s*\{\s*display: none;/);
   });
 
   it("mantém componentes compiláveis e evita altura de viewport na capa", async () => {

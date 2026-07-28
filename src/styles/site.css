@@ -1277,7 +1277,46 @@ html:has(> body.public-page--homepage) {
 }
 
 .public-page--homepage .site-frame {
-  inline-size: min(calc(100% - clamp(2rem, 6vw, 8rem)), 95rem);
+  inline-size: min(calc(100% - clamp(2rem, 5vw, 6rem)), 95rem);
+}
+
+.public-page--homepage .site-header {
+  flex-wrap: nowrap;
+  align-items: center;
+  padding: var(--space-3);
+}
+
+.public-page--homepage .site-identity__name {
+  font-size: 1.5rem;
+  font-weight: 450;
+  line-height: 1;
+}
+
+.public-page--homepage .site-identity__role {
+  display: none;
+}
+
+.public-page--homepage .site-header__nav {
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.public-page--homepage .site-header__nav ul {
+  column-gap: clamp(1.5rem, 2.4vw, 2.25rem);
+}
+
+.public-page--homepage .site-header__nav a {
+  gap: var(--space-1);
+}
+
+.public-page--homepage .site-header__nav li:last-child a {
+  text-decoration-color: var(--color-accent);
+}
+
+.site-header__external-mark {
+  display: inline-block;
+  font-size: 0.9em;
 }
 
 .public-page--homepage .site-main {
@@ -1322,48 +1361,47 @@ html:has(> body.public-page--homepage) {
 
   display: grid;
   grid-template-columns:
-    minmax(19rem, 0.53fr) minmax(0, 1fr)
-    minmax(5.5rem, 0.13fr);
-  grid-template-rows: auto auto;
+    minmax(19rem, 0.49fr) minmax(0, 1fr)
+    minmax(5.5rem, 0.12fr);
+  grid-template-rows: auto minmax(0, 1fr);
   column-gap: clamp(1.5rem, 2.5vw, 2.75rem);
+  padding-block: clamp(2.75rem, 4vw, 4rem) clamp(2rem, 3vw, 3rem);
 }
 
 .home-cover__status {
-  position: relative;
-  grid-column: 1 / -1;
-  display: flex;
-  gap: var(--space-4);
-  align-items: center;
-  justify-content: space-between;
-  padding: var(--space-3) 0;
+  grid-column: 1;
+  grid-row: 1;
+  padding: var(--space-3) 0 0 var(--space-3);
   color: var(--color-ink);
+  font-size: 0.5625rem;
+  line-height: 1.35;
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 
+.home-cover__status p > span {
+  margin-inline: 0.35em;
+}
+
 .home-cover__status-rule {
-  position: absolute;
-  inset-block-end: 0;
-  inset-inline: 0;
-  display: block;
-  block-size: var(--line-hairline);
-  background: var(--color-line-strong);
-  transform-origin: left center;
+  display: none;
 }
 
 .home-cover__copy {
+  grid-column: 1;
+  grid-row: 2;
   display: grid;
   gap: clamp(1.35rem, 2vw, 2rem);
   align-content: start;
   align-self: start;
   min-inline-size: 0;
-  padding-block: clamp(3rem, 5vw, 5rem) clamp(2rem, 3vw, 3rem);
+  padding: clamp(1.5rem, 2.5vw, 2.5rem) 0 0 var(--space-3);
 }
 
 .home-cover__title {
   display: grid;
   gap: 0.16em;
-  font-size: clamp(3.7rem, 4.6vw, 4.8rem);
+  font-size: clamp(3.7rem, 4.35vw, 4.65rem);
   font-weight: 420;
   line-height: 0.86;
   letter-spacing: -0.055em;
@@ -1487,12 +1525,13 @@ html:has(> body.public-page--homepage) {
 }
 
 .home-cover__media {
+  grid-column: 2;
+  grid-row: 1 / 3;
   display: block;
   overflow: hidden;
-  align-self: center;
+  align-self: start;
   min-inline-size: 0;
   min-block-size: 0;
-  padding-block: clamp(1.25rem, 2vw, 2rem);
 }
 
 .home-cover__media .editorial-picture {
@@ -1501,10 +1540,9 @@ html:has(> body.public-page--homepage) {
 
 .home-cover__rail {
   grid-column: 3;
-  grid-row: 2;
+  grid-row: 1 / 3;
   display: grid;
   grid-template-rows: minmax(0, 1fr) auto;
-  padding-block: clamp(1.75rem, 3vw, 3rem) var(--space-4);
 }
 
 .home-cover__rail ol {
@@ -2238,12 +2276,13 @@ html:has(> body.public-page--homepage) {
 
   .home-cover {
     grid-template-areas:
-      "status status"
+      "status rail"
       "copy rail"
       "media media";
     grid-template-columns: minmax(0, 1fr) minmax(11rem, 0.38fr);
     grid-template-rows: auto auto auto;
     column-gap: 0;
+    padding-block: clamp(2rem, 5vw, 3rem) var(--space-6);
   }
 
   .home-cover__status {
@@ -2367,6 +2406,16 @@ html:has(> body.public-page--homepage) {
 }
 
 @media (max-width: 47.99rem) {
+  .public-page--homepage .site-header {
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-5);
+    padding-inline: var(--gutter);
+  }
+
+  .public-page--homepage .site-header__nav {
+    inline-size: 100%;
+  }
+
   .home-section-heading {
     grid-template-columns: auto minmax(0, 1fr);
   }
@@ -2390,14 +2439,11 @@ html:has(> body.public-page--homepage) {
   }
 
   .home-cover__status {
-    display: grid;
-    gap: var(--space-1);
-    align-items: start;
     padding-inline: var(--gutter);
   }
 
   .home-cover__copy {
-    padding: clamp(2.5rem, 12vw, 4.5rem) var(--gutter);
+    padding: clamp(2rem, 9vw, 3.25rem) var(--gutter);
   }
 
   .home-cover__title {

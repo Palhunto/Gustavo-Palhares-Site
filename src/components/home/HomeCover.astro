@@ -24,8 +24,11 @@ const [givenName, ...familyName] = siteConfig.name.split(" ");
   data-home-cover-motion
 >
   <div class="home-cover__status type-meta" data-home-cover-status>
-    <p>{homepageEditorialCopy.coverLabel}</p>
-    <p>{homepageEditorialCopy.coverStatus}</p>
+    <p>
+      {homepageEditorialCopy.coverLabel}
+      <span aria-hidden="true">·</span>
+      {homepageEditorialCopy.coverStatus}
+    </p>
     <span
       class="home-cover__status-rule"
       data-home-cover-status-rule
