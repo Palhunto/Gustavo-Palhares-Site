@@ -58,14 +58,18 @@ describe("Página Contato — mockup editorial responsivo", () => {
     );
   });
 
-  it("remove o cabeçalho global e preserva metadata da página pública", async () => {
+  it("mantém o cabeçalho global e preserva metadata da página pública", async () => {
     const page = await source("src/pages/contato.astro");
+    const styles = await source("src/styles/site.css");
 
     expect(page).toContain('title="Contato"');
     expect(page).toContain('robots="index, follow"');
     expect(page).toContain('variant="contact-page"');
-    expect(page).toContain("showHeader={false}");
+    expect(page).not.toContain("showHeader={false}");
     expect(page).not.toMatch(/viewTransitions|WorkCoverViewTransitions/);
+    expect(styles).not.toMatch(
+      /\.contact-page__section-heading\s*\{[^}]*border-block-start/s,
+    );
   });
 
   it("define composição responsiva sem altura fixa ou scroll customizado", async () => {

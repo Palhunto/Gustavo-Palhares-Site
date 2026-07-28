@@ -564,7 +564,6 @@
   align-items: center;
   min-inline-size: 0;
   padding: clamp(1rem, 1.25vw, 1.25rem) var(--space-3);
-  border-block-start: var(--line-hairline) solid var(--color-line-strong);
 }
 
 .contact-page__section-heading > p:not(.contact-page__heading-note),
@@ -2422,10 +2421,11 @@ html:has(> body.public-page--homepage) {
 
   .home-cover__rail-item:nth-child(even) {
     border-inline-start: var(--line-hairline) solid var(--color-line);
+    padding-inline-start: var(--space-3);
   }
 
-  .home-cover__rail-item:nth-child(n + 3) {
-    border-block-start: var(--line-hairline) solid var(--color-line);
+  .home-cover__rail-item a::after {
+    display: none;
   }
 
   .home-work,

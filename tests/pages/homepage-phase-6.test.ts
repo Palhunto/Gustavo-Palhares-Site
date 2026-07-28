@@ -179,6 +179,15 @@ describe("Fases 6A e 6B — homepage editorial", () => {
     expect(homepageStyles).toContain(".site-footer.home-footer");
     expect(homepageStyles).toContain("@media (max-width: 63.99rem)");
     expect(homepageStyles).toContain("@media (max-width: 47.99rem)");
+    expect(homepageStyles).toMatch(
+      /\.home-cover__rail-item:nth-child\(even\)\s*\{[^}]*border-inline-start:[^}]*padding-inline-start: var\(--space-3\)/s,
+    );
+    expect(homepageStyles).not.toContain(
+      ".home-cover__rail-item:nth-child(n + 3)",
+    );
+    expect(homepageStyles).toMatch(
+      /@media \(max-width: 47\.99rem\)[\s\S]*?\.home-cover__rail-item a::after\s*\{\s*display: none;/,
+    );
     expect(homepageStyles).toContain("min-block-size: 2.75rem");
     expect(globalStyles).toContain(":focus-visible");
     expect(motionStyles).toContain("prefers-reduced-motion: reduce");
