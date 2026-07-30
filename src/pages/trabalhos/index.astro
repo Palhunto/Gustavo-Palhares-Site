@@ -45,6 +45,7 @@ const structuredData = worksIndexStructuredData(
       works.map((work, index) => {
         const presentation = workPresentation(work.id, work.data);
         const href = publicRoutes.trabalho(work.data.slug);
+        const photoCount = work.data.gallery.length;
         const viewTransitionName = workCoverViewTransitionName(work.data.slug);
         return (
           <li
@@ -55,7 +56,10 @@ const structuredData = worksIndexStructuredData(
           >
             <article>
               <div class="works-index__media">
-                <a href={href} aria-label={`Abrir ${work.data.title}`}>
+                <a
+                  href={href}
+                  aria-label={`Abrir ${work.data.title} — ${photoCount} fotos`}
+                >
                   <EditorialImage
                     asset={work.data.cover}
                     layout={index === 0 ? "lead" : "sequence"}
@@ -63,6 +67,14 @@ const structuredData = worksIndexStructuredData(
                     showCaption={false}
                     viewTransitionName={viewTransitionName}
                   />
+                  <span class="works-index__photo-count" aria-hidden="true">
+                    <span class="works-index__photo-count-value number-stable">
+                      {photoCount}
+                    </span>
+                    <span class="works-index__photo-count-label">
+                      Fotografias
+                    </span>
+                  </span>
                 </a>
               </div>
               <div class="works-index__copy">
