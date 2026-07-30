@@ -43,9 +43,9 @@ describe("Fases 6A e 6B — homepage editorial", () => {
       "nephillin-uma-cobertura-sem-credencial",
       "feira-do-rolo",
     ]);
-    expect(model.cover.work.id).toBe("nephillin-uma-cobertura-sem-credencial");
+    expect(model.cover.work.id).toBe("kauan-felix-uma-noite-de-k-1");
     expect(referenceId(model.cover.media.asset)).toBe(
-      "fase-5-show-03-silhueta",
+      "kauan-k1-01",
     );
     expect(referenceId(model.featuredWorks[0].data.cover.asset)).toBe(
       "fase-5-show-01-abertura",
@@ -120,8 +120,9 @@ describe("Fases 6A e 6B — homepage editorial", () => {
       "Entrar em contato",
     ]);
     expect(homepageEditorialSelection).toMatchObject({
+      coverWorkId: "kauan-felix-uma-noite-de-k-1",
       featuredWorkId: "nephillin-uma-cobertura-sem-credencial",
-      coverMedia: { asset: "fase-5-show-03-silhueta" },
+      coverMedia: { asset: "kauan-k1-01" },
     });
 
     const index = await source("src/components/home/HomeIndex.astro");
@@ -196,6 +197,9 @@ describe("Fases 6A e 6B — homepage editorial", () => {
     expect(homepageStyles).toContain(".home-cover__title-rule");
     expect(homepageStyles).toContain("aspect-ratio: 3 / 2");
     expect(homepageStyles).toContain(".home-presence__composition");
+    expect(homepageStyles).toMatch(
+      /\.home-presence__title-clip\s*\{[^}]*overflow:\s*hidden;[^}]*margin-block-start:\s*-0\.15em;[^}]*padding-block:\s*0\.25em 0\.05em/s,
+    );
     expect(homepageStyles).toContain(".home-index__list");
     expect(homepageStyles).toContain(".site-footer.home-footer");
     expect(homepageStyles).toContain("@media (max-width: 63.99rem)");

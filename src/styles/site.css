@@ -1935,8 +1935,8 @@ html:has(> body.public-page--homepage) {
 
 .home-presence__title-clip {
   overflow: hidden;
-  margin-block-start: -0.1em;
-  padding-block-start: 0.1em;
+  margin-block-start: -0.15em;
+  padding-block: 0.25em 0.05em;
 }
 
 .home-presence__feature h3 {

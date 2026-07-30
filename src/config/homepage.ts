@@ -8,10 +8,11 @@ export const homepageSections = [
 ] as const;
 
 export const homepageEditorialSelection = {
+  coverWorkId: "kauan-felix-uma-noite-de-k-1",
   featuredWorkId: "nephillin-uma-cobertura-sem-credencial",
   featuredWorkIds: ["nephillin-uma-cobertura-sem-credencial", "feira-do-rolo"],
   coverMedia: {
-    asset: "fase-5-show-03-silhueta",
+    asset: "kauan-k1-01",
     decorative: false,
   },
 } as const;

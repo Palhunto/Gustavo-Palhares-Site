@@ -30,6 +30,15 @@ export function buildHomepageModel({
   const publicWorks = sortWorksByDate(
     works.filter((entry) => isInPublicCirculation(entry, at)),
   );
+  const coverWork = publicWorks.find(
+    (entry) => entry.id === homepageEditorialSelection.coverWorkId,
+  );
+  if (!coverWork) {
+    throw new Error(
+      `Trabalho de destino da capa nÃ£o elegÃ­vel: ${homepageEditorialSelection.coverWorkId}.`,
+    );
+  }
+
   const featuredWork = publicWorks.find(
     (entry) => entry.id === homepageEditorialSelection.featuredWorkId,
   );
@@ -57,7 +66,7 @@ export function buildHomepageModel({
   return {
     cover: {
       media: homepageEditorialSelection.coverMedia,
-      work: featuredWork,
+      work: coverWork,
     },
     works: publicWorks,
     featuredWorks: featuredWorks as PublicWork[],
