@@ -35,8 +35,10 @@ describe("Página Contato — mockup editorial responsivo", () => {
     const page = await source("src/pages/contato.astro");
 
     expect(page).toContain("https://wa.me/5514997173521");
-    expect(page).toContain("https://www.instagram.com/gustavopalharess/");
+    expect(page).toContain("https://www.instagram.com/palhares.doc/");
     expect(page).toContain("mailto:gustavo.palhares49@gmail.com");
+    expect(page.match(/target="_blank"/g)).toHaveLength(1);
+    expect(page.match(/rel="noopener noreferrer"/g)).toHaveLength(1);
     expect(page).toContain('<address class="contact-page__channels"');
     expect(page).toContain("accessibleName");
     expect(page).not.toMatch(

@@ -222,8 +222,10 @@ describe("Fases 6A e 6B — homepage editorial", () => {
       'variant === "homepage" ? <HomeFooter /> : <SiteFooter />',
     );
     expect(footer).toContain('class="home-footer__monogram"');
-    expect(footer).toContain("https://www.instagram.com/gustavopalharess/");
+    expect(footer).toContain("https://www.instagram.com/palhares.doc/");
     expect(footer).toContain("mailto:gustavo.palhares49@gmail.com");
+    expect(footer.match(/target="_blank"/g)).toHaveLength(2);
+    expect(footer.match(/rel="noopener noreferrer"/g)).toHaveLength(2);
     expect(footer.match(/<svg\b/g)).toHaveLength(2);
     await expect(
       transform(footer, { filename: "HomeFooter.astro" }),
