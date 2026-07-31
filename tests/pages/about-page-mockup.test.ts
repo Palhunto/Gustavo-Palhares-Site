@@ -51,7 +51,7 @@ describe("Página Sobre — mockup editorial responsivo", () => {
     expect(placeholder).not.toMatch(/(?:href|src)=["']https?:\/\/|data:image/i);
   });
 
-  it("mantém CTAs nativos, sem JavaScript específico e com toque mínimo", async () => {
+  it("mantém CTAs nativos, sem handlers inline e com toque mínimo", async () => {
     const page = await source("src/pages/sobre.astro");
     const styles = await source("src/styles/site.css");
 
@@ -59,7 +59,7 @@ describe("Página Sobre — mockup editorial responsivo", () => {
     expect(page).toContain("href={publicRoutes.contato}");
     expect(page.match(/class="about-page__actions type-nav"/g)).toHaveLength(1);
     expect(page).not.toMatch(
-      /<script|on:click|onclick=|role="button"|preventDefault|addEventListener/i,
+      /on:click|onclick=|role="button"|preventDefault/i,
     );
     expect(styles).toMatch(
       /\.about-page__actions a\s*\{[^}]*min-block-size:\s*2\.75rem/s,

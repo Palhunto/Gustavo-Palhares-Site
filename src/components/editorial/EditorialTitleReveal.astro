@@ -1,0 +1,22 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<span class="editorial-title-reveal" aria-hidden="true">
+  {
+    Array.from(title).map((letter, index) => (
+      <span class="editorial-title-reveal__clip">
+        <span
+          class="editorial-title-reveal__letter"
+          data-editorial-title-letter={index}
+        >
+          {letter}
+        </span>
+      </span>
+    ))
+  }
+</span>

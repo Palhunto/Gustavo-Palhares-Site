@@ -5,6 +5,7 @@ import { configuredSiteUrl } from "../lib/seo/site-url.ts";
 import { personStructuredData } from "../lib/seo/structured-data.ts";
 
 const structuredData = personStructuredData(configuredSiteUrl());
+const aboutTitle = "Sobre";
 ---
 
 <BaseLayout
@@ -13,14 +14,41 @@ const structuredData = personStructuredData(configuredSiteUrl());
   variant="about-page"
   structuredData={structuredData}
 >
-  <article class="about-page" aria-labelledby="titulo-sobre">
+  <article
+    class="about-page"
+    aria-labelledby="titulo-sobre"
+    data-about-motion
+  >
     <header class="about-page__intro">
-      <p class="about-page__marker type-label">Publicação / Sobre</p>
-      <h1 id="titulo-sobre" class="about-page__title">Sobre</h1>
-      <p class="about-page__lead">
+      <p class="about-page__marker type-label" data-about-marker>
+        Publicação / Sobre
+      </p>
+      <h1
+        id="titulo-sobre"
+        class="about-page__title"
+        aria-label={aboutTitle}
+      >
+        <span class="about-page__title-word" aria-hidden="true">
+          {
+            Array.from(aboutTitle).map((letter, index) => (
+              <span class="about-page__title-letter-clip">
+                <span
+                  class="about-page__title-letter"
+                  data-about-title-letter={index}
+                >
+                  {letter}
+                </span>
+              </span>
+            ))
+          }
+        </span>
+      </h1>
+      <p class="about-page__lead" data-about-lead>
         Fotógrafo e estudante de Jornalismo, com atuação entre a observação
         documental e a construção dirigida da imagem.
       </p>
+      <span class="about-page__intro-rule" data-about-rule aria-hidden="true"
+      ></span>
     </header>
 
     <section class="about-page__profile" aria-label="Apresentação">
@@ -99,3 +127,17 @@ const structuredData = personStructuredData(configuredSiteUrl());
     </nav>
   </article>
 </BaseLayout>
+
+<script>
+  import { initializeAboutMotion } from "../lib/motion/about.ts";
+  import { MOTION_LIFECYCLE_EVENTS } from "../lib/motion/config.ts";
+
+  const root = document.querySelector<HTMLElement>("[data-about-motion]");
+
+  if (root) {
+    const cleanup = initializeAboutMotion(root);
+    window.addEventListener(MOTION_LIFECYCLE_EVENTS.pageHide, cleanup, {
+      once: true,
+    });
+  }
+</script>

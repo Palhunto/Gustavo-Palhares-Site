@@ -1,0 +1,12 @@
+src: ../../assets/media/fancy-party-01.jpg
+description: DJ no palco diante de painéis vermelhos iluminados durante a Fancy Party.
+defaultAlt: DJ no palco diante de painéis vermelhos iluminados.
+credit: { role: fotografia, name: Gustavo Palhares }
+capturedAt: "2025-10-04"
+location: { city: São Paulo, subdivision: SP, country: Brasil }
+rights:
+  status: cleared
+  holder: Gustavo Palhares
+  basis: authorship
+  scope: publicação editorial no site; cobertura da Fancy Party
+checksum: sha256:ceb5689c001196836c7b2f1963c76fdf60a8957ffc9d61dff152f73e779d4ada

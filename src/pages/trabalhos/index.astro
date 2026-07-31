@@ -120,3 +120,19 @@ const structuredData = worksIndexStructuredData(
     }
   </ol>
 </IndexLayout>
+
+<script>
+  import { initializeEditorialTitleMotion } from "../../lib/motion/editorial-title.ts";
+  import { MOTION_LIFECYCLE_EVENTS } from "../../lib/motion/config.ts";
+
+  const root = document.querySelector<HTMLElement>(
+    "[data-editorial-title-motion]",
+  );
+
+  if (root) {
+    const cleanup = initializeEditorialTitleMotion(root);
+    window.addEventListener(MOTION_LIFECYCLE_EVENTS.pageHide, cleanup, {
+      once: true,
+    });
+  }
+</script>

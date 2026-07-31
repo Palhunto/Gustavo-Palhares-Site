@@ -298,6 +298,33 @@ export const HOME_INDEX_TIMELINES = {
   initialOpacity: 0.7,
 } as const;
 
+export const EDITORIAL_TITLE_REVEAL = {
+  yPercent: 118,
+  skewX: -5,
+  initialOpacity: 0.24,
+  stagger: {
+    compact: 0.045,
+    regular: 0.065,
+  },
+} as const;
+
+export const ABOUT_PAGE_TIMELINE = {
+  at: {
+    marker: 0,
+    title: 0.06,
+    rule: 0.18,
+    lead: 0.42,
+  },
+  duration: {
+    marker: 0.38,
+    title: 0.72,
+    rule: 0.62,
+    lead: 0.5,
+  },
+  title: EDITORIAL_TITLE_REVEAL,
+  auxiliaryOpacity: 0.68,
+} as const;
+
 export const NEPHILLIN_WORK_TIMELINES = {
   intro: {
     at: {

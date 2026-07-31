@@ -1,7 +1,9 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import EditorialTitleReveal from "../components/editorial/EditorialTitleReveal.astro";
 import { publicRoutes } from "../lib/routes/public.ts";
 
+const contactTitle = "Contato";
 const contactChannels = [
   {
     label: "WhatsApp",
@@ -30,7 +32,11 @@ const contactChannels = [
   robots="index, follow"
   variant="contact-page"
 >
-  <article class="contact-page" aria-labelledby="titulo-contato">
+  <article
+    class="contact-page"
+    aria-labelledby="titulo-contato"
+    data-editorial-title-motion
+  >
     <header class="contact-page__section-heading">
       <span class="contact-page__number number-stable" aria-hidden="true"
         >03</span
@@ -48,8 +54,10 @@ const contactChannels = [
       aria-describedby="descricao-contato"
     >
       <div class="contact-page__introduction">
-        <h1 id="titulo-contato">Contato</h1>
-        <p id="descricao-contato">
+        <h1 id="titulo-contato" aria-label={contactTitle}>
+          <EditorialTitleReveal title={contactTitle} />
+        </h1>
+        <p id="descricao-contato" data-editorial-title-support>
           Para projetos fotográficos, coberturas, retratos, editoriais,
           fotografia de produtos, parcerias e colaborações, entre em contato por
           um dos canais abaixo.
@@ -70,6 +78,9 @@ const contactChannels = [
                 {channel.label}
               </span>
               <span class="contact-page__channel-value">{channel.value}</span>
+              <span class="contact-page__channel-arrow" aria-hidden="true">
+                ↗
+              </span>
             </a>
           ))
         }
@@ -124,3 +135,19 @@ const contactChannels = [
     </section>
   </article>
 </BaseLayout>
+
+<script>
+  import { initializeEditorialTitleMotion } from "../lib/motion/editorial-title.ts";
+  import { MOTION_LIFECYCLE_EVENTS } from "../lib/motion/config.ts";
+
+  const root = document.querySelector<HTMLElement>(
+    "[data-editorial-title-motion]",
+  );
+
+  if (root) {
+    const cleanup = initializeEditorialTitleMotion(root);
+    window.addEventListener(MOTION_LIFECYCLE_EVENTS.pageHide, cleanup, {
+      once: true,
+    });
+  }
+</script>

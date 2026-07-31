@@ -41,8 +41,10 @@ describe("Página Contato — mockup editorial responsivo", () => {
     expect(page.match(/rel="noopener noreferrer"/g)).toHaveLength(1);
     expect(page).toContain('<address class="contact-page__channels"');
     expect(page).toContain("accessibleName");
+    expect(page).toContain('class="contact-page__channel-arrow"');
+    expect(page).toContain("↗");
     expect(page).not.toMatch(
-      /<form|<input|<button|role="button"|on:click|onclick=|preventDefault|addEventListener/i,
+      /<form|<input|<button|role="button"|on:click|onclick=|preventDefault/i,
     );
   });
 
@@ -53,7 +55,14 @@ describe("Página Contato — mockup editorial responsivo", () => {
     expect(page).toContain("href={publicRoutes.trabalhosIndex}");
     expect(page.match(/contact-page__index-action type-nav/g)).toHaveLength(1);
     expect(styles).toMatch(
-      /\.contact-page__channel\s*\{[^}]*min-block-size:\s*4\.5rem/s,
+      /\.contact-page__channel\s*\{[^}]*grid-template-columns:\s*minmax\(0, 1fr\) auto;[^}]*min-block-size:\s*clamp\(6\.5rem, 8vw, 8rem\)/s,
+    );
+    expect(styles).toMatch(
+      /\.contact-page__channel-value::after\s*\{[^}]*inline-size:\s*100%;[^}]*block-size:\s*var\(--line-hairline\);[^}]*background:\s*var\(--color-accent\);[^}]*transform:\s*scaleX\(0\)/s,
+    );
+    expect(styles).toContain(".contact-page__channel-arrow");
+    expect(styles).toMatch(
+      /@media \(max-width: 47\.99rem\)[\s\S]*?\.contact-page__channel-value::after\s*\{[^}]*transform:\s*scaleX\(1\)/,
     );
     expect(styles).toMatch(
       /\.contact-page__index-action\s*\{[^}]*min-block-size:\s*2\.75rem/s,
@@ -99,6 +108,9 @@ describe("Página Contato — mockup editorial responsivo", () => {
     expect(styles).toContain("@media (prefers-reduced-motion: reduce)");
     expect(styles).toContain(
       '.contact-page__index-action:focus-visible span[aria-hidden="true"]',
+    );
+    expect(styles).toContain(
+      ".contact-page__channel:focus-visible .contact-page__channel-arrow",
     );
     expect(globalStyles).toContain(":focus-visible");
   });

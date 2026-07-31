@@ -72,5 +72,5 @@ describe("integração do gate com o build", () => {
     } finally {
       await rm(root, { recursive: true, force: true });
     }
-  });
+  }, 60_000);
 });

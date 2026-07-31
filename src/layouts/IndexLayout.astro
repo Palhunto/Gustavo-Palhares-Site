@@ -1,4 +1,5 @@
 ---
+import EditorialTitleReveal from "../components/editorial/EditorialTitleReveal.astro";
 import BaseLayout from "./BaseLayout.astro";
 import type { StructuredData } from "../lib/seo/metadata.ts";
 
@@ -22,6 +23,7 @@ const {
   viewTransitions = false,
 } = Astro.props;
 const hasCustomEmptyState = Astro.slots.has("empty-state");
+const hasTitleReveal = family === "trabalhos";
 ---
 
 <BaseLayout
@@ -37,11 +39,16 @@ const hasCustomEmptyState = Astro.slots.has("empty-state");
         ? "collections-index"
         : "standard"}
 >
-  <header class:list={["family-header", `family-header--${family}`]}>
+  <header
+    class:list={["family-header", `family-header--${family}`]}
+    data-editorial-title-motion={hasTitleReveal || undefined}
+  >
     <p class="family-header__marker type-label">Publicação / {title}</p>
     <div class="family-header__copy">
-      <h1 class="type-section">{title}</h1>
-      <p class="type-intro">{introduction}</p>
+      <h1 class="type-section" aria-label={hasTitleReveal ? title : undefined}>
+        {hasTitleReveal ? <EditorialTitleReveal title={title} /> : title}
+      </h1>
+      <p class="type-intro" data-editorial-title-support>{introduction}</p>
     </div>
     <p class="family-header__count type-meta number-stable">
       {

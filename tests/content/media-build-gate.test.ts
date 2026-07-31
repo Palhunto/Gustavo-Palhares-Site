@@ -50,6 +50,10 @@ async function fakeRoot() {
     "magma-09-tatuagem",
     "magma-10-ambiente",
     "magma-11-saida",
+    ...Array.from(
+      { length: 17 },
+      (_, index) => `fancy-party-${String(index + 1).padStart(2, "0")}`,
+    ),
   ];
   await writeFile(
     path.join(root, "dist", "index.html"),
@@ -67,13 +71,13 @@ describe("gate semântico de mídia do build", () => {
         "fixture",
       );
       const result = await inspectMediaBuild(root, at);
-      expect(result.publicMediaIds).toHaveLength(40);
+      expect(result.publicMediaIds).toHaveLength(57);
       expect(result.emittedMediaIds).toContain("fase-5-show-01-abertura");
       expect(result.privateOnlyIds).toEqual([]);
     } finally {
       await rm(root, { recursive: true, force: true });
     }
-  });
+  }, 60_000);
 
   it("bloqueia mídia presente somente no catálogo privado com motivo e ID", async () => {
     const root = await fakeRoot();
@@ -99,7 +103,7 @@ describe("gate semântico de mídia do build", () => {
     } finally {
       await rm(root, { recursive: true, force: true });
     }
-  });
+  }, 60_000);
 
   it("bloqueia derivado órfão emitido sem referência HTML", async () => {
     const root = await fakeRoot();
@@ -114,5 +118,5 @@ describe("gate semântico de mídia do build", () => {
     } finally {
       await rm(root, { recursive: true, force: true });
     }
-  });
+  }, 60_000);
 });

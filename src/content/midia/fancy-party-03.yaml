@@ -1,0 +1,12 @@
+src: ../../assets/media/fancy-party-03.jpg
+description: Participantes da Fancy Party em meio à iluminação colorida da festa.
+defaultAlt: Participantes em meio à iluminação colorida da festa.
+credit: { role: fotografia, name: Gustavo Palhares }
+capturedAt: "2025-10-04"
+location: { city: São Paulo, subdivision: SP, country: Brasil }
+rights:
+  status: cleared
+  holder: Gustavo Palhares
+  basis: authorship
+  scope: publicação editorial no site; cobertura da Fancy Party
+checksum: sha256:6e8af983755942fbae1f8677bfa4f4e10bcec52314a388cc749a7677472822c5

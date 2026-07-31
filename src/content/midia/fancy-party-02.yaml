@@ -1,0 +1,12 @@
+src: ../../assets/media/fancy-party-02.jpg
+description: Público dança sob luzes roxas e azuis durante a Fancy Party.
+defaultAlt: Público dança sob luzes roxas e azuis.
+credit: { role: fotografia, name: Gustavo Palhares }
+capturedAt: "2025-10-04"
+location: { city: São Paulo, subdivision: SP, country: Brasil }
+rights:
+  status: cleared
+  holder: Gustavo Palhares
+  basis: authorship
+  scope: publicação editorial no site; cobertura da Fancy Party
+checksum: sha256:7cb4d97421bd77a8a550830d4c0d111301faed9cd502048112a44ef413fe4c85
