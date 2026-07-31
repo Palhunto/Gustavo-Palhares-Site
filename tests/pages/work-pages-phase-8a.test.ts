@@ -57,6 +57,10 @@ describe("Fase 8A — estrutura estável das páginas de trabalhos", () => {
     expect(formatCompactEditorialDate("2025-07-20", "2025-07-21")).toBe(
       "20–21 de julho de 2025",
     );
+    expect(formatEditorialDate("pendente-editorial")).toBe(
+      "Período a confirmar",
+    );
+    expect(formatEditorialDate("2025", "2026")).toBe("2025–2026");
 
     const dataset = await loadContentFromDisk(root);
     const feira = dataset.trabalhos.find(

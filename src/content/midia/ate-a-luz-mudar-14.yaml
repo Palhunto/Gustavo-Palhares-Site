@@ -1,0 +1,13 @@
+src: ../../assets/media/ate-a-luz-mudar-14.jpg
+description: Cena de convivência em uma república universitária em Bauru.
+defaultAlt: Cena de convivência em uma república universitária.
+credit: { role: fotografia, name: Gustavo Palhares }
+location: { city: Bauru, subdivision: SP, country: Brasil }
+rights:
+  {
+    status: cleared,
+    holder: Gustavo Palhares,
+    basis: authorship,
+    scope: publicação editorial no site; ensaio Até a luz mudar,
+  }
+checksum: sha256:62449166f8d573e9819de85cfb9dd1950498c2262ecfb0b4ed458cdbc356ea27

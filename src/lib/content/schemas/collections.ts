@@ -5,9 +5,13 @@ import {
   commonEditorialShape,
   editorialIdSchema,
   historicalDateSchema,
+  historicalYearSchema,
+  isEditorialDatePending,
+  isEditorialYear,
   locationSchema,
   rightsStatusSchema,
   themesSchema,
+  workDateSchema,
   validateCommonEditorial,
 } from "./shared.ts";
 import {
@@ -52,8 +56,8 @@ export function createCollectionSchemas<
     .object({
       ...commonEditorialShape(references.media),
       archiveNumber: z.string().regex(ARCHIVE_NUMBER_PATTERN),
-      date: historicalDateSchema,
-      dateEnd: historicalDateSchema.optional(),
+      date: workDateSchema,
+      dateEnd: z.union([historicalDateSchema, historicalYearSchema]).optional(),
       location: locationSchema.optional(),
       formato: z.enum(["ensaio", "cobertura", "retrato", "projeto"]),
       contexto: z.enum(["autoral", "editorial", "comercial"]),
@@ -68,6 +72,23 @@ export function createCollectionSchemas<
     .strict()
     .superRefine((data, context) => {
       validateCommonEditorial(data, context, { allowNoindex: false });
+      if (isEditorialDatePending(data.date) && data.dateEnd) {
+        context.addIssue({
+          code: "custom",
+          path: ["dateEnd"],
+          message: "não é permitido quando date é pendente-editorial",
+        });
+      }
+      if (
+        data.dateEnd &&
+        isEditorialYear(data.date) !== isEditorialYear(data.dateEnd)
+      ) {
+        context.addIssue({
+          code: "custom",
+          path: ["dateEnd"],
+          message: "date e dateEnd devem usar a mesma precisão",
+        });
+      }
       if (data.dateEnd && data.dateEnd < data.date) {
         context.addIssue({
           code: "custom",

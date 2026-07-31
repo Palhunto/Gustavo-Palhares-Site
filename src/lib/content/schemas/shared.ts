@@ -3,6 +3,7 @@ import { z } from "astro/zod";
 export const EDITORIAL_TIME_ZONE = "America/Sao_Paulo";
 export const ID_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 export const ARCHIVE_NUMBER_PATTERN = /^GP-(\d{4})-(\d{4})$/;
+export const EDITORIAL_DATE_PENDING = "pendente-editorial";
 
 export const editorialIdSchema = z
   .string()
@@ -25,6 +26,7 @@ export const rightsStatusSchema = z.enum([
 ]);
 
 const HISTORICAL_DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
+const HISTORICAL_YEAR_PATTERN = /^\d{4}$/;
 const OFFSET_DATETIME_PATTERN =
   /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/;
 
@@ -42,6 +44,24 @@ function isCalendarDate(value: string): boolean {
 export const historicalDateSchema = z
   .string()
   .refine(isCalendarDate, "deve usar uma data válida em YYYY-MM-DD");
+
+export const historicalYearSchema = z
+  .string()
+  .regex(HISTORICAL_YEAR_PATTERN, "deve usar um ano válido em YYYY");
+
+export const workDateSchema = z.union([
+  historicalDateSchema,
+  historicalYearSchema,
+  z.literal(EDITORIAL_DATE_PENDING),
+]);
+
+export function isEditorialDatePending(value: string): boolean {
+  return value === EDITORIAL_DATE_PENDING;
+}
+
+export function isEditorialYear(value: string): boolean {
+  return HISTORICAL_YEAR_PATTERN.test(value);
+}
 
 export const offsetDateTimeSchema = z
   .string()

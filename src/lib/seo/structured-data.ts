@@ -7,6 +7,10 @@ import {
 import { publicRoutes } from "../routes/public.ts";
 import type { SocialImageMetadata, StructuredData } from "./metadata.ts";
 import { absoluteCanonicalUrl } from "./site-url.ts";
+import {
+  isEditorialDatePending,
+  isEditorialYear,
+} from "../content/schemas/shared.ts";
 
 const SCHEMA_CONTEXT = "https://schema.org";
 const AUTHOR_NAME = "Gustavo Palhares";
@@ -82,7 +86,10 @@ export function creativeWorkStructuredData(
     url,
     mainEntityOfPage: url,
     creator: author,
-    dateCreated: entry.data.date,
+    ...(!isEditorialDatePending(entry.data.date) &&
+    !isEditorialYear(entry.data.date)
+      ? { dateCreated: entry.data.date }
+      : {}),
     ...(entry.data.updatedAt ? { dateModified: entry.data.updatedAt } : {}),
     inLanguage: entry.data.locale,
     identifier: entry.data.archiveNumber,

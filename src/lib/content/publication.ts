@@ -5,6 +5,7 @@ import {
   isStandardCirculation,
   type EligibilityInput,
 } from "./eligibility.ts";
+import { isEditorialDatePending, isEditorialYear } from "./schemas/shared.ts";
 
 export type PublicEditorialCollection =
   "trabalhos" | "caderno" | "colecoes" | "edicoes" | "paginas";
@@ -41,6 +42,12 @@ export const APPROVED_WORK_PRESENTATION = {
     formatLabel: "Documental",
     contextLabel: "Evento cultural",
     subject: "Evento cultural",
+    peopleRelease: "not-confirmed",
+  },
+  "ate-a-luz-mudar": {
+    formatLabel: "Ensaio documental",
+    contextLabel: "Autoral",
+    subject: "Vida universitária",
     peopleRelease: "not-confirmed",
   },
 } as const;
@@ -124,13 +131,18 @@ export function workPresentation(
 }
 
 export function sortWorksByDate<
-  T extends { data: { date: string; archiveNumber: string } },
+  T extends { data: { date: string; dateEnd?: string; archiveNumber: string } },
 >(works: readonly T[]): T[] {
-  return [...works].sort(
-    (a, b) =>
-      b.data.date.localeCompare(a.data.date) ||
-      b.data.archiveNumber.localeCompare(a.data.archiveNumber),
-  );
+  return [...works].sort((a, b) => {
+    const aPending = isEditorialDatePending(a.data.date);
+    const bPending = isEditorialDatePending(b.data.date);
+    if (aPending !== bPending) return aPending ? 1 : -1;
+    return (
+      (b.data.dateEnd ?? b.data.date).localeCompare(
+        a.data.dateEnd ?? a.data.date,
+      ) || b.data.archiveNumber.localeCompare(a.data.archiveNumber)
+    );
+  });
 }
 
 const dateFormatter = new Intl.DateTimeFormat("pt-BR", {
@@ -151,6 +163,8 @@ function editorialDate(value: string): Date {
 }
 
 export function formatEditorialDate(start: string, end?: string): string {
+  if (isEditorialDatePending(start)) return "Período a confirmar";
+  if (isEditorialYear(start)) return end ? `${start}–${end}` : start;
   if (!end) return dateFormatter.format(editorialDate(start));
 
   if (start.slice(0, 7) === end.slice(0, 7)) {

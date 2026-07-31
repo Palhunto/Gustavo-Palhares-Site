@@ -22,7 +22,9 @@ describe("Contador de fotos na listagem de trabalhos", () => {
 
     for (const work of dataset.trabalhos) {
       expect(
-        work.data.gallery.some((media) => media.asset === work.data.cover.asset),
+        work.data.gallery.some(
+          (media) => media.asset === work.data.cover.asset,
+        ),
       ).toBe(true);
     }
 

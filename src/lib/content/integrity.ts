@@ -5,6 +5,7 @@ import { effectiveAlt } from "./queries.ts";
 import {
   ARCHIVE_NUMBER_PATTERN,
   ID_PATTERN,
+  isEditorialDatePending,
   normalizeTheme,
   referenceId,
 } from "./schemas/shared.ts";
@@ -226,7 +227,10 @@ export function validateIntegrity(
     const match = ARCHIVE_NUMBER_PATTERN.exec(work.data.archiveNumber);
     if (match) {
       const sequence = Number(match[2]);
-      if (match[1] !== work.data.date.slice(0, 4)) {
+      if (
+        !isEditorialDatePending(work.data.date) &&
+        match[1] !== work.data.date.slice(0, 4)
+      ) {
         add({
           code: "archive-year",
           path: `${entryLabel(work)} → archiveNumber`,
@@ -281,7 +285,11 @@ export function validateIntegrity(
     }
   }
   for (const work of dataset.trabalhos) {
-    if (work.data.dateEnd && work.data.dateEnd < work.data.date) {
+    if (
+      work.data.dateEnd &&
+      !isEditorialDatePending(work.data.date) &&
+      work.data.dateEnd < work.data.date
+    ) {
       add({
         code: "date-order",
         path: `${entryLabel(work)} → dateEnd`,

@@ -54,6 +54,10 @@ async function fakeRoot() {
       { length: 17 },
       (_, index) => `fancy-party-${String(index + 1).padStart(2, "0")}`,
     ),
+    ...Array.from(
+      { length: 15 },
+      (_, index) => `ate-a-luz-mudar-${String(index + 1).padStart(2, "0")}`,
+    ),
   ];
   await writeFile(
     path.join(root, "dist", "index.html"),
@@ -71,7 +75,7 @@ describe("gate semântico de mídia do build", () => {
         "fixture",
       );
       const result = await inspectMediaBuild(root, at);
-      expect(result.publicMediaIds).toHaveLength(57);
+      expect(result.publicMediaIds).toHaveLength(72);
       expect(result.emittedMediaIds).toContain("fase-5-show-01-abertura");
       expect(result.privateOnlyIds).toEqual([]);
     } finally {

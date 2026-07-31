@@ -6,9 +6,12 @@ import {
   rightsSchema,
 } from "../../src/lib/content/schemas/media.ts";
 import {
+  EDITORIAL_DATE_PENDING,
   historicalDateSchema,
+  historicalYearSchema,
   offsetDateTimeSchema,
   themesSchema,
+  workDateSchema,
 } from "../../src/lib/content/schemas/shared.ts";
 
 const validWorkFixture: Record<string, unknown> = {
@@ -53,6 +56,32 @@ describe("schemas compartilhados", () => {
     expect(offsetDateTimeSchema.safeParse("2026-07-20T09:00:00").success).toBe(
       false,
     );
+  });
+
+  it("aceita pendência editorial apenas para a data de trabalhos", () => {
+    expect(workDateSchema.safeParse(EDITORIAL_DATE_PENDING).success).toBe(true);
+    expect(historicalDateSchema.safeParse(EDITORIAL_DATE_PENDING).success).toBe(
+      false,
+    );
+
+    const work = structuredClone(validWorkFixture);
+    work.date = EDITORIAL_DATE_PENDING;
+    expect(domainSchemas.trabalhos.safeParse(work).success).toBe(true);
+    work.dateEnd = "2026-07-21";
+    expect(domainSchemas.trabalhos.safeParse(work).success).toBe(false);
+  });
+
+  it("aceita anos e intervalos anuais para trabalhos coletivos", () => {
+    expect(historicalYearSchema.safeParse("2025").success).toBe(true);
+    expect(historicalYearSchema.safeParse("2025-01").success).toBe(false);
+
+    const work = structuredClone(validWorkFixture);
+    work.date = "2025";
+    work.dateEnd = "2026";
+    expect(domainSchemas.trabalhos.safeParse(work).success).toBe(true);
+
+    work.dateEnd = "2026-01-01";
+    expect(domainSchemas.trabalhos.safeParse(work).success).toBe(false);
   });
 
   it("normaliza temas e rejeita colisões", () => {
